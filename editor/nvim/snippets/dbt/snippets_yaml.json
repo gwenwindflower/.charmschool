@@ -1,0 +1,43 @@
+{
+  "Doc": {
+    "prefix": "doc",
+    "body": ["{{ doc('${1:docs_name}') }}"],
+    "description": "Doc"
+  },
+  "Env Var": {
+    "prefix": "env_var",
+    "body": ["{{ env_var('${1:env_var_name}') }}"],
+    "description": "Env Var"
+  },
+  "Ref": {
+    "prefix": "ref",
+    "body": ["ref('${1:model_name}')"],
+    "description": "Ref"
+  },
+  "Source": {
+    "prefix": "source",
+    "body": ["source('${1:source}', '${2:table_name}')"],
+    "description": "Source"
+  },
+  "Var": {
+    "prefix": "var",
+    "body": ["{{ var('${1:var_name}') }}"],
+    "description": "Var"
+  },
+  "Unit Test": {
+    "prefix": "unit_test",
+    "body": [
+      "- name: ${1:test_name}",
+      "  description: '${2:description}'",
+      "  model: ${3:model_name}",
+      "  given:",
+      "    - input: ref('${4:input_ref}')",
+      "      rows:",
+      "        - {${5:fixture_field_1}: ${6:fixture_value_1}, ${7:fixture_field_2}: ${8:fixture_value_2}}",
+      "  expect:",
+      "    rows:",
+      "        - {${9:output_field_1}: ${10:output_value_1}, ${11:output_field_2}: ${12:output_value_2}}"
+    ],
+    "description": "Unit test boilerplate"
+  }
+}

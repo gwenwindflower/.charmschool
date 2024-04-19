@@ -1,0 +1,31 @@
+[user]
+	name = gwen windflower
+	email = gwenwindflower@gmail.com
+
+[pull]
+	rebase = false
+
+[init]
+	defaultBranch = main
+
+[delta]
+  line-numbers = true
+  navigate = true
+
+[diff]
+  tool = difftastic
+
+[difftool]
+  prompt = false
+
+[difftool "difftastic"]
+  cmd = difft $LOCAL $REMOTE
+
+[pager]
+  difftool = true
+
+[alias]
+  dft = difftool
+
+[pager]
+  blame = delta

@@ -1,0 +1,5 @@
+installs: |
+  if [ -x "$(command -v go)" ];
+    then echo "Already installed go";
+    else sh /Users/winnie/.dotfiles/lang/go/go_install.sh;
+  fi

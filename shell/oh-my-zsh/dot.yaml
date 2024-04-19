@@ -1,0 +1,4 @@
+installs: if [ -z "${ZSH+x}" ] && ! command -v omz &> /dev/null; then echo "Installing oh-my-zsh..."; sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; else echo "Already installed oh-my-zsh"; fi
+
+links:
+  completions: ~/.oh-my-zsh/completions

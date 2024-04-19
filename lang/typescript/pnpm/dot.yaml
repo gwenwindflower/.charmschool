@@ -1,0 +1,3 @@
+installs: npm install -g pnpm
+depends:
+  - nvm
