@@ -23,11 +23,12 @@ alias dl="rotz link"
 alias dli="rotz link && rotz install"
 
 # git tools
-alias gdt="git dft"
+alias gdto="git difftool"
+alias gdtoc="git difftool --cached"
 alias gz="lazygit"
 alias gho="gh repo view -w"
 alias ghd="gh dash"
-alias gdc="gd --cached"
+alias gdc="forgit::diff --cached"
 alias gcmm="meteor"
 
 # dbt and data
@@ -94,6 +95,7 @@ alias ll="eza -l"
 alias la="eza -a"
 alias lla="eza -la"
 alias lg="eza -laG --git"
+alias lt="eza --tree"
 
 # frontend
 alias ni="pnpm i"
