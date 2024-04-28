@@ -1,4 +1,6 @@
 installs:
-  cmd: brew install {{ name }}
+  cmd: |
+    tool=$(echo {{name}} | cut -d'/' -f2)
+    brew install $tool
   depends:
     - ../brew
