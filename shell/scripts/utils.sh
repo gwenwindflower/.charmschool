@@ -7,7 +7,6 @@
 #  \/__/\/_/\/____/ \/_/\/__/\/_/\/___/  \/____/\/___/
 
 # shell and editor
-alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias ss="z ~/dev/charm-school/ && nvim zshrc"
@@ -41,6 +40,7 @@ alias dts="dbtc test -s"
 alias dr="dbtc run"
 alias drs="dbtc run -s"
 alias dp="dbtc parse"
+alias dbx="databricks"
 
 # media and misc
 alias af="als"
@@ -74,14 +74,17 @@ alias pi="uv pip"
 alias pir="uv pip install -r"
 alias pirr="uv pip install -r requirements.txt"
 alias pc="uv pip compile requirements.in -o requirements.txt"
+alias pcd="uv pip compile dev-requirements.in -o dev-requirements.txt"
 alias psy="uv pip sync requirements.txt"
-alias pcy="pc && pirr && psy"
+alias psyd="uv pip sync requirements.txt dev-requirements.txt"
+alias pcy="pc && psy"
+alias pcyd="pc && pcd && psyd"
 alias piup="uv pip install --upgrade pip"
 alias vpi="venva && piup && pirr"
 alias vpci="venva && piup && pc && pirr"
+alias pdot="uv pip install -e ."
+alias pcydd="pcyd && pdot"
 alias pyt="pytest"
-alias pd="uv pip install -e ."
-alias pcyd="pcy && pd"
 
 # go
 alias gorm="go run main.go"
@@ -177,5 +180,13 @@ function dsm() {
 		dbt parse && dbt sl query --metrics $1 --group-by $2 --order-by $2
 	else
 		dbt parse && dbt sl query --metrics $1 --group-by $2 --order-by $2 --where $3
+	fi
+}
+
+function v() {
+	if [[ -z $1 ]]; then
+		nvim
+	else
+		z $1 && nvim
 	fi
 }

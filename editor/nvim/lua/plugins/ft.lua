@@ -66,4 +66,15 @@ return {
   {
     "wintermute-cell/gitignore.nvim",
   },
+  -- Databricks
+  {
+    "phdah/nvim-databricks",
+    dependencies = {
+      "mfussenegger/nvim-dap", -- Optional dependency
+    },
+    opts = {
+      DBConfigFile = "~/.databrickscfg",
+      python = "python3",
+    },
+  },
 }

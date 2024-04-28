@@ -53,6 +53,9 @@ function dedupe_path() {
 # Cargo and Rust env vars have their own script
 source "${HOME}/.cargo/env"
 
+# Postgres
+check_path "${HOMEBREW_PREFIX}/opt/postgresql@16/bin"
+
 # Poetry path
 check_path "${HOME}/.poetry/bin"
 

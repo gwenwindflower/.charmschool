@@ -34,3 +34,9 @@ vim.keymap.set("n", "<C-a>", "^", { noremap = true, silent = true, desc = "Move 
 vim.keymap.set("n", "<C-z>", "$", { noremap = true, silent = true, desc = "Move to end of line" })
 vim.keymap.set("v", "<C-a>", "^", { noremap = true, silent = true, desc = "Move to beginning of line" })
 vim.keymap.set("v", "<C-z>", "$", { noremap = true, silent = true, desc = "Move to end of line" })
+vim.keymap.set(
+  "n",
+  "<LocalLeader>r",
+  ":w<cr>:DBRun<cr>",
+  { noremap = true, silent = true, desc = "Run code on Databricks cluster" }
+)

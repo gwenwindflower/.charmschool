@@ -1,0 +1,4 @@
+installs:
+  cmd: brew install {{ name }}
+  depends:
+    - ../brew

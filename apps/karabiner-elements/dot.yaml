@@ -1,0 +1,3 @@
+installs: true
+links:
+  karabiner.json: ~/.config/karabiner/karabiner.json

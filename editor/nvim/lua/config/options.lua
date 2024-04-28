@@ -3,7 +3,7 @@
 -- Add any additional options here
 
 vim.g.maplocalleader = ";"
-vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_lsp = "pyright"
 
 vim.cmd([[
   command! -range -nargs=0 ModsExplain :'<,'>w !mods explain this code please, be really clear and concise and as simple as possible | glow -w 70

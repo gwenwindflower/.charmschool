@@ -20,12 +20,14 @@ These dotfiles are managed and executed by a Rust tool called `rotz`. It's a nic
 
 ### Do the thing
 
-You'll need to install `rotz` to use this repo. You can do that with `cargo` if you have a Rust setup (if you do, I recommend using `cargo`) or Homebrew if you don't (it will install Rust via Homebrew, just be aware of that. I don't really like Homebrew installing my language compilers, but if setting up Rust directly feels intimidating it's totally fine!):
+You'll need to install `rotz` to use this repo. You can do that with `cargo` if you have a Rust setup (if you do, I recommend using `cargo`) or Homebrew if you don't (it will install Rust via Homebrew, just be aware of that. I don't really like Homebrew installing my language compilers, but if setting up Rust directly feels intimidating it's totally fine!). You can use the `bootstrap.sh` script to do this as well, it will install Rust and then use `cargo` to install `rotz`.
 
 ```bash
-cargo install rotz
+sh bootstrap.sh # if you don't have Rust and want a typical Rust install
 # or
-brew install rotz
+cargo install rotz # if you have Rust already
+# or
+brew install rotz # if you don't have Rust but have Homebrew and want Rust managed by Homebrew
 ```
 
 Then you can clone this repo and run `rotz` to install the dotfiles:
@@ -52,9 +54,22 @@ I use VSCode sometimes and I like it a lot, but it feels like Microsoft really w
 
 I also heavily, heavily recommend [Raycast](https://www.raycast.com/) but they also maintain a great cloud settings sync system, and many of its plugins have access to sensitive data and workflows, so it's easier to keep it out of this repo. You should really use it though!
 
+## Repo structure
+
+```terminal
+.charmschool
+├── apps   # GUI apps installed via Homebrew cask
+├── brew   # Installs Hombrew itself
+├── editor # Neovim configs
+├── git    # Git configs
+├── lang   # Language-specific configs
+├── shell  # Terminal configs
+└── tools  # CLI and TUI tools, primarily installed via Homebrew
+```
+
 ## Terminal
 
-I love the terminal a weird amount. It really does something for my neurodivergent brain. It feels fast, clean, colorful, creative, powerful, expressive, and uniform all at the same time, in a very special way that really gets my serotonin flowing. I use [kitty](https://sw.kovidgoyal.net/kitty/) as my terminal emulator, [oh-my-zsh](https://ohmyz.sh/) as my zsh framework, [Starship](https://starship.rs/) as my prompt, and [Homebrew](https://docs.brew.sh/Installation) as my package manager.
+I love the terminal a weird amount. It really does something for my neurodivergent brain. It feels fast, clean, colorful, creative, powerful, expressive, and uniform all at the same time, in a very special way that really gets my serotonin flowing. I use [kitty](https://sw.kovidgoyal.net/kitty/) as my terminal emulator, `zsh` as my shell, [oh-my-zsh](https://ohmyz.sh/) as my `zsh` framework, [Starship](https://starship.rs/) as my prompt, and [Homebrew](https://docs.brew.sh/Installation) as my package manager. These tools are all configured under the `shell` directory of this repo.
 
 One of the reasons I like a terminal-focused approach is an ability to stay "Hands on Keyboard" (HOK) as much as possible, which is categorically faster. I also find that the more I can do in the terminal, the more I can automate, script, and keymap, which gets me into flow state faster and keeps me there longer. This is not only good for productivity, but more importantly mental health and feeling fulfilled by that productivity. Lastly, the terminal, and tools based in the terminal like vim, tend to be highly customizable, so I can form my work environment around my ever-changing needs and tastes rather than molding myself to the work.
 
@@ -66,9 +81,9 @@ My kitty configuration is found in the `kitty` directory of this repo. It's one 
 
 ### Oh My Zsh
 
-Oh My Zsh! or `oh-my-zsh` is a framework for zsh. What this means essentially is it provides some extra functionality out-of-the-box and an easier means of adding plugins and customizing your shell. Some engineers complain that it's a little 'heavy', particularly those that obsess over shell performance, but that's not really my bag, and I find it easy to use. I don't do a ton with it, the biggest thing is the list of plugins you'll find in my [`zshrc` file](https://github.com/gwenwindflower/charm-school/blob/58d7d692c7a8440984e65f239668c139365bf284/zshrc#L98C1-L99C1).
+Oh My Zsh! or `oh-my-zsh` is a framework for zsh. What this means essentially is it provides some extra functionality out-of-the-box and an easier means of adding plugins and customizing your shell. Some engineers complain that it's a little 'heavy', particularly those that obsess over shell performance, but that's not really my bag, and I find it easy to use. I don't do a ton with it, the biggest thing is the list of plugins you'll find in the `shell/zsh/.zshrc` file.
 
-These add some extra commands and functionality for tools I use a lot like python, brew, and git. I also use the `alias-finder` plugin to help me remember all of the stuff it adds, a lot of which are aliases to save you some typing.
+These add some extra commands and functionality for tools I use a lot like Python, Homebrew, and git. I also use the `alias-finder` plugin to help me remember all of the stuff it adds, a lot of which are aliases to save you some typing.
 
 ### Starship prompt
 
@@ -78,9 +93,9 @@ I've disabled some of the big cloud provider integrations, as they're ever-prese
 
 ### Homebrew
 
-Homebrew is a package manager originally for MacOS, but now also for Linux. It lets you install system wide packages and tools easily and robustly. Think things like a CLI tool for listening to Spotify that aren't scoped to a specific project. Or compilers like golang's `go`. Or system utilities like `htop` and `neofetch`. It even, through its `cask` functionality lets you install GUI apps like `raycast`. It's a great way to version control, manage, and keep up to date a lot of the 'global' tools you use in your workflow. So it's super useful for a lot of things, but one of its benefits is also that it makes setting up a fresh computer a breeze. You can just run `brew bundle` and it will install everything you need from a `Brewfile` that you can keep in your dotfiles repo.
+Homebrew is a package manager originally for MacOS, but now also for Linux. It lets you install system wide packages and tools easily and robustly. Think things like a CLI tool for listening to Spotify that aren't scoped to a specific project. Or entire services like PostgreSQL. Or system utilities like `htop` and `neofetch`. It even, through its `cask` functionality lets you install GUI apps like `raycast`. It's a great way to version control, manage, and keep up to date a lot of the 'global' tools you use in your workflow. So it's super useful for a lot of things, but one of its benefits is also that it makes setting up a fresh computer a breeze.
 
-You'll see two Brewfiles in this repo. One for a 'fresh-mac' and one for a 'dev-container'. `Brewfile-fresh-mac` contains everything I want and use on my computer. I use it to keep my machines consistent and up-to-date. `Brewfile-dev-container` is for things like GitHub Codespaces or Gitpod, where I just want some key terminal-based tools that I rely on like [difftastic](https://github.com/Wilfred/difftastic).
+The individual `brew install`s are managed via `rotz`. It enables a pattern through its `defaults.yaml` files, that can define a default install command for an entire directory's subdirectories, that can be overridden by individual subdirectories. It uses the name of any directory that has a `dot.yaml` file in it to fill a templated command in the `defaults.yaml` file. In this case dynamically creating a `brew install` command for each directory in the `tools` and `apps` directories. This is a really cool feature of `rotz` that makes it super easy to manage a lot of similar installs in a very clean and DRY way, while allowing customization where needed.
 
 ### zsh config files
 
@@ -90,7 +105,7 @@ There's quite a bit of config in my zsh files: `.zshrc`, `.zshenv`, and `.zshpro
 
 [Neovim](https://neovim.io/) (often called by its terminal command `nvim`) is a fork of [Vim](<https://en.wikipedia.org/wiki/Vim_(text_editor)>) that's been modernized and has a lot of cool features and improvements. It's backwards compatible with (the somewhat esoteric) Vimscript, but importantly, new plugins and configuration can be directly written using [Lua](https://www.lua.org/), which is much, much easier (imo) to read and write. My setup uses lua plugins and config whenever possible, and I generally try to avoid plugins that haven't been written in Lua specifically for nvim for the sake of future maintainability. At this point in the nvim ecosystem, most important and popular plugins have improved Lua-based options that target nvim specificaly, so I have yet to find any issues with this approach.
 
-I use Neovim for all my coding and writing, and I've set it up to be a very comfortable and productive environment for me. The vast majority of my nvim setup is handled by the [LazyVim](https://www.lazyvim.org/) framework, which aims to provide an advanced IDE-like experience out-of-the-box while still being completely customizable.
+I use Neovim for all my coding and writing, and I've set it up to be a very comfortable and productive environment for me. The vast majority of my nvim setup is handled by the [LazyVim](https://www.lazyvim.org/) framework, which aims to provide an advanced IDE-like experience out-of-the-box while still being completely customizable. Neovim configs are all under the `editor` directory of this repo.
 
 ### LazyVim
 

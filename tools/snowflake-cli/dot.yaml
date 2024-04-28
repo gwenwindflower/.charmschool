@@ -1,0 +1,3 @@
+installs: pipx install snowflake-cli-labs
+depends:
+  - pipx

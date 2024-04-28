@@ -1,5 +1,5 @@
 return {
-  -- Presenting
+  -- Presentation mode
   {
     "sotte/presenting.nvim",
     opts = {},
@@ -19,5 +19,10 @@ return {
   {
     "folke/twilight.nvim",
     opts = {},
+  },
+  -- Capture images of code
+  {
+    "mistricky/codesnap.nvim",
+    build = "make",
   },
 }
