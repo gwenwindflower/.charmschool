@@ -83,9 +83,6 @@ check_path "/Applications/SnowSQL.app/Contents/MacOS"
 # Postgres.app
 check_path "/Applications/Postgres.app/Contents/Versions/latest/bin:"
 
-# GCloud (it sets the PATH with these setup scripts so we don't do it explicity)
-if [[ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]]; then source "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
-
 # pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
 check_path "${PYENV_ROOT}/bin"
