@@ -1,5 +1,5 @@
-# CodeWhisperer pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+# Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 #                                             WELCOME TO
 #          ,,                                                                 ,,                           ,,
 #        `7MM                                                               `7MM                         `7MM
@@ -137,11 +137,9 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#f4b8e4"
 
 # bun completions
-[ -s "/Users/winnie/.bun/_bun" ] && source "/Users/winnie/.bun/_bun"
-
-# CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
-
-export NVM_DIR="$HOME/.nvm"
+[ -s "/Users/winnie/.bun/_bun" ] && source "/Users/winnie/.bun/_bun"export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

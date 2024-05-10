@@ -1,1 +1,2 @@
-installs: true
+installs: |
+  brew install pipx
