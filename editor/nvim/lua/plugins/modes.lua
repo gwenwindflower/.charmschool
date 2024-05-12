@@ -24,5 +24,11 @@ return {
   {
     "mistricky/codesnap.nvim",
     build = "make",
+    opts = {
+      code_font_family = "GeistMono Nerd Font Mono",
+      watermark_font_family = "GeistMono Nerd Font Mono",
+      bg_theme = "summer",
+      watermark = "datacowgirl.sh",
+    },
   },
 }
