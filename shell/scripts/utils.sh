@@ -62,6 +62,7 @@ alias ytdl="youtube-dl"
 alias gdl="gallery-dl"
 alias ppl="web_search perplexity"
 alias t="task"
+alias mm="macchina"
 
 # python
 alias p="python3"
