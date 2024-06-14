@@ -14,35 +14,4 @@ return {
       )
     end,
   },
-  -- LuaSnip
-  {
-    "L3MON4D3/LuaSnip",
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/snippets/dbt" } })
-    end,
-  },
-  -- Copilot
-  {
-    {
-      "CopilotC-Nvim/CopilotChat.nvim",
-      branch = "canary",
-      dependencies = {
-        { "zbirenbaum/copilot.lua" },
-        { "nvim-lua/plenary.nvim" },
-      },
-      opts = {
-        debug = true,
-      },
-    },
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    suggestion = { enabled = true },
-    panel = { enabled = true },
-    filetypes = {
-      markdown = true,
-      yaml = true,
-      sql = true,
-    },
-  },
 }

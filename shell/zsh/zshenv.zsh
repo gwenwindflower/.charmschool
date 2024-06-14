@@ -37,3 +37,4 @@ export EDITOR='nvim'
 # example of how to set up a conditional EDITOR
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='nvim'
+. "$HOME/.cargo/env"

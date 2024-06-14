@@ -19,14 +19,6 @@ return {
       "RainbowMultiDelim",
     },
   },
-  -- Visual colors for CSS, etc
-  {
-    "brenoprata10/nvim-highlight-colors",
-    opts = {
-      render = "background",
-      enable_tailwind = true,
-    },
-  },
   -- Markdown Preview and Links
   {
     "iamcco/markdown-preview.nvim",
