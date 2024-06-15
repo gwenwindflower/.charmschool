@@ -49,11 +49,6 @@ return {
       require("mkdnflow").setup({})
     end,
   },
-  -- Justfile
-  {
-    "NoahTheDuke/vim-just",
-    ft = { "just" },
-  },
   -- gitignore
   {
     "wintermute-cell/gitignore.nvim",
