@@ -1,4 +1,5 @@
 links:
   config.fish: ~/.config/fish/config.fish
-  utils.fish: ~/.config/fish/utils.fish
-  omf.fish: ~/.config/fish/omf.fish
+  fish_plugins: ~/.config/fish/fish_plugins
+  aliases.fish: ~/.config/fish/aliases.fish
+  functions: ~/.config/fish/functions

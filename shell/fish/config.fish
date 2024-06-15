@@ -1,3 +1,14 @@
+# Set terminal environment variables
+set -x -g EDITOR nvim
+set -x -g SHELL /opt/homebrew/bin/fish
+set -x -g TERM xterm-256color
+
+# Set tooling home directory environment variables
+set -x -g GO_HOME $(go env GOPATH)
+set -x -g PNPM_HOME $HOME/Library/pnpm
+set -x -g BUN_INSTALL $HOME/.bun
+set -x -g PYENV_ROOT $HOME/.pyenv
+
 # Homebrew environment setup
 # I have one Mac Silicon and one Intel Mac so I have to check both places
 if type -q brew
@@ -16,21 +27,7 @@ if not functions -q fisher
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 end
 
-# Set the theme for bat
-set -x -g BAT_THEME Catppuccin-frappe
-
-# Set the theme for fzf
-set -Ux FZF_DEFAULT_OPTS "\
---color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
---color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
---color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
-
 # Set PATH
-set -x -g EDITOR nvim
-set -x -g GO_HOME $(go env GOPATH)
-set -x -g PNPM_HOME $HOME/Library/pnpm
-set -x -g BUN_INSTALL $HOME/.bun
-set -x -g PYENV_ROOT $HOME/.pyenv
 set -g -x PATH \
     /opt/homebrew/bin \
     $HOMEBREW_PREFIX/opt/postgresql@16/bin \
@@ -55,8 +52,17 @@ zoxide init fish | source
 # Load cargo and rust environment
 source $HOME/.cargo/env.fish
 
-# Load my fish functions and aliases
-source $HOME/.config/fish/utils.fish
+# Load my fish aliases
+source $HOME/.config/fish/aliases.fish
 
 # Load private environment variables
 source $HOME/.env.fish
+
+# Set the theme for bat
+set -x -g BAT_THEME Catppuccin-frappe
+
+# Set the theme for fzf
+set -Ux FZF_DEFAULT_OPTS "\
+--color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284 \
+--color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf \
+--color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284"
