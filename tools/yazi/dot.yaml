@@ -1,2 +1,9 @@
 links:
   ../yazi: ~/.config/yazi
+
+installs: |
+  if ! command -v yazi &> /dev/null; then
+    cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
+    ya pack -a yazi-rs/plugins#smart-filter
+    ya pack -a yazi-rs/plugins#max-preview
+  fi

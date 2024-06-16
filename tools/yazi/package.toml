@@ -1,0 +1,5 @@
+[plugin]
+deps = [{ use = "yazi-rs/plugins#smart-filter", commit = "ab370f0" }, { use = "yazi-rs/plugins#max-preview", commit = "ab370f0" }]
+
+[flavor]
+deps = []

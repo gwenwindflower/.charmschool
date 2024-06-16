@@ -1,16 +1,12 @@
 return {
-  -- Telescope
   {
-    "nvim-telescope/telescope-media-files.nvim",
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-telescope/telescope-media-files.nvim" },
+    "ibhagwan/fzf-lua",
     keys = {
       -- This is used for yazi.nvim
       { "<Leader>ff", false },
     },
   },
+  -- Floating Terminal
   {
     {
       "akinsho/toggleterm.nvim",
@@ -25,30 +21,25 @@ return {
       },
     },
   },
-  -- Auto Light/Dark Mode
-  -- {
-  --   "f-person/auto-dark-mode.nvim",
-  --   opts = {
-  --     update_interval = 10000,
-  --     set_dark_mode = function()
-  --       vim.api.nvim_set_option("background", "dark")
-  --       vim.cmd("colorscheme catppuccin-frappe")
-  --     end,
-  --     set_light_mode = function()
-  --       vim.api.nvim_set_option("background", "light")
-  --       vim.cmd("colorscheme catppuccin-latte")
-  --     end,
-  --   },
-  -- },
-  -- Yazi
+  -- Yazi integration
   {
-    "DreamMaoMao/yazi.nvim",
+    "mikavilpas/yazi.nvim",
     dependencies = {
-      "nvim-telescope/telescope.nvim",
       "nvim-lua/plenary.nvim",
     },
+    event = "VeryLazy",
     keys = {
-      { "<leader>ff", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
+      {
+        -- Open in the current working directory
+        "<leader>ff",
+        function()
+          require("yazi").yazi({ cwd = vim.fn.getcwd() })
+        end,
+        desc = "Open the file manager in nvim's working directory",
+      },
+    },
+    opts = {
+      open_for_directories = true,
     },
   },
   -- NeoTree
