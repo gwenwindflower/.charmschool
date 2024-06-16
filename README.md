@@ -95,10 +95,6 @@ Homebrew is a package manager originally for MacOS, but now also for Linux. It l
 
 The individual `brew install`s are managed via `rotz`. It enables a pattern through its `defaults.yaml` files, that can define a default install command for an entire directory's subdirectories, that can be overridden by individual subdirectories. It uses the name of any directory that has a `dot.yaml` file in it to fill a templated command in the `defaults.yaml` file. In this case dynamically creating a `brew install` command for each directory in the `tools` and `apps` directories. This is a really cool feature of `rotz` that makes it super easy to manage a lot of similar installs in a very clean and DRY way, while allowing customization where needed.
 
-### zsh config files
-
-There's quite a bit of config in my zsh files: `.zshrc`, `.zshenv`, and `.zshprofile`, as well as the `shell/scripts` folder that contains a lot of the aliases and functions I've customized. These files are where I set up my PATH, environment variables, and initialize shell plugins. It's heavily commented for readability.
-
 ## Neovim
 
 [Neovim](https://neovim.io/) (often called by its terminal command `nvim`) is a fork of [Vim](<https://en.wikipedia.org/wiki/Vim_(text_editor)>) that's been modernized and has a lot of cool features and improvements. It's backwards compatible with (the somewhat esoteric) Vimscript, but importantly, new plugins and configuration can be directly written using [Lua](https://www.lua.org/), which is much, much easier (imo) to read and write. My setup uses lua plugins and config whenever possible, and I generally try to avoid plugins that haven't been written in Lua specifically for nvim for the sake of future maintainability. At this point in the nvim ecosystem, most important and popular plugins have improved Lua-based options that target nvim specificaly, so I have yet to find any issues with this approach.
