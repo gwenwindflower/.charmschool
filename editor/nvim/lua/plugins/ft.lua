@@ -1,24 +1,4 @@
 return {
-  -- CSv
-  {
-    "cameron-wags/rainbow_csv.nvim",
-    config = true,
-    ft = {
-      "csv",
-      "tsv",
-      "csv_semicolon",
-      "csv_whitespace",
-      "csv_pipe",
-      "rfc_csv",
-      "rfc_semicolon",
-    },
-    cmd = {
-      "RainbowDelim",
-      "RainbowDelimSimple",
-      "RainbowDelimQuoted",
-      "RainbowMultiDelim",
-    },
-  },
   -- Markdown Preview and Links
   {
     "iamcco/markdown-preview.nvim",
@@ -42,6 +22,14 @@ return {
     "ellisonleao/glow.nvim",
     config = true,
     cmd = "Glow",
+    keys = {
+      {
+        "<leader>co",
+        ft = "markdown",
+        "<cmd>Glow<cr>",
+        desc = "Glow Markdown Preview",
+      },
+    },
   },
   {
     "jakewvincent/mkdnflow.nvim",
