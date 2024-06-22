@@ -15,7 +15,7 @@ function mif -d "Use `mods` to offer suggestions for improving a file with GPT-4
         echo "Error: File '$file_name' is empty."
         return 1
     end
-    if not mods -m 4o "How would you improve the code in this file?" <$file_name | glow
+    if not mods -m sonnet "How would you improve the code in this file?" <$file_name | glow
         echo "Error: Failed to run mods."
         return 1
     end

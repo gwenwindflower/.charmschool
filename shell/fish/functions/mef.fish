@@ -15,7 +15,7 @@ function mef -d "Use `mods` to explain the code in a file with GPT-4o"
         echo "Error: File '$file_name' is empty."
         return 1
     end
-    if not mods -m 4o "Can you explain the code in this file?" <$file_name | glow
+    if not mods -m sonnet "Can you explain the code in this file?" <$file_name | glow
         echo "Error: Failed to run mods."
         return 1
     end
