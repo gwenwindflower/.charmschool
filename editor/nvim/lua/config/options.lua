@@ -2,7 +2,9 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- easier to reach local leader
 vim.g.maplocalleader = ";"
+-- basedpyright is a little too strict and advanced for me
 vim.g.lazyvim_python_lsp = "pyright"
 
 vim.cmd([[
