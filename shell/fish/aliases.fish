@@ -5,6 +5,7 @@ alias rr "exec $SHELL"
 alias e clear
 alias s z
 alias fun functions
+alias m "mkdir -p"
 
 # rotz dotfile tool
 alias di "rotz install"
@@ -13,12 +14,14 @@ alias dlf "rotz link --force"
 alias fp "$EDITOR $__fish_config_dir/fish_plugins"
 
 # git tools
+alias gcob "git checkout -b"
 alias gdto "git difftool"
 alias gdtoc "git difftool --cached"
 alias gz lazygit
 alias gho "gh repo view -w"
 alias ghd "gh dash"
 alias gcmm meteor
+alias lg lazygit
 
 # dbt and data
 alias dbtc "$HOMEBREW_PREFIX/bin/dbt"
@@ -69,7 +72,7 @@ alias pcdu "uv pip compile -U dev-requirements.in -o dev-requirements.txt"
 alias psy "uv pip sync requirements.txt"
 alias psyd "uv pip sync requirements.txt dev-requirements.txt"
 alias piup "uv pip install --upgrade pip"
-alias pdot "uv pip install -e ."
+alias pd "uv pip install -e ."
 alias pyt pytest
 
 # go
@@ -78,12 +81,10 @@ alias gord "go run ."
 alias gotv "go test -v"
 
 # eza
-alias l "eza -l"
+alias l "eza -la --git"
 alias ls eza
 alias ll "eza -l"
-alias la "eza -a"
-alias lla "eza -la"
-alias lg "eza -laG --git"
+alias la "eza -la"
 alias lt "eza --tree"
 
 # frontend
