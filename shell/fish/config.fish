@@ -2,6 +2,8 @@
 set -x -g EDITOR nvim
 set -x -g SHELL /opt/homebrew/bin/fish
 set -x -g TERM xterm-256color
+set -x -g XDG_CONFIG_HOME $HOME/.config
+set -x -g LG_CONFIG_FILE "$HOME/.config/lazygit/config.yml,$HOME/dev/catppuccin-lazygit-themes/themes-mergable/frappe/sky.yml"
 
 # Set tooling home directory environment variables
 set -x -g GO_HOME $(go env GOPATH)
