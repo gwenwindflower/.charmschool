@@ -1,1 +1,4 @@
+links:
+  config.yml: ~/.config/lazygit/config.yml
+
 installs: null
