@@ -1,5 +1,10 @@
 return {
   {
+    -- Needed for venv-selector
+    "nvim-telescope/telescope.nvim",
+    event = "VeryLazy",
+  },
+  {
     "ibhagwan/fzf-lua",
     keys = {
       -- This is used for yazi.nvim
