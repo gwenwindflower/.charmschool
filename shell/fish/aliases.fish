@@ -6,6 +6,7 @@ alias e clear
 alias s z
 alias fun functions
 alias m "mkdir -p"
+alias top btm
 
 # rotz dotfile tool
 alias di "rotz install"
@@ -79,13 +80,16 @@ alias pyt pytest
 alias gorm "go run main.go"
 alias gord "go run ."
 alias gotv "go test -v"
+alias gob "go build"
 
 # eza
-alias l "eza -la --git"
-alias ls eza
-alias ll "eza -l"
-alias la "eza -la"
-alias lt "eza --tree"
+alias l "lsd -lag"
+alias ls lsd
+alias ll "lsd -l"
+alias lg "lsd -lg"
+alias la "lsd -a"
+alias lla "lsd -la"
+alias lt "lsd --tree"
 
 # frontend
 alias ni "pnpm i"
