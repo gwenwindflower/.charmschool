@@ -1,33 +1,20 @@
 # Set terminal environment variables
+## Set default editor to nvim
 set -x -g EDITOR nvim
+## Set default shell to fish
 set -x -g SHELL /opt/homebrew/bin/fish
+## Set default terminal to xterm-256color for better color support
 set -x -g TERM xterm-256color
+## Set XDG config directory to ~/.config, for various tools
 set -x -g XDG_CONFIG_HOME $HOME/.config
-set -x -g LG_CONFIG_FILE "$HOME/.config/lazygit/config.yml,$HOME/dev/catppuccin-lazygit-themes/themes-mergable/frappe/sky.yml"
+## Set lazygit config file
+set -x -g LG_CONFIG_FILE "$HOME/.config/lazygit/config.yml,$HOME/dev/catppuccin-lazygit-themes/themes-mergable/frappe/mauve.yml"
 
 # Set tooling home directory environment variables
 set -x -g GO_HOME $(go env GOPATH)
 set -x -g PNPM_HOME $HOME/Library/pnpm
 set -x -g BUN_INSTALL $HOME/.bun
 set -x -g PYENV_ROOT $HOME/.pyenv
-
-# Homebrew environment setup
-# I have one Mac Silicon and one Intel Mac so I have to check both places
-if type -q brew
-    eval (brew shellenv)
-else if test -d /opt/homebrew/bin
-    eval (/opt/homebrew/bin/brew shellenv)
-else if test -d /usr/local/homebrew/bin
-    eval (/usr/local/homebrew/bin/brew shellenv)
-else
-    echo "Brew doesn't seem to be installed"
-end
-
-# Ensure that Fisher is installed
-if not functions -q fisher
-    echo "Installing Fisher..."
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-end
 
 # Set PATH
 set -g -x PATH \
@@ -43,6 +30,9 @@ set -g -x PATH \
     /Applications/SnowSQL.app/Contents/MacOS \
     /Applications/Postgres.app/Contents/Versions/latest/bin \
     $PATH
+
+# Setup Homebrew environment
+eval (brew shellenv)
 
 # Initialize Starship and Zoxide
 starship init fish | source
@@ -62,3 +52,9 @@ source $HOME/.config/fish/tool_config.fish
 
 # Load private environment variables
 source $HOME/.env.fish
+
+# Ensure that Fisher is installed
+if not functions -q fisher
+    echo "Installing Fisher..."
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+end
