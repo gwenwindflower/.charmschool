@@ -17,7 +17,7 @@ set -x -g BUN_INSTALL $HOME/.bun
 set -x -g PYENV_ROOT $HOME/.pyenv
 
 # Set PATH
-set -g -x PATH \
+set -x -g PATH \
     /opt/homebrew/bin \
     $HOMEBREW_PREFIX/opt/postgresql@16/bin \
     $HOME/.local/bin \
