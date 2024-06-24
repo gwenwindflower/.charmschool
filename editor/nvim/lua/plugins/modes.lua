@@ -31,4 +31,16 @@ return {
       watermark = "datacowgirl.sh",
     },
   },
+  {
+    "charm-community/freeze.nvim",
+    config = function()
+      require("freeze").setup({
+        command = "freeze",
+        output = function()
+          return "./" .. os.date("%Y-%m-%d") .. "_freeze.png"
+        end,
+        theme = "catppuccin-frappe",
+      })
+    end,
+  },
 }
