@@ -17,13 +17,13 @@ set -Ux FZF_DEFAULT_OPTS "\
 "
 
 # fzf integration config
-# set Ctrl-f to do a fzf file search in the current directory
+## set Ctrl-f to do a fzf file search in the current directory
 fzf_configure_bindings --directory=\cf
-# set Ctrl-o to open the selected file in nvim
+## set Ctrl-o to open the selected file in nvim
 set fzf_directory_opts --bind 'ctrl-o:execute(nvim {} &> /dev/tty)'
-# fzf show hidden files by default
+## fzf show hidden files by default
 set fzf_fd_opts --hidden
-# fzf preview use bat with color and line numbers for file preview
+## fzf preview use bat with color and line numbers for file preview
 set fzf_preview_file_cmd bat --style=numbers,changes --color always
-# fzf preview use eza with color for directory preview
+## fzf preview use eza with color for directory preview
 set fzf_preview_dir_cmd eza --all --color=always
