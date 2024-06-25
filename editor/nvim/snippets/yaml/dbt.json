@@ -1,31 +1,31 @@
 {
-  "Doc": {
-    "prefix": "doc",
+  "dbt doc block expression": {
+    "prefix": ["ddb", "ddoc"],
     "body": ["{{ doc('${1:docs_name}') }}"],
-    "description": "Doc"
+    "description": "dbt doc block expression"
   },
-  "Env Var": {
-    "prefix": "env_var",
+  "dbt environment variable": {
+    "prefix": ["denvvar"],
     "body": ["{{ env_var('${1:env_var_name}') }}"],
-    "description": "Env Var"
+    "description": "dbt environment variable"
   },
-  "Ref": {
-    "prefix": "ref",
+  "dbt ref": {
+    "prefix": ["dr", "ref"],
     "body": ["ref('${1:model_name}')"],
     "description": "Ref"
   },
-  "Source": {
-    "prefix": "source",
+  "dbt source": {
+    "prefix": ["ds", "source"],
     "body": ["source('${1:source}', '${2:table_name}')"],
-    "description": "Source"
+    "description": "dbt source"
   },
-  "Var": {
-    "prefix": "var",
+  "dbt variable expression": {
+    "prefix": ["dve", "dvare"],
     "body": ["{{ var('${1:var_name}') }}"],
-    "description": "Var"
+    "description": "dbt variable expression"
   },
-  "Unit Test": {
-    "prefix": "unit_test",
+  "dbt unit Test": {
+    "prefix": ["dut", "dunit", "unittest"],
     "body": [
       "- name: ${1:test_name}",
       "  description: '${2:description}'",
@@ -38,6 +38,6 @@
       "    rows:",
       "        - {${9:output_field_1}: ${10:output_value_1}, ${11:output_field_2}: ${12:output_value_2}}"
     ],
-    "description": "Unit test boilerplate"
+    "description": "dbt unit test boilerplate"
   }
 }

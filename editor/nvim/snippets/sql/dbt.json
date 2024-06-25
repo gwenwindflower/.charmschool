@@ -1,36 +1,31 @@
 {
-  "block": {
-    "prefix": "block",
-    "body": ["{% block ${1:name} %}", "  $2", "{% endblock %}"],
-    "description": "Block"
-  },
-  "inline block": {
-    "prefix": "inblock",
+  "Jinja statement": {
+    "prefix": ["jstate", "statement"],
     "body": ["{% $1 %}"],
-    "description": "Inline Block"
+    "description": "Jinja statement"
   },
-  "Comment": {
-    "prefix": "comment",
+  "Jinja comment": {
+    "prefix": ["jcom", "comment"],
     "body": ["{#- $1 -#}"],
-    "description": "Inline Comment"
+    "description": "Jinja comment"
   },
-  "Complete Variable": {
-    "prefix": "cvar",
+  "Jinja expression": {
+    "prefix": ["jexp", "expression"],
     "body": ["{{ $1 }}"],
-    "description": "Complete Variable"
+    "description": "Jinja expression"
   },
-  "Do": {
-    "prefix": "do",
+  "Jinja do": {
+    "prefix": ["jdo", "do"],
     "body": ["{% do $1 %}"],
-    "description": "Jinja Do"
+    "description": "Jinja do"
   },
-  "Filter": {
-    "prefix": "filter",
+  "Jinja filter": {
+    "prefix": ["jfilt", "filter"],
     "body": ["{% filter ${1:filter} %}", "  $2", "{% endfilter %}"],
-    "description": "Jinja Filter"
+    "description": "Jinja filter"
   },
-  "Import CTE": {
-    "prefix": "import_cte",
+  "import CTE": {
+    "prefix": ["imc", "import_cte"],
     "body": [
       "${1:cte_name} as (",
       "",
@@ -41,46 +36,47 @@
     ],
     "description": "Import CTE"
   },
-  "For": {
-    "prefix": "for",
+  "Jinja for": {
+    "prefix": ["jfor", "for"],
     "body": ["{% for ${1:item} in ${2:sequence} %}", "  $3", "{% endfor %}"],
-    "description": "Jinja For"
+    "description": "Jinja for"
   },
-  "For (Dict)": {
-    "prefix": "for dict",
+  "Jinja for {dict}": {
+    "prefix": ["jford", "for_dict"],
     "body": [
       "{% for ${1:key}, ${2:value} in ${3:dict}.items() %}",
       "  $4",
       "{% endfor %}"
     ],
-    "description": "Jinja For (Dict)"
+    "description": "Jinja for {dict}"
   },
-  "For (List)": {
-    "prefix": "for list",
+  "Jinja for [list]": {
+    "prefix": ["jforl", "for_list"],
     "body": ["{% for ${1:item} in [${2:list}] %}", "  $3", "{% endfor %}"],
-    "description": "Jinja For (List)"
+    "description": "Jinja for [list]"
   },
-  "If": {
-    "prefix": "if",
+  "Jinja if": {
+    "prefix": ["jif", "if"],
     "body": ["{% if ${1:expr} %}", "  $2", "{% endif %}"],
-    "description": "Jinja If"
+    "description": "Jinja if"
   },
-  "Macro": {
-    "prefix": "macro",
+  "Jinja macro": {
+    "prefix": ["jmac", "macro"],
     "body": ["{% macro ${1:name}(${2:args}) %}", "  $3", "{% endmacro %}"],
     "description": "Jinja macro"
   },
-  "Set": {
-    "prefix": "set",
+  "Jinja set var": {
+    "prefix": ["sv", "jset", "set"],
     "body": "{% set ${1:var} = ${2:value} %}",
     "description": "Jinja set variable"
   },
-  "Set Block": {
-    "prefix": "set_block",
-    "body": ["{% set ${1:name} %}", "  $2", "{% endset %}"]
+  "Jinja set block": {
+    "prefix": ["jsetb", "set_block"],
+    "body": ["{% set ${1:name} %}", "  $2", "{% endset %}"],
+    "description": "Jinja set block"
   },
-  "Snapshot": {
-    "prefix": ["snapshot", "snap"],
+  "snapshot": {
+    "prefix": ["snap", "snapshot"],
     "body": [
       "{% snapshot ${1:snapshot_name} %}",
       "",
@@ -100,19 +96,19 @@
     ],
     "description": "dbt snapshot"
   },
-  "dbt Config Block": {
-    "prefix": "config",
+  "dbt config": {
+    "prefix": ["dcon", "config"],
     "body": [
       "{{",
       "  config(",
-      "    materialized = '${1:table}',",
+      "    materialized = '${1:materialization}',",
       "    )",
       "}}"
     ],
-    "description": "dbt Config Block"
+    "description": "dbt config"
   },
-  "dbt Incremental Config Block": {
-    "prefix": "config_incremental",
+  "dbt incremental config": {
+    "prefix": ["dcoi", "config_incremental"],
     "body": [
       "{{",
       "  config(",
@@ -121,86 +117,74 @@
       "    )",
       "}}"
     ],
-    "description": "dbt Incremental Config Block"
+    "description": "dbt incremental config"
   },
-  "Env Var": {
-    "prefix": "env_var",
+  "dbt environment variable": {
+    "prefix": ["ev", "envvar"],
     "body": ["{{ env_var(\"${1:env_var_name}\") }}"],
-    "description": "Env Var"
-  },
-  "Model Overview": {
-    "prefix": "model_overview",
-    "body": [
-      "{#-",
-      "Goal: ${1:high-level objective of the model}",
-      "Granularity: ${2:level of detail of the model}",
-      "Assumptions/Caveats:",
-      "   ${3:- assumptions/caveats if any}",
-      "-#}"
-    ],
-    "description": "Model Overview"
+    "description": "dbt environment variable"
   },
   "CTE": {
     "prefix": "cte",
     "body": ["${1:cte_name} as (", "", "    ${2:cte_logic}", "", "),", ""],
-    "description": "Insert CTE"
+    "description": "cte"
   },
-  "Case When": {
-    "prefix": "casewhen",
+  "case when": {
+    "prefix": ["cw", "casewhen"],
     "body": [
       "case",
       "    when ${1:condition} then ${2:then}",
       "    else ${3:else}",
       "end"
     ],
-    "description": "Case When"
+    "description": "case when"
   },
-  "Load Result": {
-    "prefix": "load_result",
+  "dbt load result": {
+    "prefix": ["dlr", "load_result"],
     "body": ["load_result('${1:statement_name}')"],
-    "description": "Load Result"
+    "description": "load result"
   },
-  "Log": {
-    "prefix": "log",
+  "dbt log": {
+    "prefix": ["dlog", "log"],
     "body": ["{{ log(${1:var}, info=${2|True,False|}) }}"],
-    "description": "Log"
+    "description": "dbt log"
   },
-  "Log a variable": {
-    "prefix": "log_var",
+  "dbt log variable": {
+    "prefix": ["dlv", "log_var"],
     "body": ["{{ log('${1:var}: ' ~ ${1:var}, info=${2|True,False|}) }}"],
-    "description": "Log a single variable's name and value"
+    "description": "log variable value"
   },
-  "Statement": {
-    "prefix": "statement",
+  "dbt call statement": {
+    "prefix": ["dstat", "statement"],
     "body": [
       "{% call statement(${1:name}, fetch_result=${2|True,False|}) %}",
       "  ${3:select 1}",
       "{% endcall %}"
     ],
-    "description": "Statement"
+    "description": "dbt call tatement"
   },
-  "Ref": {
-    "prefix": "ref",
+  "dbt ref": {
+    "prefix": ["dr", "ref"],
     "body": ["{{ ref('${1:model_name}') }}"],
-    "description": "Ref"
+    "description": "dbt ref"
   },
-  "Return": {
-    "prefix": "return",
+  "dbt return": {
+    "prefix": ["dret", "return"],
     "body": ["{{ return(${1}) }}"],
-    "description": "Return"
+    "description": "dbt return"
   },
-  "Var": {
-    "prefix": "var",
+  "dbt variable expression": {
+    "prefix": ["ve", "var_exp"],
     "body": ["{{ var('${1:var_name}') }}"],
-    "description": "Var"
+    "description": "dbt variable expression"
   },
-  "Source": {
-    "prefix": "source",
+  "dbt source": {
+    "prefix": ["ds", "source"],
     "body": ["{{ source('${1:source}', '${2:table_name}') }}"],
-    "description": "Source"
+    "description": "dbt source"
   },
-  "Incremental dbt block": {
-    "prefix": "is_incremental",
+  "dbt incremental block": {
+    "prefix": ["dii", "is_incremental"],
     "body": [
       "{% if is_incremental() %}",
       "  and ${1:prefix}.${2:date_col} >= coalesce((select max(${2:date_col}) from {{ this }}), '1900-01-01')",
@@ -208,6 +192,6 @@
       "  ${3:optional_cond}",
       "{% endif %}"
     ],
-    "description": "Incremental dbt Block"
+    "description": "dbt incremental Block"
   }
 }
