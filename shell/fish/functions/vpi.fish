@@ -1,3 +1,3 @@
 function vpi
-    vva; and pirr
+    vva; and pc; and pirr
 end
