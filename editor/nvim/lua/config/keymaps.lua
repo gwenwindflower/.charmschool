@@ -38,3 +38,8 @@ vim.keymap.set(
   ":w<cr>:DBRun<cr>",
   { noremap = true, silent = true, desc = "Run code on Databricks cluster" }
 )
+-- Free up C-j and C-k in terminal mode, mainly for fzf
+-- This works since I only use side and floating terminals,
+-- so I don't need to navigate up and down
+vim.keymap.del("t", "<C-j>")
+vim.keymap.del("t", "<C-k>")
