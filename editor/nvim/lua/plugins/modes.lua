@@ -29,6 +29,7 @@ return {
       watermark_font_family = "GeistMono Nerd Font Mono",
       bg_theme = "summer",
       watermark = "datacowgirl.sh",
+      save_path = os.getenv("HOME") .. "/Pictures/codesnap",
     },
   },
   {
