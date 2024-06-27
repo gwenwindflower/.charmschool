@@ -58,3 +58,6 @@ if not functions -q fisher
     echo "Installing Fisher..."
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 end
+
+# Enable vi mode by default
+fish_vi_key_bindings
