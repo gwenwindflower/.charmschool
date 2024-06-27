@@ -1,6 +1,6 @@
 return {
   {
-    -- Needed for venv-selector
+    -- Needed for venv-selector, otherwise we use fzf-lua as picker
     "nvim-telescope/telescope.nvim",
     event = "VeryLazy",
   },
