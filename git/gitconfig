@@ -1,6 +1,6 @@
 [user]
 name = gwen windflower
-email = gwenwindflower@gmail.com
+email = 91998347+gwenwindflower@users.noreply.github.com
 
 [pull]
 rebase = false
@@ -23,9 +23,7 @@ cmd = difft $LOCAL $REMOTE
 
 [pager]
 difftool = true
+blame = delta
 
 [alias]
 dft = difftool
-
-[pager]
-blame = delta
