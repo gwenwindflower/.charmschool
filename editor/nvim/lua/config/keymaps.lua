@@ -24,7 +24,7 @@ vim.keymap.set(
 vim.keymap.set("n", "<Leader>md", ":delmark ", { noremap = true, silent = true, desc = "Delete mark" })
 vim.keymap.set(
   "n",
-  "<Leader>ft",
+  "<C-p>",
   "<cmd>ToggleTerm direction='float'<cr>",
   { noremap = true, silent = true, desc = "Open floating terminal" }
 )
