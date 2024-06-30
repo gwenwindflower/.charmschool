@@ -8,23 +8,29 @@ return {
         "shfmt",
         "shellcheck",
       })
+      return opts
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "fish" })
+      return opts
     end,
   },
   {
     "nvim-lint",
-    opts = {
-      linters_by_ft = {
+    opts = function(_, opts)
+      opts.linters_by_ft = opts.linters_by_ft or {}
+      vim.list_extend(opts.linters_by_ft, {
         shell = { "shellcheck" },
         zsh = { "shellcheck" },
         bash = { "shellcheck" },
         fish = { "fish" },
-      },
-    },
-    -- linters = {
-    --   shellcheck = {
-    --     args = { "shellcheck", "--format", "json", "--external-sources" },
-    --   },
-    -- },
+      })
+      return opts
+    end,
   },
   {
     "stevearc/conform.nvim",
@@ -40,9 +46,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "markdown", "markdown_inline" })
-      end
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "markdown", "markdown_inline" })
+      return opts
     end,
   },
   {
@@ -95,22 +101,6 @@ return {
     end,
   },
   {
-    "linux-cultist/venv-selector.nvim",
-    opts = function(_, opts)
-      if require("lazyvim.util").has("nvim-dap-python") then
-        opts.dap_enabled = true
-      end
-      return vim.tbl_deep_extend("force", opts, {
-        parents = 1,
-        fd_binary_name = "fd",
-      })
-    end,
-    keys = {
-      { "<leader>ck", "<cmd>VenvSelectCached<CR>", desc = "Select Cached Venv" },
-      { "<leader>cv", "<cmd>VenvSelect<CR>", desc = "Select Venv" },
-    },
-  },
-  {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
@@ -120,9 +110,6 @@ return {
   },
   -- TypeScript
   {
-    "prisma/vim-prisma",
-  },
-  {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
@@ -131,8 +118,6 @@ return {
         "svelte-language-server",
         "prisma-language-server",
         "emmet-ls",
-        "json-lsp",
-        "yaml-language-server",
       })
     end,
   },
@@ -145,6 +130,7 @@ return {
         "stylua",
         "lua-language-server",
       })
+      return opts
     end,
   },
   {
@@ -158,27 +144,13 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "lua" })
-      end
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "lua" })
+      return opts
     end,
   },
   -- Fennel
   { "Olical/conjure", ft = { "clojure", "aniseed", "fennel", "lisp" } },
   { "Olical/nfnl", ft = "fennel" },
   -- Handled by LazyVim Extras: Go, Astro, Svelte, SQL
-  -- {
-  --   "stevearc/conform.nvim",
-  --   opts = {
-  --     formatters = {
-  --       sqlfluff = {
-  --         command = "sqlfluff",
-  --         args = { "format", "--templater=jinja", "-" },
-  --       },
-  --       formatters_by_ft = {
-  --         ["sql"] = { "sqlfluff" },
-  --       },
-  --     },
-  --   },
-  -- },
 }
