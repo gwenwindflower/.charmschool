@@ -39,7 +39,7 @@ return {
       version = "*",
       opts = {
         float_opts = {
-          border = "curved",
+          border = "double",
           width = 100,
           height = 40,
           winblend = 20,
