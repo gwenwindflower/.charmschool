@@ -7,6 +7,7 @@ alias s z
 alias fun functions
 alias m "mkdir -p"
 alias top btm
+alias ldr lazydocker
 
 # rotz dotfile tool
 alias di "rotz install"
@@ -82,7 +83,7 @@ alias gord "go run ."
 alias gotv "go test -v"
 alias gob "go build"
 
-# eza
+# lsd
 alias l "lsd -lag"
 alias ls lsd
 alias ll "lsd -l"
