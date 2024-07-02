@@ -26,9 +26,6 @@ set -x -g PATH \
     $BUN_INSTALL/bin \
     $PYENV_ROOT/bin \
     $HOME/.poetry/bin \
-    $HOME/.gem/ruby/2.6.0/bin \
-    /Applications/SnowSQL.app/Contents/MacOS \
-    /Applications/Postgres.app/Contents/Versions/latest/bin \
     $PATH
 
 # Setup Homebrew environment
