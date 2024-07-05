@@ -47,6 +47,9 @@ source $HOME/.config/fish/aliases.fish
 # Configure tools
 source $HOME/.config/fish/tool_config.fish
 
+# Load Google Cloud SDK
+source $HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+
 # Load private environment variables
 source $HOME/.env.fish
 
