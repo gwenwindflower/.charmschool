@@ -1,29 +1,33 @@
 [user]
-name = gwen windflower
-email = 91998347+gwenwindflower@users.noreply.github.com
+  name = gwen windflower
+  email = 91998347+gwenwindflower@users.noreply.github.com
 
 [pull]
-rebase = false
+  rebase = false
 
 [init]
-defaultBranch = main
+  defaultBranch = main
+
+[include]
+  path = ~/dev/catppuccin-delta-themes/catppuccin.gitconfig
 
 [delta]
-line-numbers = true
-navigate = true
+  line-numbers = true
+  navigate = true
+  theme = catppuccin-frappe
 
 [diff]
-tool = difftastic
+  tool = difftastic
 
 [difftool]
-prompt = false
+  prompt = false
 
 [difftool "difftastic"]
-cmd = difft $LOCAL $REMOTE
+  cmd = difft $LOCAL $REMOTE
 
 [pager]
-difftool = true
-blame = delta
+  difftool = true
+  blame = delta
 
 [alias]
-dft = difftool
+  dft = difftool
