@@ -23,6 +23,7 @@ return {
   -- Capture images of code
   {
     "mistricky/codesnap.nvim",
+    event = "VeryLazy",
     build = "make",
     opts = {
       code_font_family = "GeistMono Nerd Font Mono",
@@ -34,6 +35,7 @@ return {
   },
   {
     "charm-community/freeze.nvim",
+    event = "VeryLazy",
     config = function()
       require("freeze").setup({
         command = "freeze",

@@ -6,6 +6,7 @@ return {
   -- Databricks still pretty experimental
   {
     "phdah/nvim-databricks",
+    event = "VeryLazy",
     dependencies = {
       "mfussenegger/nvim-dap", -- Optional dependency
     },
