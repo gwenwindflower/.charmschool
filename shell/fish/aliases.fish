@@ -16,6 +16,8 @@ alias dlf "rotz link --force"
 alias fp "$EDITOR $__fish_config_dir/fish_plugins"
 
 # git tools
+alias gdc "git dft --cached"
+alias gdh "git dft HEAD"
 alias gcob "git checkout -b"
 alias gdto "git difftool"
 alias gdtoc "git difftool --cached"
@@ -67,12 +69,11 @@ alias da deactivate
 alias pi "uv pip"
 alias pir "uv pip install -r"
 alias pirr "uv pip install -r requirements.txt"
+alias pird "uv pip install -r pyproject.toml --extra dev"
 alias pc "uv pip compile requirements.in -o requirements.txt"
-alias pcd "uv pip compile dev-requirements.in -o dev-requirements.txt"
+alias pcd "uv pip compile pyprpoject.toml --extra dev -o requirements.txt"
 alias pcu "uv pip compile -U requirements.in -o requirements.txt"
-alias pcdu "uv pip compile -U dev-requirements.in -o dev-requirements.txt"
 alias psy "uv pip sync requirements.txt"
-alias psyd "uv pip sync requirements.txt dev-requirements.txt"
 alias piup "uv pip install --upgrade pip"
 alias pd "uv pip install -e ."
 alias pyt pytest
