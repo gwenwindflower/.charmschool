@@ -61,3 +61,5 @@ end
 
 # Enable vi mode by default
 fish_vi_key_bindings
+
+fish_add_path /Users/winnie/.spicetify
