@@ -1,0 +1,49 @@
+# Mainly a utility function that other functions wrap
+function sd -d "Fuzzy navigate to file explorer in directory with optional actions"
+    argparse h/help e/editor x/no-explorer a/action= -- $argv
+    or return
+
+    if set -q _flag_help
+        echo "Usage: sd [options] fuzzy_search_terms..."
+        echo "  All non-flag args are hierarchical z search terms"
+        echo ""
+        echo "Options:"
+        echo "  -h, --help            Show this help"
+        echo "  -e, --editor          Open with \$EDITOR instead of file explorer"
+        echo "  -x, --no-explorer     Don't open file explorer"
+        echo "  -a, --action=ACTION   Take another action after navigating (overrides explorer/editor)"
+        echo ""
+        echo "Examples:"
+        echo "  sd config fish auto        # z config fish auto + open explorer"
+        echo "  sd -e dev project api      # z dev project api + open editor"
+        return 0
+    end
+
+    set -l z_search $root_dir
+    if test (count $argv) -eq 0
+        echo "Error: No search terms provided"
+        return 1
+    else
+        set z_search $argv
+        set z_search (string replace '~' $HOME $argv)
+    end
+
+    z $z_search
+
+    # Post-navigation actions
+    if set -q _flag_action
+        command $_flag_action
+    else if set -q _flag_editor
+        if set -q EDITOR
+            $EDITOR
+        else
+            echo "Error: \$EDITOR is not set"
+            return 1
+        end
+    else if set -q _flag_no_explorer
+        return
+    else
+        # Otherwise, open file explorer
+        ff
+    end
+end

@@ -1,0 +1,5 @@
+installs: |
+  brew install tmux
+  brew install tpm
+links:
+  tmux.conf: ~/.tmux.conf
