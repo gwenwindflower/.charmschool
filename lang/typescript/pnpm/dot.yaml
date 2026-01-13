@@ -1,3 +1,10 @@
-installs: npm install -g pnpm
-depends:
-  - nvm
+installs:
+  cmd: |
+    if type -q pnpm
+      echo "pnpm already installed!"
+    else
+      corepack enable pnpm
+      pnpm completion fish > ~/.config/fish/completions/pnpm.fish
+    end
+  depends:
+    - /lang/typescript/fnm

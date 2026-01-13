@@ -1,0 +1,9 @@
+installs:
+  cmd: |
+    brew install fnm
+    fnm install 24
+    fnm alias 24 latest
+    fnm default latest
+    fnm use default
+
+# TODO: ping https://nodejs.org/dist/index.json to get the latest stable version dynamically

@@ -1,5 +1,6 @@
+# I have a neat idempotent install/upgrade script
+# that I used to use -- it's preserved in this Gist
+# https://gist.github.com/gwenwindflower/04dba412769800aec266606f045f7e7e
 installs: |
-  if [ -x "$(command -v go)" ];
-    then echo "Already installed go";
-    else sh /Users/winnie/.dotfiles/lang/go/go_install.sh;
-  fi
+  brew install go; and \
+  if go env -w GOPATH="$HOME/.go"; echo "$(set_color -o green)Success!$(set_color normal)$(set_color green) GOPATH has been set to $(set_color brmagenta)~/.go$(set_color normal)"; end

@@ -1,0 +1,3 @@
+installs: null
+links:
+  config.toml: ~/.config/mise/config.toml

@@ -1,0 +1,5 @@
+installs: |
+  brew install uv
+  uv generate-shell-completion fish > ~/.config/fish/completions/uv.fish
+links:
+  uv.toml: ~/.config/uv/uv.toml
