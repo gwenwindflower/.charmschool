@@ -1,0 +1,3 @@
+installs: |
+  brew install awscli
+  aws_completer --shell fish

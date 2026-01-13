@@ -1,3 +1,2 @@
 installs: |
-  brew tap "dbt-labs/dbt-cli"
-  brew install dbt
+  curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update

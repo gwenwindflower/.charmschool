@@ -3,3 +3,4 @@ installs: null
 links:
   config.yaml: ~/.config/lsd/config.yaml
   colors.yaml: ~/.config/lsd/colors.yaml
+  icons.yaml: ~/.config/lsd/icons.yaml

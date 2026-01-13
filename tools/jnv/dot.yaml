@@ -1,1 +1,4 @@
 installs: null
+
+links:
+  config.toml: "{{ env.MACOS_CONFIG_HOME }}/jnv/config.toml"

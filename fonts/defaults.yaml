@@ -1,0 +1,2 @@
+installs:
+  cmd: brew install --cask font-{{file_name name}}

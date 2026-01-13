@@ -1,9 +1,12 @@
-links:
-  ../yazi: ~/.config/yazi
+installs:
+  cmd: |
+    brew install yazi
+    ya pkg install
 
-installs: |
-  if ! command -v yazi &> /dev/null; then
-    cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
-    ya pack -a yazi-rs/plugins#smart-filter
-    ya pack -a yazi-rs/plugins#max-preview
-  fi
+
+links:
+  yazi.toml: ~/.config/yazi/yazi.toml
+  keymap.toml: ~/.config/yazi/keymap.toml
+  package.toml: ~/.config/yazi/package.toml
+  theme.toml: ~/.config/yazi/theme.toml
+  init.lua: ~/.config/yazi/init.lua

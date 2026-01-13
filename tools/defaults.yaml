@@ -1,6 +1,6 @@
+# Homebrew is installed via bootstrap.sh script to make all this simpler
+# and avoid the majority of dots depending on it
+
 installs:
   cmd: |
-    tool=$(echo {{ name }} | cut -d'/' -f2)
-    brew install $tool
-  depends:
-    - ../brew
+    brew install {{file_name name}}

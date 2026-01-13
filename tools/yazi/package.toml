@@ -1,5 +1,34 @@
-[plugin]
-deps = [{ use = "yazi-rs/plugins#smart-filter", commit = "ab370f0" }, { use = "yazi-rs/plugins#max-preview", commit = "ab370f0" }]
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "b886025"
+hash = "63b6c222bf2103b3023389dde5e2ecfe"
 
-[flavor]
-deps = []
+[[plugin.deps]]
+use = "yazi-rs/plugins:full-border"
+rev = "b886025"
+hash = "3996fc74044bc44144b323686f887e1"
+
+[[plugin.deps]]
+use = "Rolv-Apneseth/starship"
+rev = "a63550b"
+hash = "c2021386289a0cbb3e152a052f67c177"
+
+[[plugin.deps]]
+use = "AnirudhG07/custom-shell"
+rev = "b04213d"
+hash = "3efc7ddc9bac120c618462eb994edf75"
+
+[[plugin.deps]]
+use = "stelcodes/bunny"
+rev = "bd8a767"
+hash = "5dded0f0f40142f99dda23aedd76b2bf"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "d04a298"
+hash = "d659c6fde5148fb5c066518d7fdecddc"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-latte"
+rev = "d04a298"
+hash = "a4d508772dc7b20d739a2f9a1d2d396f"

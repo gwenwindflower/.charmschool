@@ -1,1 +1,8 @@
-installs: null
+installs:
+  cmd: |
+    brew install bat
+    mkdir -p $(bat --config-dir)/themes
+
+links:
+  Catppuccin-Frappe.tmTheme: ~/.config/bat/themes/Catppuccin-Frappe.tmTheme
+  config: ~/.config/bat/config

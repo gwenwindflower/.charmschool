@@ -1,0 +1,24 @@
+background: "#292c3c"
+margin:
+  - 80
+padding:
+  - 20
+window: true
+width: 0
+height: 0
+theme: catppuccin-frappe
+wrap: 0
+border:
+  radius: 10
+  width: 10
+  color: "#ca9ee6"
+shadow:
+  blur: 8
+  x: 8
+  y: 8
+font:
+  family: Maple Mono NF
+  size: 14
+  ligatures: true
+line_height: 1.2
+show_line_numbers: true

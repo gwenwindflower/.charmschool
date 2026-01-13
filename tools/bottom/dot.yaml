@@ -1,1 +1,3 @@
 installs: null
+links:
+  bottom.toml: ~/.config/bottom/bottom.toml

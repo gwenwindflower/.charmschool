@@ -1,0 +1,4 @@
+installs: null
+
+links:
+  tlrc.toml: ~/.config/tlrc/tlrc.toml

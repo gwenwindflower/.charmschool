@@ -1,0 +1,7 @@
+installs: |
+  brew install spotify_player
+  spotify_player generate fish > ~/.config/fish/completions/spotify_player.fish
+links:
+  app.toml: ~/.config/spotify-player/app.toml
+  keymap.toml: ~/.config/spotify-player/keymap.toml
+  theme.toml: ~/.config/spotify-player/theme.toml

@@ -1,0 +1,5 @@
+installs: null
+
+links:
+  glow.yaml: ~/.config/glow/glow.yaml
+  catppuccin-frappe.json: ~/.config/glow/catppuccin-frappe.json

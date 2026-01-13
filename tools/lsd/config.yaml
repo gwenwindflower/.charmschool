@@ -1,2 +1,13 @@
 color:
   theme: custom
+  when: always
+
+recursion:
+  depth: 3
+
+sorting:
+  dir-grouping: first
+
+symlink-arrow: 󰌷
+
+hyperlink: auto

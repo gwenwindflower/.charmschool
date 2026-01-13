@@ -1,3 +1,1 @@
-installs: pipx install snowflake-cli-labs
-depends:
-  - pipx
+installs: brew tap snowflakedb/snowflake-cli; brew install snowflake-cli

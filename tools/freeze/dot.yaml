@@ -1,1 +1,6 @@
-installs: brew install charmbracelet/tap/freeze
+installs:
+  cmd: brew install charmbracelet/tap/freeze
+
+
+links:
+  user.json: ~/.config/freeze/user.json

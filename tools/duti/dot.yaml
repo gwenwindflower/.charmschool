@@ -1,0 +1,3 @@
+installs: |
+  brew install duti
+  duti ~/.charmschool/tools/duti/duti.conf
