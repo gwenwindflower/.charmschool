@@ -1,0 +1,77 @@
+prSections:
+  - title: My Pull Requests
+    filters: is:open author:@me
+  - title: Needs My Review
+    filters: is:open review-requested:@me
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+issuesSections:
+  - title: My Issues
+    filters: is:open author:@me
+  - title: Assigned
+    filters: is:open assignee:@me
+  - title: Involved
+    filters: is:open involves:@me -author:@me
+defaults:
+  preview:
+    open: true
+    width: 50
+  prsLimit: 20
+  issuesLimit: 20
+  view: prs
+  layout:
+    prs:
+      updatedAt:
+        width: 7
+      repo:
+        width: 15
+      author:
+        width: 15
+      assignees:
+        width: 20
+        hidden: true
+      base:
+        width: 15
+        hidden: true
+      lines:
+        width: 16
+    issues:
+      updatedAt:
+        width: 7
+      repo:
+        width: 15
+      creator:
+        width: 10
+      assignees:
+        width: 20
+        hidden: true
+  refetchIntervalMinutes: 30
+keybindings:
+  universal:
+    - builtin: pageDown
+      key: "ctrl+n" # your new keybinding for page down
+    - builtin: pageUp
+      key: "ctrl+p" # your new keybinding for page up
+  prs: []
+repoPaths: {}
+theme:
+  colors:
+    text:
+      primary: "#c6d0f5"
+      secondary: "#f4b8e4"
+      inverted: "#232634"
+      faint: "#b5bfe2"
+      warning: "#e5c890"
+      success: "#a6d189"
+      error: "#e78284"
+    background:
+      selected: "#414559"
+    border:
+      primary: "#f4b8e4"
+      secondary: "#51576d"
+      faint: "#414559"
+  ui:
+    table:
+      showSeparator: true
+pager:
+  diff: delta

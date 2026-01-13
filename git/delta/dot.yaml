@@ -1,0 +1,4 @@
+installs: brew install git-delta
+
+links:
+  catppuccin.gitconfig: ~/.config/delta/catppuccin.gitconfig

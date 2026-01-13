@@ -1,0 +1,6 @@
+installs:
+  cmd: gh ext install dlvhdr/gh-dash
+  depends:
+    - /git/gh
+links:
+  config.yaml: ~/.config/gh-dash/config.yml

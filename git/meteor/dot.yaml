@@ -1,0 +1,6 @@
+installs: |
+  brew tap stefanlogue/tools
+  brew install --cask meteor
+
+links:
+  meteor.json: ~/.config/meteor/config.json
