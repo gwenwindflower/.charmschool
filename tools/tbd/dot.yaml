@@ -1,3 +1,0 @@
-installs: |
-  brew tap gwenwindflower/homebrew-tbd
-  brew install tbd

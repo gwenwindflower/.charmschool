@@ -1,3 +1,0 @@
-installs: |
-  brew tap pomdtr/tap
-  brew install sunbeam

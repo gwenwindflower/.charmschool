@@ -1,3 +1,0 @@
-installs: |
-  brew tap stefanlogue/tools
-  brew install stefanlogue/tools/meteor
