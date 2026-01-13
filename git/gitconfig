@@ -23,6 +23,7 @@
 
 [core]
   pager = delta
+  excludesfile = ~/.gitignore_global
 
 [delta]
   line-numbers = true
