@@ -5,6 +5,22 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
 
+vim.filetype.add({
+  group = augroup("filetype_additions"),
+  filename = {
+    -- SQLFluff uses TOML format, but Tree-sitter doesn't clock that obviously
+    -- because it's not a super popular tool/filetype so we have to manually set it
+    [".sqlfluff"] = "toml",
+    -- For the sake of my gitconfig not being hidden in the explorer
+    -- my root file that is symlinked to ~/.gitconfig is named gitconfig
+    -- but that means we have to manually set the filetype
+    ["gitconfig"] = "gitconfig",
+  },
+  extension = {
+    ["http"] = "http",
+  },
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("sql_formatting"),
   pattern = { "sql" },
@@ -16,26 +32,39 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- For some reason the kitty filetype doesn't set the commentstring
+-- It recognizes and highlights comments correctly, but doesn't set the commentstring, strange
+-- Unfortunately I do not have time to look into fixing it
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("zsh"),
-  pattern = { ".zshrc", ".zshenv", ".zsh", ".zprofile" },
+  group = augroup("config_formatting"),
+  pattern = { "kitty" },
   callback = function()
-    vim.set_filetype("zsh")
+    vim.bo.commentstring = "#%s"
   end,
 })
 
+local wk = require("which-key")
+-- Markdown-specific keymaps (buffer-local, only active in markdown files)
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("go"),
-  pattern = { "go" },
-  callback = function()
-    vim.keymap.set("n", "<Leader>gr", "<cmd>!go run %<CR>", { noremap = true, silent = true, desc = "Go run file" })
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = augroup("config_file_types"),
-  pattern = { ".sqlfluff" },
-  callback = function()
-    vim.opt_local.filetype = "toml"
+  pattern = "markdown",
+  callback = function(event)
+    wk.add({
+      {
+        "<LocalLeader>m",
+        mode = { "x" },
+        group = "markdown",
+        icon = { icon = " ", color = "orange" },
+        buffer = event.buf,
+      },
+    })
+    wk.add({
+      {
+        "<LocalLeader>ml",
+        "<cmd>MarkdownPasteLink<cr>",
+        mode = { "x" },
+        desc = "Paste URL as link",
+        buffer = event.buf,
+      },
+    })
   end,
 })

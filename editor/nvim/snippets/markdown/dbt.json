@@ -1,7 +1,14 @@
 {
   "dbt docs block": {
-    "prefix": ["ddb", "ddocs"],
-    "body": ["{% docs ${1:name} %}", "$2", "{% enddocs %}"],
-    "description": "dbt docs block"
+    "body": [
+      "{% docs ${1:name} %}",
+      "$2",
+      "{% enddocs %}"
+    ],
+    "description": "dbt docs block",
+    "prefix": [
+      "ddb",
+      "ddocs"
+    ]
   }
 }

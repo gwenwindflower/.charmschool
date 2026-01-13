@@ -1,2 +1,4 @@
+installs: brew install neovim
+
 links:
   nvim: ~/.config/nvim

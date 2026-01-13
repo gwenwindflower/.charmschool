@@ -1,0 +1,16 @@
+{
+  "snippet_package_table": {
+    "body": [
+      "{",
+      "\"language\": [",
+      "\"${1:language}\"",
+      " ],",
+      "\"path\": \"${2:path}\"",
+      "},"
+    ],
+    "description": "Add a snippet path to the snippet's package.json",
+    "prefix": [
+      "snippet"
+    ]
+  }
+}

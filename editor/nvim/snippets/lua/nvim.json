@@ -1,0 +1,23 @@
+{
+  "lzvkeys": {
+    "body": [
+      "keys = {",
+      "  { \"${1:lhs}\", \"${2:rhs}\", mode = { \"${3:modes}\" }, desc = \"${4:description}\" },",
+      "},"
+    ],
+    "prefix": "lzvkeys"
+  },
+  "lzvoptsfunc": {
+    "body": [
+      "opts = function(_, opts)",
+      "  opts = opts or {}",
+      "  return opts",
+      "end,"
+    ],
+    "prefix": "lzvoptsfunc"
+  },
+  "tins": {
+    "body": "table.insert(${1:target table}, ${2:item})",
+    "prefix": "tins"
+  }
+}

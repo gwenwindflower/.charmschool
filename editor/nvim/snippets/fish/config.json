@@ -1,0 +1,258 @@
+{
+  "abbr add": {
+    "body": [
+      "abbr --add ${1:abbreviation} ${2:expansion}"
+    ],
+    "description": "Add a fish abbreviation",
+    "prefix": [
+      "aba",
+      "abbr"
+    ]
+  },
+  "alias add": {
+    "body": [
+      "alias ${1:name} ${2:command}"
+    ],
+    "description": "Add a fish alias",
+    "prefix": [
+      "ala",
+      "alias"
+    ]
+  },
+  "argparse": {
+    "body": [
+      "argparse h/help ${1:flag} -- \\$argv",
+      "or return"
+    ],
+    "description": "Basic argparse setup with h/help and a custom flag",
+    "prefix": [
+      "argp",
+      "argparse"
+    ]
+  },
+  "bind add (modes: cmd)": {
+    "body": [
+      "bind --user ${1:keymap} ${2:command}"
+    ],
+    "description": "Add a fish user key binding in default mode (command) only",
+    "prefix": [
+      "bdd",
+      "bind"
+    ]
+  },
+  "bind add (modes: cmd, ins)": {
+    "body": [
+      "bind --user -M insert ${1:keymap} ${2:command}",
+      "bind --user ${1} ${2}"
+    ],
+    "description": "Add a fish user key binding in both insert and default (command) modes",
+    "prefix": [
+      "bddi",
+      "bindi"
+    ]
+  },
+  "bind add (modes: cmd, ins, vis)": {
+    "body": [
+      "bind --user -M insert ${1:keymap} ${2:command}",
+      "bind --user -M visual ${1} ${2}",
+      "bind --user ${1} ${2}"
+    ],
+    "description": "Add a fish user key binding in insert, visual and default (command) modes",
+    "prefix": [
+      "bddiv",
+      "bindiv"
+    ]
+  },
+  "colt": {
+    "body": [
+      "set -l normal (set_color normal)",
+      "set -l success (set_color -o brgreen)",
+      "set -l special (set_color -io brmagenta)",
+      "set -l old (set_color --dim red)"
+    ],
+    "prefix": "colt"
+  },
+  "for loop": {
+    "body": [
+      "for ${1:var} in ${2:list}",
+      "\t${3:# body}",
+      "end"
+    ],
+    "description": "For loop",
+    "prefix": [
+      "for"
+    ]
+  },
+  "function": {
+    "body": [
+      "function ${1:name} -d \"${2:description}\"",
+      "\t${3:# body}",
+      "end"
+    ],
+    "description": "Create a fish function",
+    "prefix": [
+      "fn",
+      "func",
+      "function"
+    ]
+  },
+  "function with argparse + help": {
+    "body": [
+      "function ${1:name} -d \"${2:description}\"",
+      "\targparse h/help ${3:short flag}/${4:long flag} -- '$argv",
+      "\tor return\n\n",
+      "\tif set -q _flag_help",
+      "\t\techo \"Usage: ${1} [options]\"",
+      "\t\techo \"\"",
+      "\t\techo \"${2}\"",
+      "\t\techo \"\"",
+      "\t\techo \"Options:\"",
+      "\t\techo \"  -h, --help       Show this help message and exit\"",
+      "\t\techo \"  -${3}, --${4}    ${5:Description of flag}\"",
+      "\tend\n",
+      "\t${6:# body}",
+      "end"
+    ],
+    "description": "Echo a standard help/usage message function",
+    "prefix": [
+      "fnaph",
+      "fnarghelp",
+      "fnargparsehelp",
+      "funcaph",
+      "funcargphelp",
+      "funcargparsehelp"
+    ]
+  },
+  "function with args": {
+    "body": [
+      "function ${1:name} -d \"${2:description}\"",
+      "\tset -l ${3:1st arg} $argv[1]",
+      "\tset -l ${4:2nd arg} $argv[2]",
+      "\t${5:# body}",
+      "end"
+    ],
+    "description": "Create a fish function with 2 arguments",
+    "prefix": [
+      "fna",
+      "funca",
+      "functiona"
+    ]
+  },
+  "if arg count greater than": {
+    "body": [
+      "if test (count $argv) -gt ${1:0}",
+      "\t${2:# body}",
+      "end"
+    ],
+    "description": "If statement to check if argument count is greater than N",
+    "prefix": [
+      "ifarcgt"
+    ]
+  },
+  "if command exists": {
+    "body": [
+      "if type -q ${1:command_name}",
+      "\t${2:# command exists}",
+      "else",
+      "\t${3:# command does not exist}",
+      "end"
+    ],
+    "description": "If/else block to check if a command exists",
+    "prefix": [
+      "ifcmd",
+      "iftype"
+    ]
+  },
+  "if flag set": {
+    "body": [
+      "if set -q _flag_${1:flag_name}",
+      "\t${2:# body}",
+      "end"
+    ],
+    "description": "If statement to check if an argparse flag was set",
+    "prefix": [
+      "ifq"
+    ]
+  },
+  "if-else": {
+    "body": [
+      "if ${1:condition}",
+      "\t${2:# body}",
+      "else",
+      "\t${3:# else body}",
+      "end"
+    ],
+    "description": "If/else statement",
+    "prefix": [
+      "if"
+    ]
+  },
+  "if/else arg count equal": {
+    "body": [
+      "if test (count $argv) -eq ${1:0}",
+      "\t${2:# body}",
+      "else",
+      "\t${3:# else body}",
+      "end"
+    ],
+    "description": "If/else block to check if argument count is equal to N",
+    "prefix": [
+      "iftca",
+      "ifargc"
+    ]
+  },
+  "if/else flag set": {
+    "body": [
+      "if set -q _flag_${1:flag_name}",
+      "\t${2:# body}",
+      "else",
+      "\t${3:# else body}",
+      "end"
+    ],
+    "description": "If/else statement to check if an argparse flag was set",
+    "prefix": [
+      "ifqe"
+    ]
+  },
+  "read": {
+    "body": [
+      "read -P \"${1:prompt}\" ${2:variable_name}"
+    ],
+    "description": "Read user input into a variable",
+    "prefix": [
+      "read"
+    ]
+  },
+  "set global variable": {
+    "body": [
+      "set -gx ${1:variable_name} ${2:value}"
+    ],
+    "description": "Set a global variable (exported, this session only)",
+    "prefix": [
+      "setg"
+    ]
+  },
+  "set universal variable": {
+    "body": [
+      "set -Ux ${1:variable_name} ${2:value}"
+    ],
+    "description": "Set a universal variable (exported, persists across sessions)",
+    "prefix": [
+      "setu"
+    ]
+  },
+  "switch": {
+    "body": [
+      "switch ${1:variable}",
+      "\tcase ${2:value1}",
+      "\t\t${3:# body}",
+      "\tcase '*' # default",
+      "\t\t${4:# body}",
+      "end"
+    ],
+    "description": "Switch statement",
+    "prefix": [
+      "switch"
+    ]
+  }
+}

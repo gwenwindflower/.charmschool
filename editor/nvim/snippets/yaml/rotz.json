@@ -1,0 +1,7 @@
+{
+  "innu": {
+    "body": "installs: ${1:null}",
+    "description": "Install command to run, defaults to null",
+    "prefix": "innu"
+  }
+}

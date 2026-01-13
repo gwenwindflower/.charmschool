@@ -1,0 +1,50 @@
+{
+  "GH Important Callout": {
+    "body": [
+      "> [!IMPORTANT]",
+      "> ${1:Your important message here.}"
+    ],
+    "description": "Inserts an 'Important' style callout.",
+    "prefix": "!important"
+  },
+  "GH Note Callout": {
+    "body": [
+      "> [!NOTE]",
+      "> ${1:Your note here.}"
+    ],
+    "description": "Inserts a 'Note' style callout.",
+    "prefix": "!note"
+  },
+  "GH Warning Callout": {
+    "body": [
+      "> [!WARNING]",
+      "> ${1:Your warning here.}"
+    ],
+    "description": "Inserts a 'Warning' style callout.",
+    "prefix": "!warn"
+  },
+  "Table": {
+    "body": [
+      "| ${1:Header 1} | ${2:Header 2} |",
+      "|---|---|",
+      "| ${3:Content 1} | ${4:Content 2} |"
+    ],
+    "description": "Inserts a basic Markdown table.",
+    "prefix": "!table"
+  },
+  "Task Item": {
+    "body": [
+      "- [${1: }] ${2:To do}"
+    ],
+    "description": "Inserts a Markdown task item.",
+    "prefix": "!task"
+  },
+  "toc": {
+    "body": [
+      "## 📚 Table of Contents",
+      "",
+      "1. [${1:header}](#${2:link})"
+    ],
+    "prefix": "toc"
+  }
+}

@@ -1,31 +1,44 @@
 {
   "dbt doc block expression": {
-    "prefix": ["ddb", "ddoc"],
-    "body": ["{{ doc('${1:docs_name}') }}"],
-    "description": "dbt doc block expression"
+    "body": [
+      "{{ doc('${1:docs_name}') }}"
+    ],
+    "description": "dbt doc block expression",
+    "prefix": [
+      "ddb",
+      "ddoc"
+    ]
   },
   "dbt environment variable": {
-    "prefix": ["denvvar"],
-    "body": ["{{ env_var('${1:env_var_name}') }}"],
-    "description": "dbt environment variable"
+    "body": [
+      "{{ env_var('${1:env_var_name}') }}"
+    ],
+    "description": "dbt environment variable",
+    "prefix": [
+      "denvvar"
+    ]
   },
   "dbt ref": {
-    "prefix": ["dr", "ref"],
-    "body": ["ref('${1:model_name}')"],
-    "description": "Ref"
+    "body": [
+      "ref('${1:model_name}')"
+    ],
+    "description": "Ref",
+    "prefix": [
+      "dr",
+      "ref"
+    ]
   },
   "dbt source": {
-    "prefix": ["ds", "source"],
-    "body": ["source('${1:source}', '${2:table_name}')"],
-    "description": "dbt source"
-  },
-  "dbt variable expression": {
-    "prefix": ["dve", "dvare"],
-    "body": ["{{ var('${1:var_name}') }}"],
-    "description": "dbt variable expression"
+    "body": [
+      "source('${1:source}', '${2:table_name}')"
+    ],
+    "description": "dbt source",
+    "prefix": [
+      "ds",
+      "source"
+    ]
   },
   "dbt unit Test": {
-    "prefix": ["dut", "dunit", "unittest"],
     "body": [
       "- name: ${1:test_name}",
       "  description: '${2:description}'",
@@ -38,6 +51,21 @@
       "    rows:",
       "        - {${9:output_field_1}: ${10:output_value_1}, ${11:output_field_2}: ${12:output_value_2}}"
     ],
-    "description": "dbt unit test boilerplate"
+    "description": "dbt unit test boilerplate",
+    "prefix": [
+      "dut",
+      "dunit",
+      "unittest"
+    ]
+  },
+  "dbt variable expression": {
+    "body": [
+      "{{ var('${1:var_name}') }}"
+    ],
+    "description": "dbt variable expression",
+    "prefix": [
+      "dve",
+      "dvare"
+    ]
   }
 }

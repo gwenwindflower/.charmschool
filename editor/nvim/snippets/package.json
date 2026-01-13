@@ -1,0 +1,56 @@
+{
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "fish"
+        ],
+        "path": "./fish/config.json"
+      },
+      {
+        "language": [
+          "json"
+        ],
+        "path": "./json/config.json"
+      },
+      {
+        "language": [
+          "sql"
+        ],
+        "path": "./sql/dbt.json"
+      },
+      {
+        "language": [
+          "markdown"
+        ],
+        "path": "./markdown/dbt.json"
+      },
+      {
+        "language": [
+          "markdown"
+        ],
+        "path": "./markdown/general.json"
+      },
+      {
+        "language": [
+          "yaml"
+        ],
+        "path": "./yaml/dbt.json"
+      },
+      {
+        "language": [
+          "yaml"
+        ],
+        "path": "./yaml/rotz.json"
+      },
+      {
+        "language": [
+          "lua"
+        ],
+        "path": "./lua/nvim.json"
+      }
+    ]
+  },
+  "description": "A cute lil snippet collection by Gwen Windflower :)",
+  "name": "winsnip"
+}

@@ -4,18 +4,10 @@
 
 -- easier to reach local leader
 vim.g.maplocalleader = ";"
--- basedpyright is a little too strict and advanced for me
-vim.g.lazyvim_python_lsp = "pyright"
-
-vim.cmd([[
-  command! -range -nargs=0 ModsExplain :'<,'>w !mods explain this code please, be really clear and concise and as simple as possible | glow -w 70
-]])
-vim.cmd([[
-  command! -range -nargs=* ModsRefactor :'<,'>w !mods suggest a refactor for this code to improve its readability | glow -w 70
-]])
-vim.cmd([[
-  command! -range -nargs=+ Mods :'<,'>w !mods <q-args> | glow -w 70
-]])
-vim.cmd([[
-  command! -nargs=1 DeleteMarks :delmark <args>
-]])
+-- avoid Biome conflicting with Prettier
+-- bc still some file types that Biome doesn't support yet
+vim.g.lazyvim_prettier_needs_config = true
+-- Snacks is awesome
+vim.g.lazyvim_picker = "snacks"
+vim.g.lazyvim_python_ruff = "ruff"
+vim.g.snacks_animate = true
