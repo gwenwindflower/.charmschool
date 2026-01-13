@@ -1,0 +1,38 @@
+{
+  "enabledPlugins": {
+    "actions-lsp": true,
+    "astro-lsp": true,
+    "bash-lsp": true,
+    "docker-compose-lsp": true,
+    "docker-lsp": true,
+    "emmet-lsp": true,
+    "fish-lsp": true,
+    "gopls-lsp": true,
+    "graphql-lsp": true,
+    "json-lsp": true,
+    "lua-lsp": true,
+    "marksman-lsp": true,
+    "mdx-lsp": true,
+    "neocmake-lsp": true,
+    "prisma-lsp": true,
+    "pyright-lsp": true,
+    "svelte-lsp": true,
+    "tailwindcss-lsp": true,
+    "typescript-lsp": true,
+    "vtsls-lsp": true,
+    "yaml-lsp": true,
+    "lua-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "custom-lsps@winnie-plugs": true
+  },
+  "syntaxHighlightingDisabled": false,
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.ts",
+    "padding": 0
+  }
+}

@@ -1,0 +1,6 @@
+# My dotfiles have a special name bc I'm a special princess
+dotfiles: $HOME/.charmschool
+# I've gotten spoiled using fish
+# so this lets me use fish throughout
+# bc, again, I'm a special princess
+shell_command: fish -c {{ quote "" cmd }}

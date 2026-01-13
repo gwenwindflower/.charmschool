@@ -1,0 +1,7 @@
+installs: null
+links:
+  settings.json: ~/.claude/settings.json
+  statusline.ts: ~/.claude/statusline.ts
+  claude.fish: ~/.config/fish/completions/claude.fish
+  agents/: ~/.claude/agents/
+  skills/: ~/.claude/skills/

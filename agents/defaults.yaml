@@ -1,0 +1,3 @@
+installs:
+  cmd: |
+    brew install --cask {{file_name name}}
