@@ -1,2 +1,11 @@
-# ruby = 'latest'
-# node = ['24', 'latest']
+[tools]
+# TypeScript stack (mirrors fnm/pnpm/deno/bun dots)
+node = '24'
+pnpm = 'latest'
+deno = 'latest'
+bun = 'latest'
+
+# Python stack (Astral toolchain: uv + ruff)
+python = 'latest'
+uv = 'latest'
+ruff = 'latest'
