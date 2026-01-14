@@ -83,12 +83,25 @@ return {
         },
         win = {
           keys = {
-            -- Had to change this from default <c-p> because I need ctrl-n/p for scrolling options
-            -- this is a bit sketch but honestly don't use this that much it's fine
-            prompt = { "<D-p>", "prompt", mode = "t", desc = "insert prompt or context" },
-            -- This was <c-q> by default, felt to similar to q'ing out of LazyVim windows or ctrl-c
-            stopinsert = { "<c-a>", "stopinsert", mode = "t", desc = "enter normal mode" },
+            -- Had to change this from default <c-p> because I need ctrl-n/p for scrolling options,
+            -- including cycling prompt history in Claude Code
+            -- also the menu launcher in OpenCode
+            -- OpenCode uses a primarily leader-based keymap, which defaults to <c-x>
+            -- I changed that to <c-o> for a more natural reach, and o for 'open'
+            -- which frees up <c-x> for the prompt menu in Sidekick, prompts operate like commands
+            -- in Sidekick, so <c-x> makes sense mnemonically to me
+            prompt = { "<c-x>", "prompt", mode = "t", desc = "insert prompt or context" },
+            -- This was <c-q> by default, <c-e> e for exit, felt more natural, doesn't seem
+            -- to be used by any of the agent CLIs so far
+            stopinsert = { "<c-w>", "stopinsert", mode = "t", desc = "enter normal mode" },
           },
+        },
+        prompts = {
+          security = "Review {file} for security vulnerabilities",
+          functional = "Refactor {buffers} for a more data-oriented functional programming style with minimal side effects or state mutations",
+          class_design = "Improve naming, organization, and data structures of {class} using best practices for the language",
+          clarify = "Explain {file} step-by-step and suggest edits to improve clarity, simplicity, naming, and structure",
+          teach = "Explain {selection} as you would to a junior developer new to the language, focus on syntax, language-specific APIs, features, and idioms",
         },
       }
       return opts

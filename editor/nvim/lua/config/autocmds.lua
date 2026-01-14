@@ -15,6 +15,7 @@ vim.filetype.add({
     -- my root file that is symlinked to ~/.gitconfig is named gitconfig
     -- but that means we have to manually set the filetype
     ["gitconfig"] = "gitconfig",
+    ["gitignore_global"] = "gitignore",
   },
   extension = {
     ["http"] = "http",

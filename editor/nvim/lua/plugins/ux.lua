@@ -37,7 +37,6 @@ return {
     "folke/noice.nvim",
     opts = {
       presets = {
-        command_palette = true,
         bottom_search = false,
         lsp_doc_border = true,
       },
