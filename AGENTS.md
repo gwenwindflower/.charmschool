@@ -92,6 +92,7 @@ In rotz install commands (Fish):
 * Use `test`, not `[[ ... ]]`
 * Use `type -q cmd`, not `command -v cmd`
 * Assign with `set`, not `VAR=value`
+* Avoid universal variable scope (`set -U`/`set -Ux`) unless certain it's the best idiomatic solution. Fish is moving away from universal variables (e.g., the theming system moved to global scope in recent releases). Prefer global (`set -gx`) or local scope for most use cases.
 
 ## Editor Notes (Neovim + LazyVim)
 
