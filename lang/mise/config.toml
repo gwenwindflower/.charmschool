@@ -1,11 +1,14 @@
 [tools]
 # TypeScript stack (mirrors fnm/pnpm/deno/bun dots)
-node = '24'
+node = ['22', '24', 'latest']
 pnpm = 'latest'
 deno = 'latest'
 bun = 'latest'
 
 # Python stack (Astral toolchain: uv + ruff)
-python = 'latest'
+python = ['3.12', '3.13', 'latest']
 uv = 'latest'
 ruff = 'latest'
+
+[settings]
+python.uv_venv_auto = true
