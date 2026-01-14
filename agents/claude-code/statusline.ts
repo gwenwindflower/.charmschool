@@ -1,7 +1,11 @@
-#!/usr/bin/env -S deno run --allow-read --allow-run
+#!/usr/bin/env -S deno run --allow-read --allow-run --allow-env
 /**
  * Claude Code statusline - inspired by Starship prompt config
  * Using Catppuccin Frappe colors
+ * WARN: this is a WIP, it runs with way too many permissions for my comfort
+ * use at your own risk, and if you're the type of person who lets Claude Code rip
+ * maybe don't use this (you do you, I just want you to be safe!)
+ * TODO: tighten permissions, improve error handling, optimize performance
  */
 
 import { readAll } from 'https://deno.land/std@0.224.0/io/read_all.ts';
@@ -11,6 +15,7 @@ import { join } from 'https://deno.land/std@0.224.0/path/mod.ts';
 interface SessionContext {
   hook_event_name: string;
   session_id: string;
+  transcript_path: string;
   cwd: string;
   model: {
     id: string;
@@ -53,21 +58,36 @@ const BG_COLORS: Record<string, string> = {
   blue: '\x1b[48;2;137;180;250m',
   pink: '\x1b[48;2;244;184;228m',
   maroon: '\x1b[48;2;234;153;156m',
+  base: '\x1b[48;2;48;52;70m', // #303446 - default terminal background
 };
 
-const FG_COLOR = '\x1b[38;2;35;38;52m'; // Crust - dark text
+// Foreground versions of the accent colors (for endcaps)
+const FG_COLORS: Record<string, string> = {
+  mauve: '\x1b[38;2;202;158;230m',
+  peach: '\x1b[38;2;239;159;118m',
+  yellow: '\x1b[38;2;229;200;144m',
+  green: '\x1b[38;2;166;209;137m',
+  blue: '\x1b[38;2;137;180;250m',
+  pink: '\x1b[38;2;244;184;228m',
+  maroon: '\x1b[38;2;234;153;156m',
+};
+
+const FG_CRUST = '\x1b[38;2;35;38;52m'; // Crust - dark text for segments
 const RESET = '\x1b[0m';
 
 const colors = {
-  // Combined: background + foreground
-  segment: (bg: string, content: string) => `${BG_COLORS[bg]}${FG_COLOR}${content}${RESET}`,
+  // Colored background + dark text (for filled segments)
+  segment: (bg: string, content: string) => `${BG_COLORS[bg]}${FG_CRUST}${content}${RESET}`,
+  // Base background + colored text (for subtle/ending segments)
+  endcap: (color: string, content: string) =>
+    `${BG_COLORS.base}${FG_COLORS[color]}${content}${RESET}`,
 };
 
 // Pre-compiled regex patterns for git status parsing
 const GIT_STATUS_PATTERNS = {
   modified: /^ M/,
   added: /^A/,
-  deleted: /^D/,
+  deleted: /^.?D/, // Matches both " D" (unstaged) and "D " (staged)
   untracked: /^\?\?/,
 };
 
@@ -107,53 +127,56 @@ function getMinimalEnv(): Record<string, string> {
 }
 
 // Execute command directly (no shell wrapper) and return stdout
-async function execCommand(cmd: string, args: string[], cwd: string): Promise<string> {
+async function execCommand(
+  cmd: string,
+  args: string[],
+  cwd: string,
+  env: Record<string, string>,
+): Promise<string> {
   try {
     const command = new Deno.Command(cmd, {
       args,
       cwd,
       stdout: 'piped',
       stderr: 'piped',
-      env: getMinimalEnv(), // Only pass needed environment variables
+      env,
     });
     const { success, stdout } = await command.output();
 
     if (!success) {
-      return '';
+      return 'failed';
     }
 
     return new TextDecoder().decode(stdout).trim();
   } catch {
     // Command execution failed (e.g., not installed)
-    return '';
+    return 'failed';
   }
 }
 
-// Execute git command directly (no shell wrapper) and return stdout
-async function execGit(args: string[], cwd: string): Promise<string> {
-  return await execCommand('git', args, cwd);
-}
-
 // Check if directory is a git repository
-async function isGitRepo(cwd: string): Promise<boolean> {
-  const result = await execGit(['rev-parse', '--git-dir'], cwd);
+async function isGitRepo(cwd: string, env: Record<string, string>): Promise<boolean> {
+  const result = await execCommand('git', ['rev-parse', '--git-dir'], cwd, env);
   return result.length > 0;
 }
 
 // Get git branch name
-async function getGitBranch(cwd: string): Promise<string> {
-  const branch = await execGit(['branch', '--show-current'], cwd);
+async function getGitBranch(cwd: string, env: Record<string, string>): Promise<string> {
+  const branch = await execCommand('git', ['branch', '--show-current'], cwd, env);
   return branch || 'detached';
 }
 
 // Get git status counts
-async function getGitStatus(cwd: string): Promise<{
+async function getGitStatus(
+  cwd: string,
+  env: Record<string, string>,
+): Promise<{
   modified: number;
   added: number;
   deleted: number;
   untracked: number;
 }> {
-  const status = await execGit(['status', '--porcelain'], cwd);
+  const status = await execCommand('git', ['status', '--porcelain'], cwd, env);
   if (!status) {
     return { modified: 0, added: 0, deleted: 0, untracked: 0 };
   }
@@ -253,21 +276,28 @@ function parseVersion(output: string): string {
 }
 
 // Generic language version checker
-async function getLanguageVersion(config: LanguageConfig, cwd: string): Promise<string> {
-  const output = await execCommand(config.versionCommand, config.versionArgs, cwd);
+async function getLanguageVersion(
+  config: LanguageConfig,
+  cwd: string,
+  env: Record<string, string>,
+): Promise<string> {
+  const output = await execCommand(config.versionCommand, config.versionArgs, cwd, env);
   // Handle multi-line output (e.g., deno) by taking first line
   const firstLine = output.split('\n')[0];
   return parseVersion(firstLine);
 }
 
 // Detect project languages with versions
-async function detectLanguages(cwd: string): Promise<LanguageInfo[]> {
+async function detectLanguages(
+  cwd: string,
+  env: Record<string, string>,
+): Promise<LanguageInfo[]> {
   // Phase 1: Detect which languages are present (fast file checks)
-  const detectionPromises = Object.entries(LANGUAGE_CONFIGS).map(async ([langName, config]) => {
+  const detectionPromises = Object.entries(LANGUAGE_CONFIGS).map(async ([_langName, config]) => {
     const checks = await Promise.all(
       config.detectionFiles.map((file) => fileExists(join(cwd, file))),
     );
-    return { langName, config, isPresent: checks.some(Boolean) };
+    return { config, isPresent: checks.some(Boolean) };
   });
 
   const detectionResults = await Promise.all(detectionPromises);
@@ -275,7 +305,7 @@ async function detectLanguages(cwd: string): Promise<LanguageInfo[]> {
 
   // Phase 2: Fetch versions in parallel for detected languages
   const versionPromises = presentLanguages.map(async ({ config }) => {
-    const version = await getLanguageVersion(config, cwd);
+    const version = await getLanguageVersion(config, cwd, env);
     return { icon: config.icon, version };
   });
 
@@ -283,35 +313,40 @@ async function detectLanguages(cwd: string): Promise<LanguageInfo[]> {
 }
 
 // Main statusline builder
-async function buildStatusline(context: SessionContext): Promise<string> {
+async function buildStatusline(
+  context: SessionContext,
+  env: Record<string, string>,
+): Promise<string> {
   const segments: string[] = [];
 
-  const cwd = context.workspace?.current_dir || context.cwd;
-  const dirName = cwd.split('/').pop() || '~';
+  segments.push(colors.endcap('mauve', ''));
 
-  // Truncate long directory names
-  const displayDir = dirName.length > 25 ? `${dirName.slice(0, 22)}...` : dirName;
+  const projectDir = context.workspace?.project_dir || 'ERROR: Missing Project Dir';
+  // Simple workspace display: just show the workspace root name
+  const displayDir = projectDir?.split('/').pop() || 'ERROR: Path Split';
 
-  // Model indicator
-  const model = context.model?.display_name || 'Sonnet';
-  segments.push(colors.segment('mauve', ` ${model} `));
+  // Model indicator - error if absent since this should never happen
+  // For space we just show the name "Haiku', 'Sonnet', 'Opus' since
+  // Claude Code always points to the latest version
+  const model = context.model?.display_name.split(' ')[0] || '⚠ No Model';
+  segments.push(colors.segment('mauve', `${model} `));
 
   // Directory segment
   segments.push(colors.segment('peach', ` ${displayDir} `));
 
   // Git info (if in a git repo) - parallelize git commands
-  if (await isGitRepo(cwd)) {
+  if (await isGitRepo(projectDir, env)) {
     const [branch, status] = await Promise.all([
-      getGitBranch(cwd),
-      getGitStatus(cwd),
+      getGitBranch(projectDir, env),
+      getGitStatus(projectDir, env),
     ]);
 
-    let gitSegment = `  ${branch}`;
+    let gitSegment = `  ${branch}`;
 
     // Add status indicators
     const statusParts: string[] = [];
     if (status.modified > 0) statusParts.push(`!`);
-    if (status.added > 0) statusParts.push(``);
+    if (status.added > 0) statusParts.push(`+`);
     if (status.deleted > 0) statusParts.push(`✘`);
     if (status.untracked > 0) statusParts.push(`?`);
 
@@ -324,7 +359,7 @@ async function buildStatusline(context: SessionContext): Promise<string> {
   }
 
   // Language indicators with versions
-  const languages = await detectLanguages(cwd);
+  const languages = await detectLanguages(projectDir, env);
   if (languages.length > 0) {
     // Format: icon (version if available)
     const langParts = languages.map((lang) =>
@@ -339,31 +374,46 @@ async function buildStatusline(context: SessionContext): Promise<string> {
     const { total_input_tokens, total_output_tokens, context_window_size } = context.context_window;
     const totalTokens = total_input_tokens + total_output_tokens;
     const percentage = Math.round((totalTokens / context_window_size) * 100);
-    if (percentage < 80) {
-      segments.push(colors.segment('blue', ` ${percentage}% `));
+    if (percentage > 80) {
+      segments.push(colors.segment('maroon', ` ${percentage}%`));
+      segments.push(colors.endcap('maroon', ''));
     } else {
-      segments.push(colors.segment('maroon', ` ${percentage}% `));
+      segments.push(colors.segment('blue', ` ${percentage}%`));
+      segments.push(colors.endcap('blue', ''));
     }
   }
 
   return segments.join('');
 }
 
+// Format error output with maroon background so statusline doesn't suddenly look terrible
+function formatError(step: string): string {
+  return `${BG_COLORS.maroon}${FG_COLORS} ERROR: ${step} ${RESET}`;
+}
+
 // Main execution
 async function main() {
+  let step = 'reading stdin';
   try {
-    // Read JSON from stdin using Deno's standard library
     const inputBytes = await readAll(Deno.stdin);
     const contextStr = new TextDecoder().decode(inputBytes);
+
+    step = 'parsing context JSON';
     const context: SessionContext = JSON.parse(contextStr);
 
-    // Build and output statusline
-    const statusline = await buildStatusline(context);
+    step = 'validating context';
+    if (!context.workspace?.project_dir) {
+      throw new Error('missing workspace.project_dir');
+    }
+
+    step = 'building statusline';
+    const env = getMinimalEnv();
+    const statusline = await buildStatusline(context, env);
     console.log(statusline);
   } catch (error) {
-    // Fallback in case of errors
-    const message = error instanceof Error ? error.message : String(error);
-    console.error(`Error: ${message}`);
+    const detail = error instanceof Error ? error.message : '';
+    const msg = detail ? `${step}: ${detail}` : step;
+    console.log(formatError(msg));
     Deno.exit(1);
   }
 }
