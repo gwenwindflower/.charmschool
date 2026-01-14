@@ -26,8 +26,8 @@ bind --user -M insert super-f "ff; commandline -f repaint"
 bind --user super-f "ff; commandline -f repaint"
 
 # open claude code
-bind --user -M insert super-c claude_launch
-bind --user super-c claude_launch
+bind --user -M insert ctrl-super-c claude_launch
+bind --user ctrl-super-c claude_launch
 # open claude code config
 bind --user -M insert super-C "sd ~/.claude; commandline -f repaint"
 bind --user super-C "sd ~/.claude; commandline -f repaint"

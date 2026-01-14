@@ -25,6 +25,8 @@ set -gx FZF_DEFAULT_OPTS "\
 --color=header:#ca9ee6,info:#a6d189,spinner:#a6d189 \
 --bind 'ctrl-p:preview-up' \
 --bind 'ctrl-n:preview-down' \
+--bind='ctrl-d:preview-page-down' \
+--bind='ctrl-u:preview-page-up' \
 --bind 'alt-p:toggle-preview' \
 --bind 'ctrl-y:execute-silent(printf {} | pbcopy)+abort' \
 --bind 'ctrl-e:become($EDITOR {} &>/dev/tty)' \
