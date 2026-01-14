@@ -1,3 +1,0 @@
-installs: |
-  brew install --cask codex
-  codex completion fish >> ~/.config/fish/completions/codex.fish
