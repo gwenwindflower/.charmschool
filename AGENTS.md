@@ -4,6 +4,8 @@ macOS dotfiles repo managed by **rotz** (Rust). Primary shell is **Fish**; rotz 
 
 **Goal**: repeatable, idempotent setup managing install commands and symlinks to take a fresh machine to highly customized developer environment in one step.
 
+> [!IMPORTANT] Always use Beads (`bd` CLI, Claude Code plugin, Skills) for tracking tasks and issues in this repo, not Claude Code's built-in issue tracker.
+
 ## Scope & Assumptions
 
 * **Target OS:** macOS only (Intel + Apple Silicon, user is still on Intel, we will drop Intel support when they move to Apple Silicon).
@@ -171,3 +173,32 @@ Hard rules:
 * Add GitHub Actions CI/CD workflow to test fresh macOS installs in a VM.
 * Migrate language tooling management from multiple language-specific tools to mise.
 * Consider migrating from rotz → chezmoi over time (we will probably do this in a parallel repo as the `rotz` history will not be very useful for a totally different framework).
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+
+* Work is NOT complete until `git push` succeeds
+* NEVER stop before pushing - that leaves work stranded locally
+* NEVER say "ready to push when you are" - YOU must push
+* If push fails, resolve and retry until it succeeds

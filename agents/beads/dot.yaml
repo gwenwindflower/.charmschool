@@ -1,1 +1,4 @@
-installs: brew install steveyegge/beads/bd
+installs: |
+  brew install steveyegge/beads/bd
+  bd completion fish > ~/.config/fish/completions/bd.fish
+  bd setup --check claude; or bd setup claude
