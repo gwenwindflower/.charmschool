@@ -55,6 +55,22 @@
   commit = green
   hash = green
 
+[color "status"]
+  ; staged/added files
+  added = bold green
+  updated = bold green
+  ; modified but unstaged
+  changed = bold "#ca9ee6"
+  ; deleted files
+  deleted = bold red
+  ; untracked files
+  untracked = bold "#85c1dc"
+  ; branch info
+  branch = reverse bold cyan
+  ; other status elements
+  nobranch = reverse bold red
+  unmerged = reverse bold yellow
+
 [log]
 	graphColors = green, "#ca9ee6", "#ef9f76", blue, yellow, "#babbf1", magenta, cyan, "#ea999c"
 
@@ -68,6 +84,8 @@
 	r25 = log --graph --pretty=catppuccin-frappe --date=human -25
   diary = log --pretty=catppuccin-frappe --date=human
   my-diary = log --pretty=catppuccin-frappe --date=human --author "winnie"
+  ; concise status with branch info
+  s = status -sb
   ; easy semantic names
   unstage = restore --staged
   unstage-all = restore --staged .
