@@ -26,6 +26,23 @@
     "settings": {},
     "maxRestarts": 3
   },
+  "deno": {
+    "command": "deno",
+    "args": [
+      "lsp"
+    ],
+    "extensionToLanguage": {
+      ".ts": "typescript",
+      ".tsx": "typescript",
+      ".js": "javascript",
+      ".jsx": "javascript",
+      ".json": "json"
+    },
+    "transport": "stdio",
+    "initializationOptions": {},
+    "settings": {},
+    "maxRestarts": 3
+  },
   "dockercompose": {
     "command": "docker-compose-langserver",
     "args": [
