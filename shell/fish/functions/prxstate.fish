@@ -1,4 +1,4 @@
-function proxy-state
+function prxstate
     echo ""
 
     # Check if something is listening on 8080
@@ -12,7 +12,7 @@ function proxy-state
         echo "   ╚═╝   ╚══════╝╚══════╝"
         set_color normal
         echo ""
-        echo "✅ Proxy is "(set_color --bold green)"RUNNING"(set_color normal)" on localhost:8080"
+        logirl normal "Proxy is $(c s -b RUNNING)"(set_color normal)" on localhost:8080"
     else
         set_color --bold brblack
         echo "███╗   ██╗ ██████╗ "
@@ -23,7 +23,7 @@ function proxy-state
         echo "╚═╝  ╚═══╝ ╚═════╝ "
         set_color normal
         echo ""
-        echo "❌ Proxy is "(set_color --bold red)"NOT RUNNING"(set_color normal)" on localhost:8080"
+        logirl normal "Proxy is $(c e -b RUNNING)"(set_color normal)" on localhost:8080"
     end
 
     echo ""

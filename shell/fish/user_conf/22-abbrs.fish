@@ -47,13 +47,7 @@ abbr --add xxx codex
 abbr --add uuu crush
 
 # mitmproxy
-abbr -a px proxy-curl
-abbr -a pxo proxy-on
-abbr -a pxx proxy-off
-abbr -a 'px?' proxy-state
-abbr -a pxs proxy-start
-abbr -a pxw proxy-web
-abbr -a pxd proxy-dump
+abbr -a 'prx?' prxstate
 abbr -a mp mitmproxy
 
 # quick directory navigation
