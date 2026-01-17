@@ -1,3 +1,5 @@
 installs:
   cmd: |
-    brew install --cask {{file_name name}}
+    if not type -q {{file_name name}}
+      brew install --cask {{file_name name}}
+    end
