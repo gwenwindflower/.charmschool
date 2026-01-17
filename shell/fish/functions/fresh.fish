@@ -34,7 +34,7 @@ end
 function _relaunch_shell
     if test -n "$SHELL"
         exec $SHELL
-    else if test -q fish
+    else if type -q fish
         exec fish
     else
         echo "$(set_color --bold red) [ERROR] Command not found:$(set_color normal) $(set_color brred)No SHELL set, and the fallback (fish) is not in PATH.$(set_color normal)"
