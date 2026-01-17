@@ -67,10 +67,11 @@ logirl <type> "message"
 ### Options
 
 ```fish
--h, --help         Show help
--n, --no-newline   Don't add newline
--t, --tag=TEXT     Custom tag (e.g., -t " git")
--i, --icon=ICON    Add icon before message
+-h, --help          Show help
+-n, --no-newline    Don't add newline
+-t, --tag=TEXT      Custom tag (e.g., -t " git")
+-i, --icon=ICON     Add icon before message
+-f, --flag=S/LONG   Format flag pair (e.g., -f h/help → -h, --help)
 ```
 
 ### Examples
@@ -94,6 +95,11 @@ logirl -n special "Processing"
 printf "."
 printf "."
 printf " done!\n"
+
+# Format flags (useful for help text generation)
+logirl -f h/help help_cmd       # Outputs: -h, --help
+logirl -f v/version help_cmd    # Outputs: -v, --version
+logirl -f n/no-cache help_cmd   # Outputs: -n, --no-cache
 ```
 
 ## c - Inline Colored Text
