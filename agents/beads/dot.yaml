@@ -1,9 +1,0 @@
-installs: |
-  brew install steveyegge/beads/bd
-  bd completion fish > ~/.config/fish/completions/bd.fish
-  bd setup --check claude; or bd setup claude
-  claude plugin marketplace add steveyegge/beads
-  claude plugin install beads@beads-marketplace
-
-depends:
-  - /agents/claude-code

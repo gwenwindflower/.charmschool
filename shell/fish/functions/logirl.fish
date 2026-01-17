@@ -1,5 +1,5 @@
 function logirl -d "Centralized logging helper with consistent color conventions"
-    argparse h/help n/no-newline t/tag= i/icon= -- $argv
+    argparse h/help n/no-newline t/tag= i/icon= f/flag= -- $argv
     or return
 
     if set -q _flag_help
@@ -8,25 +8,28 @@ function logirl -d "Centralized logging helper with consistent color conventions
         printf "%sOptions:%s\n" (set_color --bold) (set_color normal)
         printf "  %s-h, --help%s         Show this help\n" (set_color brmagenta) (set_color normal)
         printf "  %s-n, --no-newline%s   Don't add newline after message\n" (set_color brmagenta) (set_color normal)
+        # if text with - or -- is passed in, fish will try to parse this as a flag argument to logirl
+        #   so we need special logic for flags
         printf "  %s-t, --tag=TEXT%s     Add a custom tag (e.g., [CUSTOM])\n" (set_color brmagenta) (set_color normal)
         printf "  %s-i, --icon=ICON%s    Add an icon before the message\n" (set_color brmagenta) (set_color normal)
+        printf "  %s-f, --flag=S/LONG%s  Format flag pair (e.g., -f h/help → -h, --help)\n" (set_color brmagenta) (set_color normal)
         printf "\n%sMessage Types:%s\n" (set_color --bold) (set_color normal)
         printf "  %sHelp Text:%s\n" (set_color --underline) (set_color normal)
         printf "    help_body          Blue text for help content\n"
         printf "    help_header        Bold bright green for help headings\n"
         printf "    help_cmd           Bold bright magenta for commands/flags\n"
         printf "\n  %sErrors & Warnings:%s\n" (set_color --underline) (set_color normal)
-        printf "    error              Red text with [ERROR] tag\n"
-        printf "    error_tag          Just the [ERROR] tag (bold red)\n"
+        printf "    error              Red text with  tag\n"
+        printf "    error_tag          Just the  tag (bold red)\n"
         printf "    error_msg          Red text without tag\n"
-        printf "    warning            Bright yellow with [WARNING] tag\n"
-        printf "    warning_tag        Just the [WARNING] tag (bold)\n"
+        printf "    warning            Bright yellow with  tag\n"
+        printf "    warning_tag        Just the  tag (bold)\n"
         printf "    warning_msg        Bright yellow text without tag\n"
         printf "\n  %sLogging & Status:%s\n" (set_color --underline) (set_color normal)
-        printf "    info               Cyan with [INFO] tag\n"
-        printf "    info_tag           Just the [INFO] tag (bold cyan)\n"
+        printf "    info               Cyan with  tag\n"
+        printf "    info_tag           Just the  tag (bold cyan)\n"
         printf "    info_msg           Normal text without tag\n"
-        printf "    success            Bright green with [SUCCESS] tag\n"
+        printf "    success            Bright green with 󰡕 tag\n"
         printf "    success_tag        Just the tag (bold bright green)\n"
         printf "    success_msg        Bright green text without tag\n"
         printf "    special            Bold bright magenta with ==> prefix\n"
@@ -41,17 +44,55 @@ function logirl -d "Centralized logging helper with consistent color conventions
         printf "  logirl success_msg \"Done!\"\n"
         printf "  logirl -t \"[CUSTOM]\" info_msg \"Something happened\"\n"
         printf "  logirl -i \"󰄬\" success \"Build complete\"\n"
+        printf "  logirl -f h/help help_cmd       # Outputs: -h, --help\n"
+        printf "  logirl -f v/version help_cmd    # Outputs: -v, --version\n"
         return 0
     end
 
-    if test (count $argv) -lt 2
-        echo (set_color red --bold)"[ERROR]"(set_color normal)" logirl requires <type> and <message> arguments"
-        echo "Try: logirl --help"
-        return 1
+    # When using --flag, we only need type argument (message is generated from flag)
+    # Otherwise, we need both type and message
+    if set -q _flag_flag
+        if test (count $argv) -lt 1
+            echo (set_color red --bold)""(set_color normal)" logirl with --flag requires <type> argument"
+            echo "Try: logirl --help"
+            return 1
+        end
+    else
+        if test (count $argv) -lt 2
+            echo (set_color red --bold)""(set_color normal)" logirl requires <type> and <message> arguments"
+            echo "Try: logirl --help"
+            return 1
+        end
     end
 
     set -l msg_type $argv[1]
     set -l message $argv[2..-1]
+
+    # Handle -f/--flag option for formatting flag pairs
+    if set -q _flag_flag
+        # Split on '/' to get short and long flag names
+        set -l flags_split (string split '/' $_flag_flag)
+
+        # Validate format: should have exactly 2 parts (short/long)
+        if test (count $flags_split) -ne 2
+            echo (set_color red --bold)""(set_color normal)" --flag requires format: SHORT/LONG (e.g., h/help)"
+            echo "Got: $_flag_flag"
+            return 1
+        end
+
+        set -l short_flag $flags_split[1]
+        set -l long_flag $flags_split[2]
+
+        # Validate both parts are non-empty
+        if test -z "$short_flag" -o -z "$long_flag"
+            echo (set_color red --bold)""(set_color normal)" --flag requires non-empty short and long names"
+            echo "Got: $_flag_flag"
+            return 1
+        end
+
+        # Format as "-short, --long"
+        set message "-$short_flag, --$long_flag"
+    end
 
     # Build the output line
     set -l output ""
@@ -76,16 +117,16 @@ function logirl -d "Centralized logging helper with consistent color conventions
             # Error types
         case error
             if set -q _flag_tag
-                set output "$output"(set_color red --bold)"$_flag_tag"(set_color normal)" "(set_color red)"$message"(set_color normal)
+                set output "$output"(set_color red --bold)"$_flag_tag $message"(set_color normal)
             else
-                set output "$output"(set_color red --bold)"[ERROR]"(set_color normal)" "(set_color red)"$message"(set_color normal)
+                set output "$output"(set_color red --bold)" $message"(set_color normal)
             end
 
         case error_tag
             if set -q _flag_tag
                 set output "$output"(set_color red --bold)"$_flag_tag"(set_color normal)
             else
-                set output "$output"(set_color red --bold)"[ERROR]"(set_color normal)
+                set output "$output"(set_color red --bold)""(set_color normal)
             end
 
         case error_msg
@@ -96,14 +137,14 @@ function logirl -d "Centralized logging helper with consistent color conventions
             if set -q _flag_tag
                 set output "$output"(set_color bryellow --bold)"$_flag_tag"(set_color normal)" "(set_color bryellow)"$message"(set_color normal)
             else
-                set output "$output"(set_color bryellow --bold)"[WARNING]"(set_color normal)" "(set_color bryellow)"$message"(set_color normal)
+                set output "$output"(set_color bryellow --bold)""(set_color normal)" "(set_color bryellow)"$message"(set_color normal)
             end
 
         case warning_tag
             if set -q _flag_tag
                 set output "$output"(set_color bryellow --bold)"$_flag_tag"(set_color normal)
             else
-                set output "$output"(set_color bryellow --bold)"[WARNING]"(set_color normal)
+                set output "$output"(set_color bryellow --bold)""(set_color normal)
             end
 
         case warning_msg
@@ -112,16 +153,16 @@ function logirl -d "Centralized logging helper with consistent color conventions
             # Info types
         case info
             if set -q _flag_tag
-                set output "$output"(set_color cyan --bold)"$_flag_tag"(set_color normal)" $message"
+                set output "$output"(set_color cyan --bold)"$_flag_tag"(set_color normal)(set_color cyan)" $message"(set_color normal)
             else
-                set output "$output"(set_color cyan --bold)"[INFO]"(set_color normal)" $message"
+                set output "$output"(set_color cyan --bold)""(set_color normal)" $message"
             end
 
         case info_tag
             if set -q _flag_tag
                 set output "$output"(set_color cyan --bold)"$_flag_tag"(set_color normal)
             else
-                set output "$output"(set_color cyan --bold)"[INFO]"(set_color normal)
+                set output "$output"(set_color cyan --bold)""(set_color normal)
             end
 
         case info_msg
@@ -130,16 +171,16 @@ function logirl -d "Centralized logging helper with consistent color conventions
             # Success types
         case success
             if set -q _flag_tag
-                set output "$output"(set_color brgreen --bold)"$_flag_tag"(set_color normal)" "(set_color brgreen)"$message"(set_color normal)
+                set output "$output"(set_color brgreen --bold)"$_flag_tag $message"(set_color normal)
             else
-                set output "$output"(set_color brgreen --bold)"[SUCCESS]"(set_color normal)" "(set_color brgreen)"$message"(set_color normal)
+                set output "$output"(set_color brgreen --bold)"󰡕 $message"(set_color normal)
             end
 
         case success_tag
             if set -q _flag_tag
                 set output "$output"(set_color brgreen --bold)"$_flag_tag"(set_color normal)
             else
-                set output "$output"(set_color brgreen --bold)"[SUCCESS]"(set_color normal)
+                set output "$output"(set_color brgreen --bold)"󰡕"(set_color normal)
             end
 
         case success_msg
@@ -171,7 +212,7 @@ function logirl -d "Centralized logging helper with consistent color conventions
             set output "$output"(set_color --dim)"$message"(set_color normal)
 
         case '*'
-            echo (set_color red --bold)"[ERROR]"(set_color normal)" Unknown message type: $msg_type"
+            echo (set_color red --bold)""(set_color normal)" Unknown message type: $msg_type"
             echo "Try: logirl --help"
             return 1
     end
