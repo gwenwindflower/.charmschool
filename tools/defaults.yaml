@@ -3,4 +3,6 @@
 
 installs:
   cmd: |
-    brew install {{file_name name}}
+    if not type -q {{file_name name}}
+      brew install {{file_name name}}
+    end
