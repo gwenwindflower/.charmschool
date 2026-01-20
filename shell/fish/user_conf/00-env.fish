@@ -67,6 +67,9 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 # this mirrors my dotfiles' semantic distinction between 'apps' and 'tools' (GUI vs terminal)
 set -gx MACOS_CONFIG_HOME $HOME/Library/Application Support
 
+# one of those tools mentioned above is Simon Willison's tool `llm`
+set -gx LLM_USER_PATH $XDG_CONFIG_HOME/llm
+
 # Configured in ./git/gitconfig -> ~/.config/git/.gitconfig
 # but some tools look for this env var and git does not it set it by default
 # even when configured in the global git config file
