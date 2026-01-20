@@ -76,6 +76,8 @@ set -gx GIT_PAGER delta
 # vendor conf.d rather than calling `mise activate` in fish config directly
 set -gx MISE_FISH_AUTO_ACTIVATE 1
 
+# Temporary to get Claude Code's new LSP tools working
+set -gx ENABLE_LSP_TOOL 1
 # tldr client (tlrc) config file location 
 # defaults to be in $MACOS_CONFIG_HOME, but per the comments on that env var,
 # we can redirect with this env var
