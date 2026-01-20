@@ -82,9 +82,6 @@ set -gx GIT_PAGER delta
 # we don't want it to reload the file as a project config, so rather than trust it,
 # just ignore it
 set -gx MISE_IGNORED_CONFIG_PATHS ~/.charmschool/lang/mise
-# Makes sure our Homebrew-installed mise gets activated in fish shells via
-# vendor conf.d rather than calling `mise activate` in fish config directly
-set -gx MISE_FISH_AUTO_ACTIVATE 1
 
 # Temporary to get Claude Code's new LSP tools working
 set -gx ENABLE_LSP_TOOL 1
