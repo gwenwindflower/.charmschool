@@ -22,9 +22,11 @@ set -gx TERM xterm-256color
 # set a handy env var for DRY, flexible pointer to dev projects home dir
 set -gx PROJECTS $HOME/dev
 
+# TODO: move this into agent docs or context
+
 # moor gives us nice 'smart' search/filter in pager
 # bat will also use it as pager for paged output
-# nb: bat's auto-paging is pretty simple actually
+# *NB*: bat's auto-paging is pretty simple actually
 # it just always sends to pager (if --paging=auto, the default, or 'always'), 
 # but for less it also sends the 'quit-if-one-screen' option (among others)
 # so it appears to only page for larger output when 'auto' is set
@@ -75,6 +77,11 @@ set -gx LLM_USER_PATH $XDG_CONFIG_HOME/llm
 # even when configured in the global git config file
 set -gx GIT_PAGER delta
 
+# Mise will see the source file that gets symlinked to ~/.config/mise
+# in dotfiles at the path below and throw an error because it's an untrusted path
+# we don't want it to reload the file as a project config, so rather than trust it,
+# just ignore it
+set -gx MISE_IGNORED_CONFIG_PATHS ~/.charmschool/lang/mise
 # Makes sure our Homebrew-installed mise gets activated in fish shells via
 # vendor conf.d rather than calling `mise activate` in fish config directly
 set -gx MISE_FISH_AUTO_ACTIVATE 1
