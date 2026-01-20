@@ -1,0 +1,6 @@
+installs: |
+  if not type -q vt
+    deno install -grAf jsr:@valtown/vt
+  end
+depends:
+  - /lang/typescript/deno
