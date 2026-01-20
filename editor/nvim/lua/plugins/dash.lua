@@ -57,27 +57,28 @@ return {
           {
             section = "keys",
             gap = 1,
+            padding = 1,
           },
-          -- function()
-          --   local in_git = Snacks.git.get_root() ~= nil
-          --   local cmds = {
-          --     {
-          --       icon = "",
-          --       title = "Status",
-          --       cmd = "gstat",
-          --       padding = 1,
-          --       height = 4,
-          --     },
-          --   }
-          --   return vim.tbl_map(function(cmd)
-          --     return vim.tbl_extend("force", {
-          --       section = "terminal",
-          --       enabled = in_git,
-          --       ttl = 0,
-          --       indent = 3,
-          --     }, cmd)
-          --   end, cmds)
-          -- end,
+          function()
+            local in_git = Snacks.git.get_root() ~= nil
+            local cmds = {
+              {
+                icon = "",
+                title = "Status",
+                cmd = "gstat",
+                padding = 1,
+                height = 2,
+              },
+            }
+            return vim.tbl_map(function(cmd)
+              return vim.tbl_extend("force", {
+                section = "terminal",
+                enabled = in_git,
+                ttl = 0,
+                indent = 3,
+              }, cmd)
+            end, cmds)
+          end,
         },
       },
     },
