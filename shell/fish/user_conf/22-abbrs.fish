@@ -51,10 +51,10 @@ abbr -a 'prx?' prxstate
 abbr -a mp mitmproxy
 
 # quick directory navigation
-abbr --add c sd_dotfiles -e
-abbr --add cf sd_config
-abbr --add d sd_dev
-abbr --add kb sd_keeb -e # my zmk keyboard config
+## built on top of sd fish function wrapping zoxide -> launchers
+abbr --add sc sd_dotfiles -e
+abbr --add sf sd_config
+abbr --add sp sd_dev
 
 # dbt
 abbr --add db dbtf build -s
