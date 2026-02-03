@@ -1,5 +1,6 @@
 installs: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 links:
   kitty.conf: ~/.config/kitty/kitty.conf
-  current-theme.conf: ~/.config/kitty/current-theme.conf
-  default_session.conf: ~/.config/kitty/default_session.conf
+  # current-theme.conf: ~/.config/kitty/current-theme.conf
+  catppuccin-winnie.conf: ~/.config/kitty/catppuccin-winnie.conf
+  quick-access-terminal.conf: ~/.config/kitty/quick-access-terminal.conf
