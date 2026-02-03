@@ -201,14 +201,6 @@ Preferred PR content:
 * macOS version tested
 * screenshots for visual changes (terminal/editor)
 
-## Roadmap (aspirational, not promises)
-
-* GitHub Actions workflow to test clean installs on a macOS VM
-* Better bash environment for coding agents to use (since at present they don't integrate well with Fish)
-* Migrate language tooling management to mise
-* Tested Linux support for easier install in VCS codespaces / remote dev containers
-* Migration from rotz to chezmoi (more mature ecosystem and better LazyVim integration)
-* Better “optional install paths” and/or an uninstall story - perhaps a Go binary CLI in a Homebrew tap that can handle the bootstrap + uninstall process more robustly (chezmoi may obviate this need)
-
 ---
+
 Whether you choose to fully use these dotfiles or just borrow some ideas, I hope they help you create a cozy and delightful home in your terminal, good luck!
