@@ -1,1 +1,5 @@
 installs: null
+links:
+  config.yaml: ~/.config/k9s/config.yaml
+  catppuccin-frappe.yaml: ~/.config/k9s/skins/catppuccin-frappe.yaml
+  catppuccin-frappe-transparent.yaml: ~/.config/k9s/skins/catppuccin-frappe-transparent.yaml
