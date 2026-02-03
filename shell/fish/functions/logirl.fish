@@ -1,227 +1,251 @@
 function logirl -d "Centralized logging helper with consistent color conventions"
-    argparse h/help n/no-newline t/tag= i/icon= f/flag= -- $argv
+    argparse h/help -- $argv
     or return
 
     if set -q _flag_help
-        printf "%sUsage:%s logirl [OPTIONS] <type> <message>\n\n" (set_color --bold) (set_color normal)
-        printf "Centralized logging with consistent color conventions.\n\n"
-        printf "%sOptions:%s\n" (set_color --bold) (set_color normal)
-        printf "  %s-h, --help%s         Show this help\n" (set_color brmagenta) (set_color normal)
-        printf "  %s-n, --no-newline%s   Don't add newline after message\n" (set_color brmagenta) (set_color normal)
-        # if text with - or -- is passed in, fish will try to parse this as a flag argument to logirl
-        #   so we need special logic for flags
-        printf "  %s-t, --tag=TEXT%s     Add a custom tag (e.g., [CUSTOM])\n" (set_color brmagenta) (set_color normal)
-        printf "  %s-i, --icon=ICON%s    Add an icon before the message\n" (set_color brmagenta) (set_color normal)
-        printf "  %s-f, --flag=S/LONG%s  Format flag pair (e.g., -f h/help → -h, --help)\n" (set_color brmagenta) (set_color normal)
-        printf "\n%sMessage Types:%s\n" (set_color --bold) (set_color normal)
-        printf "  %sHelp Text:%s\n" (set_color --underline) (set_color normal)
-        printf "    help_body          Blue text for help content\n"
-        printf "    help_header        Bold bright green for help headings\n"
-        printf "    help_cmd           Bold bright magenta for commands/flags\n"
-        printf "\n  %sErrors & Warnings:%s\n" (set_color --underline) (set_color normal)
-        printf "    error              Red text with  tag\n"
-        printf "    error_tag          Just the  tag (bold red)\n"
-        printf "    error_msg          Red text without tag\n"
-        printf "    warning            Bright yellow with  tag\n"
-        printf "    warning_tag        Just the  tag (bold)\n"
-        printf "    warning_msg        Bright yellow text without tag\n"
-        printf "\n  %sLogging & Status:%s\n" (set_color --underline) (set_color normal)
-        printf "    info               Cyan with  tag\n"
-        printf "    info_tag           Just the  tag (bold cyan)\n"
-        printf "    info_msg           Normal text without tag\n"
-        printf "    success            Bright green with 󰡕 tag\n"
-        printf "    success_tag        Just the tag (bold bright green)\n"
-        printf "    success_msg        Bright green text without tag\n"
-        printf "    special            Bold bright magenta with ==> prefix\n"
-        printf "    special_tag        Just the ==> prefix\n"
-        printf "    special_msg        Bright magenta text without prefix\n"
+        echo "Centralized logging with consistent, structured output formats."
+        echo ""
+        printf "%sUsage:%s logirl <type> [args...]\n\n" \
+            (set_color --bold green) \
+            (set_color normal)
+
+        printf "%sMessage Types:%s\n\n" \
+            (set_color --bold green) \
+            (set_color normal)
+
+        printf "  %sCore Messages:%s\n" (set_color --underline) (set_color normal)
+        printf "    %-20s Red with  icon\n" error
+        printf "    %-20s Yellow with  icon\n" warning
+        printf "    %-20s Cyan with  icon\n" info
+        printf "    %-20s Green with 󰡕 icon\n" success
+        printf "    %-20s Magenta with ==> prefix\n" special
+
+        printf "\n  %sHelp Text:%s\n" (set_color --underline) (set_color normal)
+        printf "    %-20s Green 'Usage:' + body text with newline above, no newline below (1 arg)\n" help_usage
+        printf "    %-20s Green title: + description with newlines above/below (2 args)\n" help_header
+        printf "    %-20s Bold command + description (2 args)\n" help_cmd
+        printf "    %-20s Italic blue flag: s/long or s/long=ARG + desc (2 or 3 args, the first arg must follow `f/flag` format)\n" help_flag
+
         printf "\n  %sUtility:%s\n" (set_color --underline) (set_color normal)
-        printf "    normal             Reset to normal colors\n"
-        printf "    dim                Dimmed text (for disabled/old items)\n"
-        printf "\n%sExamples:%s\n" (set_color --bold) (set_color normal)
-        printf "  logirl error \"File not found\"\n"
-        printf "  logirl special \"Installing packages...\"\n"
-        printf "  logirl success_msg \"Done!\"\n"
-        printf "  logirl -t \"[CUSTOM]\" info_msg \"Something happened\"\n"
-        printf "  logirl -i \"󰄬\" success \"Build complete\"\n"
-        printf "  logirl -f h/help help_cmd       # Outputs: -h, --help\n"
-        printf "  logirl -f v/version help_cmd    # Outputs: -v, --version\n"
+        printf "    %-20s Dimmed text\n" dim
+
+        printf "\n%sOptions:%s\n\n" \
+            (set_color --bold green) \
+            (set_color normal)
+        printf "  %s-h, --help%s         Show this help message\n" \
+            (set_color --italics blue) \
+            (set_color normal)
         return 0
     end
 
-    # When using --flag, we only need type argument (message is generated from flag)
-    # Otherwise, we need both type and message
-    if set -q _flag_flag
-        if test (count $argv) -lt 1
-            echo (set_color red --bold)""(set_color normal)" logirl with --flag requires <type> argument"
-            echo "Try: logirl --help"
-            return 1
-        end
-    else
-        if test (count $argv) -lt 2
-            echo (set_color red --bold)""(set_color normal)" logirl requires <type> and <message> arguments"
-            echo "Try: logirl --help"
-            return 1
-        end
+    # Validate argument count
+    if test (count $argv) -lt 1
+        printf "%s Missing required <type> argument%s\n" \
+            (set_color red --bold) \
+            (set_color normal) >&2
+        printf "Try: logirl --help\n" >&2
+        return 1
     end
 
     set -l msg_type $argv[1]
-    set -l message $argv[2..-1]
 
-    # Handle -f/--flag option for formatting flag pairs
-    if set -q _flag_flag
-        # Split on '/' to get short and long flag names
-        set -l flags_split (string split '/' $_flag_flag)
+    # help_cmd requires 2 args (command + description)
+    if test "$msg_type" = help_cmd
+        if test (count $argv) -lt 3
+            printf "%s help_cmd requires <command> and <description>%s\n" \
+                (set_color red --bold) \
+                (set_color normal) >&2
+            printf "Try: logirl --help\n" >&2
+            return 1
+        end
+        set -l command $argv[2]
+        set -l description $argv[3..-1]
 
-        # Validate format: should have exactly 2 parts (short/long)
+        # Output formatted command + description with trailing newline
+        printf "%s%-18s%s %s\n" \
+            (set_color --bold) \
+            "$command" \
+            (set_color normal) \
+            "$description"
+        return 0
+    end
+
+    # help_flag requires 2 args (flag_spec + description)
+    # flag_spec format: "s/long" or "s/long=ARG"
+    if test "$msg_type" = help_flag
+        if test (count $argv) -lt 3
+            printf "%s help_flag requires <flag_spec> and <description>%s\n" \
+                (set_color red --bold) \
+                (set_color normal) >&2
+            printf "Try: logirl --help\n" >&2
+            return 1
+        end
+        set -l flag_spec $argv[2]
+        set -l description $argv[3..-1]
+
+        # Parse the flag spec
+        set -l flags_split (string split '/' $flag_spec)
         if test (count $flags_split) -ne 2
-            echo (set_color red --bold)""(set_color normal)" --flag requires format: SHORT/LONG (e.g., h/help)"
-            echo "Got: $_flag_flag"
+            printf "%s Flag spec must be SHORT/LONG or SHORT/LONG=ARG (e.g., h/help or o/output=FILE)%s\n" \
+                (set_color red --bold) \
+                (set_color normal) >&2
+            printf "Got: $flag_spec\n" >&2
             return 1
         end
 
         set -l short_flag $flags_split[1]
-        set -l long_flag $flags_split[2]
+        set -l long_with_arg $flags_split[2]
 
-        # Validate both parts are non-empty
-        if test -z "$short_flag" -o -z "$long_flag"
-            echo (set_color red --bold)""(set_color normal)" --flag requires non-empty short and long names"
-            echo "Got: $_flag_flag"
+        if test -z "$short_flag" -o -z "$long_with_arg"
+            printf "%s Both short and long flag names required%s\n" \
+                (set_color red --bold) \
+                (set_color normal) >&2
+            printf "Got: $flag_spec\n" >&2
             return 1
         end
 
-        # Format as "-short, --long"
-        set message "-$short_flag, --$long_flag"
+        # Check if there's an argument specification (=ARG)
+        set -l arg_split (string split '=' $long_with_arg)
+        set -l long_flag $arg_split[1]
+        set -l arg_name ""
+
+        if test (count $arg_split) -eq 2
+            set arg_name $arg_split[2]
+            if test -z "$arg_name"
+                printf "%s Argument name cannot be empty after =%s\n" \
+                    (set_color red --bold) \
+                    (set_color normal) >&2
+                printf "Got: $flag_spec\n" >&2
+                return 1
+            end
+            # Format: -s, --long <ARG>  Description
+            # Combine long flag and <ARG> first, then pad to 18 chars total
+            set -l flag_with_arg "$long_flag <$arg_name>"
+            printf "%s-%-1s, --%-18s%s %s\n" \
+                (set_color --italics blue) \
+                "$short_flag" \
+                "$flag_with_arg" \
+                (set_color normal) \
+                "$description"
+        else
+            # Format: -s, --long  Description
+            printf "%s-%-1s, --%-18s%s %s\n" \
+                (set_color --italics blue) \
+                "$short_flag" \
+                "$long_flag" \
+                (set_color normal) \
+                "$description"
+        end
+        return 0
     end
 
-    # Build the output line
-    set -l output ""
-
-    # Add custom icon if provided
-    if set -q _flag_icon
-        set output "$_flag_icon "
+    # help_usage, help_header, help_cmd, and help_flag have special arg handling with early returns
+    # All other types need at least message text
+    if test "$msg_type" != help_usage -a "$msg_type" != help_header -a "$msg_type" != help_cmd -a "$msg_type" != help_flag
+        if test (count $argv) -lt 2
+            printf "%s Type '%s' requires <message> argument%s\n" \
+                (set_color red --bold) \
+                "$msg_type" \
+                (set_color normal) >&2
+            printf "Try: logirl --help\n" >&2
+            return 1
+        end
     end
+
+    set -l message $argv[2..-1]
 
     # Process message type
     switch $msg_type
         # Help text types
-        case help_body
-            set output "$output"(set_color normal)"$message"(set_color normal)
+        case help_usage
+            # Takes just the body text (what comes after "Usage:")
+            # Single trailing newline to avoid double spacing with subsequent sections
+            if test (count $argv) -lt 2
+                printf "%s help_usage requires <body> argument%s\n" \
+                    (set_color red --bold) \
+                    (set_color normal) >&2
+                printf "Try: logirl --help\n" >&2
+                return 1
+            end
+            printf "\n%sUsage:%s %s\n" \
+                (set_color --bold green) \
+                (set_color normal) \
+                "$message"
+            return 0
 
         case help_header
-            set output "$output"(set_color --bold brgreen)"$message"(set_color normal)
+            # Requires 2 args: title and optional body
+            if test (count $argv) -eq 2
+                # Title only (no body) - common for section headers like "Options:"
+                printf "\n%s%s:%s\n\n" \
+                    (set_color --bold green) \
+                    "$message" \
+                    (set_color normal)
+            else if test (count $argv) -ge 3
+                # Title + body (like "Usage: mytool [OPTIONS]")
+                set -l title $argv[2]
+                set -l body $argv[3..-1]
+                printf "\n%s%s:%s %s\n\n" \
+                    (set_color --bold green) \
+                    "$title" \
+                    (set_color normal) \
+                    "$body"
+            else
+                printf "help_header requires <title> and optionally <body>"
+                return 1
+            end
+            return 0
 
-        case help_cmd
-            set output "$output"(set_color --bold brmagenta)"$message"(set_color normal)
-
-            # Error types
+            # Core message types
         case error
-            if set -q _flag_tag
-                set output "$output"(set_color red --bold)"$_flag_tag $message"(set_color normal)
-            else
-                set output "$output"(set_color red --bold)" $message"(set_color normal)
-            end
+            printf "%s [ERROR]%s%s %s%s%s\n" \
+                (set_color brred --bold) \
+                (set_color normal) \
+                (set_color red) \
+                "$message" \
+                (set_color normal) >&2
 
-        case error_tag
-            if set -q _flag_tag
-                set output "$output"(set_color red --bold)"$_flag_tag"(set_color normal)
-            else
-                set output "$output"(set_color red --bold)""(set_color normal)
-            end
-
-        case error_msg
-            set output "$output"(set_color red)"$message"(set_color normal)
-
-            # Warning types
         case warning
-            if set -q _flag_tag
-                set output "$output"(set_color bryellow --bold)"$_flag_tag"(set_color normal)" "(set_color bryellow)"$message"(set_color normal)
-            else
-                set output "$output"(set_color bryellow --bold)""(set_color normal)" "(set_color bryellow)"$message"(set_color normal)
-            end
+            printf "%s [WARN] %s%s%s\n" \
+                (set_color bryellow --bold) \
+                (set_color normal)(set_color yellow) \
+                "$message" \
+                (set_color normal)
 
-        case warning_tag
-            if set -q _flag_tag
-                set output "$output"(set_color bryellow --bold)"$_flag_tag"(set_color normal)
-            else
-                set output "$output"(set_color bryellow --bold)""(set_color normal)
-            end
-
-        case warning_msg
-            set output "$output"(set_color bryellow)"$message"(set_color normal)
-
-            # Info types
         case info
-            if set -q _flag_tag
-                set output "$output"(set_color cyan --bold)"$_flag_tag"(set_color normal)(set_color cyan)" $message"(set_color normal)
-            else
-                set output "$output"(set_color cyan --bold)""(set_color normal)" $message"
-            end
+            printf "%s [INFO]%s %s\n" \
+                (set_color cyan --bold) (set_color normal) \
+                "$message"
 
-        case info_tag
-            if set -q _flag_tag
-                set output "$output"(set_color cyan --bold)"$_flag_tag"(set_color normal)
-            else
-                set output "$output"(set_color cyan --bold)""(set_color normal)
-            end
-
-        case info_msg
-            set output "$output""$message"
-
-            # Success types
         case success
-            if set -q _flag_tag
-                set output "$output"(set_color brgreen --bold)"$_flag_tag $message"(set_color normal)
-            else
-                set output "$output"(set_color brgreen --bold)"󰡕 $message"(set_color normal)
-            end
+            printf "%s󰡕 [SUCCESS] %s%s%s%s\n" \
+                (set_color brgreen --bold) \
+                (set_color normal)(set_color green) \
+                "$message" \
+                (set_color normal)
 
-        case success_tag
-            if set -q _flag_tag
-                set output "$output"(set_color brgreen --bold)"$_flag_tag"(set_color normal)
-            else
-                set output "$output"(set_color brgreen --bold)"󰡕"(set_color normal)
-            end
-
-        case success_msg
-            set output "$output"(set_color brgreen)"$message"(set_color normal)
-
-            # Special/progress types
         case special
-            if set -q _flag_tag
-                set output "$output"(set_color brmagenta --bold)"$_flag_tag"(set_color normal)" "(set_color brmagenta)"$message"(set_color normal)
-            else
-                set output "$output"(set_color brmagenta --bold)"==>"(set_color normal)" "(set_color brmagenta)"$message"(set_color normal)
-            end
-
-        case special_tag
-            if set -q _flag_tag
-                set output "$output"(set_color brmagenta --bold)"$_flag_tag"(set_color normal)
-            else
-                set output "$output"(set_color brmagenta --bold)"==>"(set_color normal)
-            end
-
-        case special_msg
-            set output "$output"(set_color brmagenta)"$message"(set_color normal)
+            printf "%s==> %s%s\n" \
+                (set_color magenta) \
+                "$message" \
+                (set_color normal)
 
             # Utility types
         case normal
-            set output "$output""$message"
+            printf "%s\n" "$message"
 
         case dim
-            set output "$output"(set_color --dim)"$message"(set_color normal)
+            printf "%s%s%s\n" \
+                (set_color --dim) \
+                "$message" \
+                (set_color normal)
 
         case '*'
-            echo (set_color red --bold)""(set_color normal)" Unknown message type: $msg_type"
-            echo "Try: logirl --help"
+            printf "%sUnknown message type: $msg_type%s\n" \
+                (set_color red --bold) \
+                (set_color normal)
+            printf "Try: logirl --help\n" >&2
             return 1
-    end
-
-    # Output the message
-    if set -q _flag_no_newline
-        printf "%s" "$output"
-    else
-        printf "%s\n" "$output"
     end
 
     return 0
