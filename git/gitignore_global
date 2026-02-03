@@ -1,3 +1,6 @@
 .DS_Store
 .env
 mise.local.toml
+__pycache__
+node_modules
+.pnpm-store
