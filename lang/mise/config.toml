@@ -1,12 +1,5 @@
 [tools]
-node = ['22', '24', 'latest']
-pnpm = 'latest'
-deno = 'latest'
-bun = 'latest'
-
-python = ['3.12', '3.13', 'latest']
-uv = 'latest'
-ruff = 'latest'
+node = "latest"
 
 [settings]
-python.uv_venv_auto = true
+idiomatic_version_file_enable_tools = ["node"]

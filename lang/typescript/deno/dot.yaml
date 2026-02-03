@@ -1,1 +1,6 @@
-installs: brew install deno
+installs: |
+  if type -q deno
+    echo "deno is already installed"
+  else
+    brew install deno
+  end

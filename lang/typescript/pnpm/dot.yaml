@@ -1,10 +1,6 @@
-installs:
-  cmd: |
-    if type -q pnpm
-      echo "pnpm already installed!"
-    else
-      corepack enable pnpm
-      pnpm completion fish > ~/.config/fish/completions/pnpm.fish
-    end
-  depends:
-    - /lang/typescript/fnm
+installs: |
+  if type -q pnpm
+    echo "pnpm is already installed"
+  else
+    brew install pnpm
+  end

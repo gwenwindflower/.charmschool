@@ -1,5 +1,7 @@
 installs: |
   brew install uv
-  uv generate-shell-completion fish > ~/.config/fish/completions/uv.fish
+  uv tool install ipython
+  uv tool install marimo
+
 links:
   uv.toml: ~/.config/uv/uv.toml
