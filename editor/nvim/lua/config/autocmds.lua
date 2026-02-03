@@ -16,6 +16,7 @@ vim.filetype.add({
     -- but that means we have to manually set the filetype
     ["gitconfig"] = "gitconfig",
     ["gitignore_global"] = "gitignore",
+    ["bashrc"] = "ft",
   },
   extension = {
     ["http"] = "http",
@@ -52,7 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
     wk.add({
       {
         "<LocalLeader>m",
-        mode = { "x" },
+        mode = { "x", "v" },
         group = "markdown",
         icon = { icon = " ", color = "orange" },
         buffer = event.buf,
@@ -61,9 +62,18 @@ vim.api.nvim_create_autocmd("FileType", {
     wk.add({
       {
         "<LocalLeader>ml",
-        "<cmd>MarkdownPasteLink<cr>",
+        ":MarkdownPasteLink<cr>",
         mode = { "x" },
         desc = "Paste URL as link",
+        buffer = event.buf,
+      },
+    })
+    wk.add({
+      {
+        "<LocalLeader>mt",
+        "<cmd>'<,'>MarkdownTableFixCompactPipeSpacing<cr>",
+        mode = { "x" },
+        desc = "Fix table pipe spacing",
         buffer = event.buf,
       },
     })
