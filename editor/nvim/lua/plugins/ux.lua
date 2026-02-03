@@ -62,8 +62,6 @@ return {
   -- as using ctrl-p and ctrl-n to scroll the preview pane up and down
   {
     "folke/snacks.nvim",
-    -- TODO: I want the symbol that prepends inputs to be 
-    -- and for it to be pink 🌸
     opts = function(_, opts)
       return vim.tbl_deep_extend("force", opts or {}, {
         picker = {
@@ -86,8 +84,8 @@ return {
         },
         lazygit = {
           theme = {
-            activeBorderColor = { fg = "rainbow1", bold = true },
-            searchingActiveBorderColor = { fg = "rainbow4", bold = true },
+            activeBorderColor = { fg = "rainbow6", bold = true },
+            searchingActiveBorderColor = { fg = "rainbow5", bold = true },
           },
         },
       })
@@ -101,6 +99,8 @@ return {
       load = { "catppuccin-frappe-cursor", "catppuccin-frappe-cursorline" },
     },
   },
+  -- Rounding borders on key plugin windows to match the flat UI aesthetic
+  -- Note: lazy.nvim border config is in lua/config/lazy.lua (can't be configured via plugin spec)
   {
     "mason-org/mason.nvim",
     opts = function(_, opts)
@@ -110,5 +110,15 @@ return {
       return opts
     end,
   },
-  -- Note: lazy.nvim border config is in lua/config/lazy.lua (can't be configured via plugin spec)
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      never_draw_over_target = true,
+      hide_target_hack = true,
+      stiffness = 0.5,
+      trailing_stiffness = 0.4,
+      damping = 0.8,
+      cursor_color = "#F4B8E4",
+    },
+  },
 }
