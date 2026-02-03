@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://gh-dash.dev/schema.json
 prSections:
   - title: My Pull Requests
     filters: is:open author:@me
@@ -49,11 +50,45 @@ defaults:
 keybindings:
   universal:
     - builtin: pageDown
-      key: "ctrl+n" # your new keybinding for page down
+      key: "ctrl+n"
     - builtin: pageUp
-      key: "ctrl+p" # your new keybinding for page up
-  prs: []
-repoPaths: {}
+      key: "ctrl+p"
+    - key: g
+      name: lazygit
+      command: |
+        cd {{.RepoPath}}; lazygit
+    - key: f
+      name: forgit log
+      command: |
+        cd {{.RepoPath}}; git forgit log
+  prs:
+    - key: v
+      name: approve
+      command: |
+        gh pr review --repo {{.RepoName}} --approve --body "$(gum input --prompt='Approval Comment: ')" {{.PrNumber}}
+  issues:
+    - builtin: unassign
+      key: u
+    - key: a
+      name: assign @me
+      command: |
+        gh issue edit {{.IssueNumber}} --add-assignee @me
+    - key: A
+      name: assign @copilot
+      command: |
+        gh issue edit {{.IssueNumber}} --add-assignee @copilot
+    - key: n
+      name: create new issue
+      command: |
+        gh issue create
+    - key: e
+      name: create dev branch
+      command: |
+        gh issue develop {{.IssueNumber}} --repo {{.RepoName}}
+repoPaths:
+  gwenwindflower/*: ~/dev/*
+  gwenwindflower/.charmschool: ~/.charmschool
+  gwenwindflower/dotfiles: ~/.local/share/chezmoi
 theme:
   colors:
     text:
