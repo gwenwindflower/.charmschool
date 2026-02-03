@@ -1,6 +1,6 @@
-theme = "Catppuccin-frappe"
 client_id_command = "echo $SPOTIFY_PLAYER_CLIENT_ID"
 client_port = 8080
+theme = "Catppuccin-frappe"
 playback_format = """
 {track} • {artists}
 {album}
