@@ -29,7 +29,7 @@ return {
         custom_highlights = function(colors)
           return {
             -- softens the red hl for selected search match
-            CurSearch = { fg = colors.mantle, bg = colors.maroon },
+            -- CurSearch = { fg = colors.mantle, bg = colors.maroon },
             -- blink.cmp integration is (i think) still a WIP,
             -- this is just to temporarily make it consistent with other float windows like Snacks Picker
             Pmenu = { bg = "NONE" },
