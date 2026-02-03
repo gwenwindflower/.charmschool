@@ -1,7 +1,12 @@
 # Enable vi mode by default
 fish_vi_key_bindings
 
-# nice consistent bracket nav
+# bracket nav <-[ ]->
+## this is really neat, if there's an autosuggestion,
+## it accepts it one token at a time, very useful with long paths
+## or commands where you need to change something towards the end
+## comes in handy constantly - if the command line is empty it goes
+## back/forward in your nav history
 bind --user -M insert ctrl-\[ prevd-or-backward-word
 bind --user -M insert ctrl-\] nextd-or-forward-word
 bind --user -M visual ctrl-\[ prevd-or-backward-word
@@ -9,28 +14,39 @@ bind --user -M visual ctrl-\] nextd-or-forward-word
 bind --user ctrl-\[ prevd-or-backward-word
 bind --user ctrl-\] nextd-or-forward-word
 
-# quick pretty git log
-bind --user -M insert ctrl-super-g "commandline -r 'git forgit log'; commandline -f execute"
-bind --user ctrl-super-g "commandline -r 'git forgit log'; commandline -f execute"
+# TODO: find a way to bind up/down command history search to something
+# more home-row friendly (or put home row arrows on Planck 'adjust' layer)
+# not sure this is exactly the ideal binding, but i want j/k history search for sure
+# bind --user -M insert alt-k history-search-backwards
+# bind --user -M insert alt-j history-search-forward
 
-# quick pretty list
+# quick pretty list (l - list)
 bind --user -M insert super-l "commandline -r 'lsd -lAg .'; commandline -f execute"
 bind --user super-l "commandline -r 'lsd -lAg .'; commandline -f execute"
 
-# launch lazygit
-bind --user -M insert super-g "commandline -r 'lazygit'; commandline -f execute"
-bind --user super-g "commandline -r 'lazygit'; commandline -f execute"
-
-# launch yazi file explorer
+# launch yazi file explorer (f - finder/file/folder)
 bind --user -M insert super-f "ff; commandline -f repaint"
 bind --user super-f "ff; commandline -f repaint"
 
-# launch claude code
+# TUI git tools (g - git)
+## launch lazygit
+bind --user -M insert super-g "commandline -r 'lazygit'; commandline -f execute"
+bind --user super-g "commandline -r 'lazygit'; commandline -f execute"
+## quick pretty git log
+bind --user -M insert super-G "commandline -r 'git forgit log'; commandline -f execute"
+bind --user super-G "commandline -r 'git forgit log'; commandline -f execute"
+## gh dash GitHub Dash extension for quick project management
+bind --user -M insert ctrl-super-g "commandline -r 'gh dash'; commandline -f execute"
+bind --user ctrl-super-g "commandline -r 'gh dash'; commandline -f execute"
+
+# AI agents (c - code)
+## launch claude code
 bind --user -M insert ctrl-super-c claude_launch
 bind --user ctrl-super-c claude_launch
 bind --user -M insert alt-super-c "sd ~/.claude/"
 bind --user alt-super-c "sd ~/.claude/"
 
+# Opening stuff (o - open)
 # open nvim in current directory (via v.fish function)
 bind --user -M insert super-o v
 bind --user super-o v
@@ -38,21 +54,25 @@ bind --user super-o v
 bind --user -M insert alt-super-o "open ."
 bind --user alt-super-o "open ."
 
-# nice consistent set of clearing and reloading shortcuts
-## just reload a fresh sesh with pretty output, keep output on screen
+# clearing and refreshing (e - erase)
+## just reload a 'fresh' sesh with pretty output, keep output on screen
 bind --user -M insert super-e "fresh -r"
 bind --user -M visual super-e "fresh -r"
 bind --user super-e "fresh -r"
-## just clear the screen (ctrl+l -- this is fish default, but we want to use our 'fresh' function)
+## just clear the screen via `fresh`
 bind --user -M insert ctrl-e "fresh -c; commandline -f repaint"
 bind --user -M visual ctrl-e "fresh -c; commandline -f repaint"
 bind --user ctrl-e "fresh -c; commandline -f repaint"
-## clear *and* fresh for a so fresh, so clean session (shift+super+l)
+## clear *and* reload sesh, so fresh, so clean
 bind --user -M insert ctrl-super-e "fresh; commandline -f repaint"
 bind --user -M visual ctrl-super-e "fresh; commandline -f repaint"
 bind --user ctrl-super-e "fresh; commandline -f repaint"
 
-# TODO: figure out the right command here to emulate up/down behavior
-# not sure this is exactly the ideal binding, but i want j/k history search for sure
-# bind --user -M insert alt-k history-search-backwards
-# bind --user -M insert alt-j history-search-forward
+# print (p)
+## p is the echo abbr (print)
+## pp is the bat abbr (pretty print)
+## so it made sense to map this to p
+## echo_insert is a custom function that puts
+## `echo "[your cursor here]"` on the command line
+## anywhere you invoke it from
+bind --user -M insert ctrl-p echo_insert

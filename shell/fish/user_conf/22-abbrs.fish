@@ -8,6 +8,8 @@ abbr --add eee fresh # clear and reload
 abbr --add fun functions
 abbr --add top btm # you can use ctrl+space to stop the abbreviation expansion
 abbr --add cat bat # helpful if you really do need the classic tool versus the modern alternative
+abbr --add mkt mktemp
+abbr --add mkd mkdir
 ## colorized help via bat
 abbr --add --position anywhere -- --help '--help | bat -plhelp'
 abbr --add --position anywhere -- -h '-h | bat -plhelp'
@@ -17,44 +19,71 @@ abbr --add --position anywhere -- qq '>/dev/null'
 abbr --add --position anywhere -- qqq '>/dev/null 2>&1'
 abbr --add mac macchina # stats of my mac? mac -> macchina
 
+# config and dotfiles
+abbr --add moi chezmoi
+abbr --add moid chezmoi cd
+abbr --add moie chezmoi edit
+abbr --add moia chezmoi apply
+
 # tooling
 abbr --add t task
+abbr --add m mise
+abbr --add mu mise use
+abbr --add mi mise install
+abbr --add mr mise run
+abbr --add mc mise config
+abbr --add mcl mise config list
+abbr --add mcs mise config set
+abbr --add mpth $HOME/.local/share/mise/installs/
+## TUIs
 abbr --add ldr lazydocker
+abbr --add lsh lazyssh
+abbr --add lku k9s
+## fzf
 abbr --add f fzf
 ## this gives a nice preview for file searches by piping fd into fzf with a preview window
 ## useful if you know you want to search files in a directory
 abbr --add fp "fd . --color always --hidden --ignore | fzf --preview '_fzf_preview_file {}'"
+## print the default opts in a readable list format
+abbr --add fzfopt "echo \$FZF_DEFAULT_OPTS | sed 's/^--//; s/ --/\n/g' | bat"
 
 # Homebrew
-## these force us to keep brew up-to-date if we want convenient abbreviations
-abbr --add bri "brew update; brew upgrade; brew install"
-abbr --add bru "brew update; brew upgrade"
+abbr --add bri "brew update; brew install"
+abbr --add bruin "brew update; brew uninstall"
+abbr --add brup "brew update; brew upgrade; brew cleanup"
 abbr --add brs "brew update; brew search"
-abbr --add brq brew info
+abbr --add brh brew info
 abbr --add brl brew list
+abbr --add brli brew list --installed-on-request
 abbr --add brlc brew list --cask
-abbr --add brd brew deps
-abbr --add brdt brew deps --tree
-abbr --add brD brew uses
-abbr --add brsv brew services
+abbr --add brdep brew deps
+abbr --add brtree brew deps --tree
+abbr --add bruise brew uses --installed
+abbr --add brsrv brew services
 abbr --add brcl brew cleanup
 
 # ai
-abbr --add lll claude
-abbr --add ggg gemini
-abbr --add ppp copilot
-abbr --add xxx codex
-abbr --add uuu crush
+abbr --add ccc claude
+abbr --add ccu "bunx ccusage@latest"
+abbr --add ccf "sd ~/.claude"
+# the shorter `ghc` -> `gh copilot` is mapped to for running copilot
+# from the `gh` CLI, this is just an extra option that works
+abbr --add ghcp copilot
+abbr --add uwu crush
 
 # mitmproxy
 abbr -a 'prx?' prxstate
 abbr -a mp mitmproxy
 
-# quick directory navigation
-## built on top of sd fish function wrapping zoxide -> launchers
-abbr --add sc sd_dotfiles -e
-abbr --add sf sd_config
-abbr --add sp sd_dev
+# zoxide quick directory jumping
+## built on top of sd fish function wrapping zoxide -> [nvim | yazi]
+abbr --add s z
+abbr --add dots "sd $HOME/.charmschool -e"
+abbr --add conf "sd $HOME/.config"
+abbr --add dev "sd $HOME/dev"
+abbr --add skill "sd $HOME/.charmschool/agents/claude/skills"
+abbr --add keeb "sd $HOME/dev/04_utils/tinybabykeeb -e"
+abbr --add notes "sd $HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/girlOS -e"
 
 # dbt
 abbr --add db dbtf build -s
@@ -82,6 +111,7 @@ abbr --add py python
 abbr --add ip ipython
 abbr --add pyt pytest
 abbr --add uvpy uv python
+abbr --add uvpyh "cd (uv python dir)"
 abbr --add uvpyi uv python install
 abbr --add uvpyls uv python list
 abbr --add uvpyu uv python upgrade
@@ -117,13 +147,15 @@ abbr --add la lsd -A
 abbr --add lla lsd -lA
 abbr --add lt lsd --tree
 
-# frontend
+# typescript
+# pnpm
 abbr --add n pnpm
 abbr --add nx pnpx
 abbr --add ni pnpm i
 abbr --add nu pnpm up
 abbr --add nd pnpm dev
 abbr --add nb pnpm build
+# bun
 abbr --add b bun
 abbr --add bi bun i
 abbr --add ba bun add
@@ -132,6 +164,9 @@ abbr --add bs bun start
 abbr --add br bun run
 abbr --add bx bunx
 abbr --add bt bun test
+# deno
+abbr --add d deno
+abbr --add dig deno install -grAf --root $DENO_HOME
 
 # git
 abbr --add g git
@@ -140,6 +175,7 @@ abbr --add gcfg git config --global
 ## github
 abbr --add gho gh repo view -w
 abbr --add ghd gh dash
+abbr --add ghc gh copilot
 ## interactive tools
 abbr --add gui lazygit
 abbr --add gcmm meteor

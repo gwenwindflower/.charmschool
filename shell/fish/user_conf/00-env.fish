@@ -8,11 +8,9 @@
 # CONVERSELY - if this is used with the standard universal variable
 # then mistakes, old paths, unused things, etc can accumulate over time and cause confusion
 # it's less maintenance and easier to reason about if you just construct it as a global per session
-if test fish_user_paths
-    fish_add_path $HOME/.local/bin
-else
-    set -gx fish_user_paths $HOME/.local/bin
-end
+set -e fish_user_paths
+set -gx fish_user_paths $HOME/.local/bin
+fish_add_path -g $HOME/.local/bin
 
 set -gx EDITOR nvim
 set -gx SHELL /usr/local/bin/fish
@@ -55,9 +53,12 @@ set -gx MOOR "\
 # and good search :)
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
-# set XDG config directory to ~/.config, for various tools
-# this is my personal preference, it's more Unix-y, cleaner, more convenient
+# set XDG config directory to *nix-y standards, for various tools
+# this is my personal preference, versus the below re Application Support
 set -gx XDG_CONFIG_HOME $HOME/.config
+set -gx XDG_DATA_HOME $HOME/.local/share
+set -gx XDG_STATE_HOME $HOME/.local/state
+set -gx XDG_CACHE_HOME $HOME/.cache
 
 # a lot of tools use this location for macOS-specific configuration
 # it is technically correct! because of this, it is what the `dirs` Rust crate returns
@@ -69,32 +70,12 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 # this mirrors my dotfiles' semantic distinction between 'apps' and 'tools' (GUI vs terminal)
 set -gx MACOS_CONFIG_HOME $HOME/Library/Application Support
 
-# one of those tools mentioned above is Simon Willison's tool `llm`
-set -gx LLM_USER_PATH $XDG_CONFIG_HOME/llm
-
-# Configured in ./git/gitconfig -> ~/.config/git/.gitconfig
-# but some tools look for this env var and git does not it set it by default
-# even when configured in the global git config file
-set -gx GIT_PAGER delta
-
-# Mise will see the source file that gets symlinked to ~/.config/mise
-# in dotfiles at the path below and throw an error because it's an untrusted path
-# we don't want it to reload the file as a project config, so rather than trust it,
-# just ignore it
-set -gx MISE_IGNORED_CONFIG_PATHS ~/.charmschool/lang/mise
-
-# Temporary to get Claude Code's new LSP tools working
-set -gx ENABLE_LSP_TOOL 1
 # tldr client (tlrc) config file location 
 # defaults to be in $MACOS_CONFIG_HOME, but per the comments on that env var,
 # we can redirect with this env var
 set -gx TLRC_CONFIG $HOME/.config/tlrc/tlrc.toml
 
-# This allows forgit to be accessed as a git subcommand
-fish_add_path $FORGIT_INSTALL_DIR/bin
-
-set -gx DFT_DISPLAY inline
-
+set -gx OBSIDIAN_HOME $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents
 # Private environment variables
 if test -f ~/.env
     source ~/.env

@@ -19,31 +19,44 @@ function sd -d "Fuzzy navigate to file explorer in directory with optional actio
         return 0
     end
 
-    set -l z_search $root_dir
+    set -l here (pwd)
+    set -l z_search $here
+
     if test (count $argv) -eq 0
         echo "Error: No search terms provided"
         return 1
     else
-        set z_search $argv
         set z_search (string replace '~' $HOME $argv)
     end
 
-    z $z_search
+    # z_search is initilized as pwd, if it's not updated by the args, we exit
+    if test $z_search = $here
+        echo "Error: search was set to current directory, you're already here!"
+        return 1
+    end
 
-    # Post-navigation actions
-    if set -q _flag_action
-        command $_flag_action
-    else if set -q _flag_editor
-        if set -q EDITOR
-            $EDITOR
+    # z doesn't exist on PATH until zoxide's shell setup runs
+    # but it's fine, it exists!
+    # @fish-lsp-disable-next-line
+    if z $z_search
+        # Post-navigation actions
+        if set -q _flag_action
+            command $_flag_action
+        else if set -q _flag_editor
+            if set -q EDITOR
+                $EDITOR
+            else
+                echo "Error: \$EDITOR is not set"
+                return 1
+            end
+        else if set -q _flag_no_explorer
+            return
         else
-            echo "Error: \$EDITOR is not set"
-            return 1
+            # Otherwise, open file explorer
+            if not test (type -q yazi) -a (type -q ff)
+                echo "Error: No file explorer found (requires yazi and the ff wrapper function)"
+            end
+            ff
         end
-    else if set -q _flag_no_explorer
-        return
-    else
-        # Otherwise, open file explorer
-        ff
     end
 end

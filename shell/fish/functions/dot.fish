@@ -25,7 +25,7 @@ function dot -d "Link and install dotfiles with rotz"
     end
 
     if set -q _flag_all; and test (count $argv) -gt 0
-        printf "%s[ERROR]%s: Cannot use -a/--all with specific dots.\n" (set_color red --bold) (set_color normal)
+        logirl error "Cannot use -a/--all with specific dots."
         return 1
     end
 
@@ -50,18 +50,18 @@ function dot -d "Link and install dotfiles with rotz"
                         set -a target_dots $rel_path
                     end
                 else
-                    printf "%s[ERROR]%s: No dots found matching '%s'\n" (set_color red --bold) (set_color normal) $arg
+                    logirl error "No dots found matching '$arg'."
                     return 1
                 end
             end
         end
     else
-        printf "No dotfiles specified, if you want to run all, you must use the -a/--all option.\n"
+        logirl error "No dotfiles specified, if you want to run all, you must use the -a/--all option."
         return 1
     end
 
     if set -q _flag_link; and set -q _flag_install
-        printf "%s[WARNING]%s: you don't need to specify both -l/--link and -i/--install, this is default behavior.\n\n" (set_color yellow --bold) (set_color normal)
+        logirl warning "You don't need to specify both -l/--link and -i/--install, this is default behavior.\n\n" (set_color yellow --bold) (set_color normal)
         set rotz_commands link install
     else if set -q _flag_link
         set rotz_commands link

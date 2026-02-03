@@ -1,4 +1,4 @@
-function frg -d "Launch fzf as an interface to ripgrep"
+function frg -d "Launch fzf as a live UX for ripgrep, with or without an initial query"
     set RG_PREFIX "rg --column --line-number --no-heading --color=always --smart-case "
     set INITIAL_QUERY (string join " " $argv)
     fzf --ansi --disabled --query "$INITIAL_QUERY" \

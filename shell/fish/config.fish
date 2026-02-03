@@ -19,3 +19,10 @@ if status is-interactive
         source $file
     end
 end
+
+# TODO: eliminate 'git' fish plugin in favor of custom functions/abbreviations
+# it seems to be no longer developed, and it's really pretty legible stuff,
+# it's not like any of the git functionality it wraps is changing anytime soon.
+# so it will be better to just have the most useful aliases and helper functions
+# directly in repo (also `fisher` just puts the stuff in .config/fish/functions anyway,
+# which is a symlink into this repo so truly no different

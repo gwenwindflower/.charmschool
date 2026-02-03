@@ -14,8 +14,8 @@ function brp -d "Batch Homebrew commands based on matched pattern"
         return 1
     end
 
-    set command $argv[1]
-    set pattern $argv[2]
+    set -l command $argv[1]
+    set -l pattern $argv[2]
 
     if not command -q brew
         echo "Error: Homebrew not found in PATH"
@@ -28,14 +28,14 @@ function brp -d "Batch Homebrew commands based on matched pattern"
         return 1
     end
 
-    set allowed_commands upgrade uninstall remove info deps uses outdated reinstall
+    set -l allowed_commands upgrade uninstall remove info deps uses outdated reinstall
     if not contains $command $allowed_commands
         echo "Error: Unsupported command '$command'"
         echo "Supported: $allowed_commands"
         return 1
     end
 
-    set match_pattern
+    set -l match_pattern
     if set -q _flag_prefix
         set match_pattern "$pattern*"
     else if set -q _flag_suffix
@@ -44,7 +44,7 @@ function brp -d "Batch Homebrew commands based on matched pattern"
         set match_pattern "*$pattern*" # Default: match anywhere
     end
 
-    set packages
+    set -l packages
     if set -q _flag_casks
         set packages (brew list --casks 2>/dev/null | string match $match_pattern)
     else if set -q _flag_formulae
@@ -64,23 +64,17 @@ function brp -d "Batch Homebrew commands based on matched pattern"
 
     # Confirm for large operations
     if test (count $packages) -gt 10
-        echo ""
-        read -P "Continue with '$command' on "(count $packages)" packages? [y/N]: " -n 1 confirm
-        echo ""
-        if test "$confirm" != y -a "$confirm" != Y
-            echo "Operation cancelled"
+        gum confirm "You are about to run '$command' on "(count $packages)" packages. Continue?"; or begin
+            logirl warning "Operation cancelled by user."
             return 0
         end
     end
 
     # Confirm for destructive operations
-    set destructive_commands uninstall remove rm
+    set -l destructive_commands uninstall remove rm
     if contains $command $destructive_commands
-        echo ""
-        read -P "Continue with '$command' on these packages? [y/N]: " -n 1 confirm
-        echo ""
-        if test "$confirm" != y -a "$confirm" != Y
-            echo "Operation cancelled"
+        gum confirm "You are about to '$command' "(count $packages)" packages, to undo will require reinstalling them. Are you sure?"; or begin
+            logirl warning "Operation cancelled by user."
             return 0
         end
     end

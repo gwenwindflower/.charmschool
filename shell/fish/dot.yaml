@@ -13,6 +13,5 @@ links:
   config.fish: ~/.config/fish/config.fish
   fish_plugins: ~/.config/fish/fish_plugins
   00_plugin_config.fish: ~/.config/fish/conf.d/00_plugin_config.fish
-  nix.fish: ~/.config/fish/conf.d/nix.fish
   user_conf/: ~/.config/fish/user_conf/ # directory symlink
   functions/: ~/.config/fish/functions/ # directory symlink

@@ -11,5 +11,8 @@ function md --argument-names dir_name -d "Create a new directory or subdirectory
     mkdir -p $dir_name
     # We could just cd but we use zoxide
     # to seed it into the database for easier access later
+    # z is not available on PATH until zoxide's shell setup runs
+    # so ignore warning on next line
+    # @fish-lsp-disable-next-line
     z $dir_name
 end

@@ -5,6 +5,6 @@
 # All those do is conditionally add $HOME/.cargo/bin to PATH if needed.
 # I prefer to have control over when it executes, so I do it here
 
-# For convenience
+# For convenience we set an env var in case its useful elsewhere
 set -gx CARGO_HOME $HOME/.cargo
 fish_add_path $CARGO_HOME/bin

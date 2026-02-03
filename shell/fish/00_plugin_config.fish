@@ -8,5 +8,9 @@
 # I then have my own abbreviations for those commands in the `gfg` namespace
 # `gfga`, `gfgct`, etc
 set -gx FORGIT_NO_ALIASES 1
-
 set -gx FORGIT_GLO_FORMAT "%C(green)%h %C(reset)%d %s %C(magenta)%cr%C(reset)"
+# mise gets auto-activated by default with a brew+fish install,
+# but this means my subsequent fish_add_path calls in my fish config
+# get prepended above mise, exactly what we DON'T want, so we turn it off
+# here as early as possible, then activate mise manually at the end of the fish config
+set -gx MISE_FISH_AUTO_ACTIVATE 0
