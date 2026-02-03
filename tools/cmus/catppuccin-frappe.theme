@@ -1,0 +1,69 @@
+# Catppuccin Frappe theme for cmus
+# https://github.com/catppuccin/catppuccin
+# Palette: Frappe
+#
+# Base colors:
+#   Base:      #303446 (236)
+#   Crust:     #232634 (235)
+#   Text:      #c6d0f5 (189)
+#   Subtext 1: #b5bfe2 (146)
+#   Surface 0: #414559 (238)
+#   Surface 1: #51576d (240)
+#   Surface 2: #626880 (60)
+#
+# Accent colors:
+#   Rosewater: #f2d5cf (224)
+#   Flamingo:  #eebebe (217)
+#   Pink:      #f4b8e4 (218)
+#   Mauve:     #ca9ee6 (177)
+#   Red:       #e78284 (174)
+#   Maroon:    #ea999c (174)
+#   Peach:     #ef9f76 (216)
+#   Yellow:    #e5c890 (186)
+#   Green:     #a6d189 (150)
+#   Teal:      #81c8be (115)
+#   Sky:       #99d1db (116)
+#   Sapphire:  #85c1dc (110)
+#   Blue:      #8caaee (111)
+#   Lavender:  #babbf1 (147)
+
+### Window colors
+set color_win_bg=default
+set color_win_fg=189
+set color_win_dir=111
+set color_win_cur=150
+
+### Window title bar
+set color_win_title_bg=111
+set color_win_title_fg=236
+
+### Title line (now playing)
+set color_titleline_bg=111
+set color_titleline_fg=236
+
+### Status line
+set color_statusline_bg=150
+set color_statusline_fg=236
+
+### Command line
+set color_cmdline_bg=236
+set color_cmdline_fg=150
+
+### Messages
+set color_error=174
+set color_info=116
+
+### Separator
+set color_separator=60
+
+### Selection colors (active window)
+set color_win_sel_bg=177
+set color_win_sel_fg=235
+set color_win_cur_sel_bg=177
+set color_win_cur_sel_fg=235
+
+### Selection colors (inactive window)
+set color_win_inactive_sel_bg=146
+set color_win_inactive_sel_fg=235
+set color_win_inactive_cur_sel_bg=147
+set color_win_inactive_cur_sel_fg=235

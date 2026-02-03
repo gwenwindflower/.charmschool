@@ -1,1 +1,3 @@
 installs: null
+links:
+  catppuccin-frappe.theme: ~/.config/cmus/catppuccin-frappe.theme
