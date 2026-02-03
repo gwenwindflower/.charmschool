@@ -1,1 +1,4 @@
 installs: null
+links:
+  macchina.toml: ~/.config/macchina/macchina.toml
+  catppuccin_frappe.toml: ~/.config/macchina/themes/catppuccin_frappe.toml
