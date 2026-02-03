@@ -1,25 +1,25 @@
 name:
   .prettierd: 
+  .prettier: 
   .pnpm: 
   go.mod: 
   .go: 
   spotify-player: 
   github-copilot: 
   gh-copilot: 
-  gh: 
-  gh-dash: 
-  git: 
+  .copilot: 
+  gh: 
+  .github: 
+  gh-dash: 
+  git: 
   .git: 
-  .snowsql: 
-  .ipython: 
   .docker: 
   .duckdb: 󰇥
   .charmschool: 󱙣
+  chezmoi: 
   .bun: 
   .aws: 
-  .tldrc: 󰋗
   .ssh: 
-  dev: 
   applications: 
   library: 󱉟
   documents: 󱔗
@@ -33,7 +33,16 @@ name:
   users: 
   winnie: 
   requirements.in: 
+  .ipython: 
   .venv: 
+  tests: 
+  zzz: 󰒲
+  zzz-rip: 󰮢
+  00_agent-workbench: 
+  01_spellbook: 
+  02_sandboxes: 
+  03_forks: 
+  04_utils: 
 extension:
   go: 
   http: 󱂛
