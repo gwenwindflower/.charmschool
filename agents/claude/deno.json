@@ -1,0 +1,35 @@
+{
+  "$schema": "https://deno.land/x/deno/cli/schemas/config-file.v1.json",
+  "compilerOptions": {
+    "strict": true,
+    "lib": [
+      "deno.window"
+    ]
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 100,
+    "indentWidth": 2,
+    "singleQuote": true
+  },
+  "lint": {
+    "rules": {
+      "tags": [
+        "recommended"
+      ]
+    }
+  },
+  "imports": {
+    "@std/cli": "jsr:@std/cli@^1.0.27",
+    "@std/fs": "jsr:@std/fs@^1.0.22",
+    "@std/path": "jsr:@std/path@^1.1.4",
+    "@std/yaml": "jsr:@std/yaml@^1.0.11",
+    "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.8"
+  },
+  "tasks": {
+    "skillutil": "deno run --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com skills/agent-skills/scripts/skillutil.ts",
+    "skillutil:check": "deno check skills/agent-skills/scripts/skillutil.ts",
+    "skillutil:test": "deno run --allow-read --allow-write --allow-run=deno --allow-env=HOME,TMPDIR --allow-net=platform.claude.com,code.claude.com skills/agent-skills/scripts/test-skillutil.ts",
+    "skillutil:install": "deno install --global --config /Users/winnie/.charmschool/agents/claude/deno.json --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com --name skillutil --force skills/agent-skills/scripts/skillutil.ts"
+  }
+}
