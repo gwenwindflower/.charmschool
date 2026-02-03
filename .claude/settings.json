@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(~/.claude/**)",
+      "Read(~/.config/fish/**)",
+      "Read(~/.local/share/nvim/**)",
+      "Read(~/.local/share/nvim/LazyVim)",
+      "WebFetch(domain:mise.jdx.dev)",
+      "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:docs.brew.sh)",
+      "WebFetch(domain:agentskills.io)",
+      "WebFetch(domain:fishshell.com)",
+      "WebFetch(domain:homebrew-file.readthedocs.io)",
+      "WebFetch(domain:lazyvim.org)",
+      "WebFetch(domain:neovim.io)",
+      "WebFetch(domain:sw.kovidgoyal.net)",
+      "WebFetch(domain:chezmoi.io)",
+      "WebFetch(domain:www.chezmoi.io)",
+      "WebFetch(domain:docs.deno.com)",
+      "Skill(fish-function-development)",
+      "Skill(neovim-configuration)",
+      "Skill(neovim-plugin-development)",
+      "Skill(chezmoi)",
+      "Skill(gitignore)",
+      "Skill(rotz-dotfiles)",
+      "Bash(tree:*)",
+      "Bash(lsd:*)"
+    ]
+  }
+}

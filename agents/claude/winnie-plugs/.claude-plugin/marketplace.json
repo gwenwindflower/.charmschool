@@ -1,0 +1,14 @@
+{
+  "name": "winnie-plugs",
+  "owner": {
+    "name": "Gwen Windflower"
+  },
+  "description": "Gwen Windflower's local development plugins",
+  "plugins": [
+    {
+      "name": "custom-lsps",
+      "source": "./custom-lsps",
+      "description": "Makes the full array of local LSPs available to Claude Code beyond official plugins - includes LSPs for Astro, Bash, Fish, Dockerfiles and Docker Compose, GitHub Actions, Emmet for HTML and CSS, Ruff for Python, GraphQL, JSON, Markdown, MDX, CMake, Prisma, Svelte, Tailwind CSS, VTSLS for a more modern LSP supporting Typescript and Javascript, YAML, and taplo for TOML."
+    }
+  ]
+}
