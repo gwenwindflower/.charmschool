@@ -1,8 +1,0 @@
-{
-  "name": "custom-lsps",
-  "version": "0.1.0",
-  "description": "Plugin to support my local LSPs that don't yet have official Claude Code plugins",
-  "author": {
-    "name": "winnie"
-  }
-}
