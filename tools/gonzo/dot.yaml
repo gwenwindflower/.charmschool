@@ -1,3 +1,0 @@
-installs: null
-links:
-  config.yml: ~/.config/gonzo/config.yml
