@@ -79,16 +79,13 @@ truncation_length = 3
 truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " "
-home_symbol = " "
+home_symbol = " "
 
 [directory.substitutions]
-"Documents" = "󰈙 "
 "Downloads" = " "
 "Music" = "󰝚 "
 "Pictures" = " "
-"dev" = " "
 ".config" = " "
-"writing" = " "
 
 [[battery.display]]
 threshold = 15
