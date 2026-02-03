@@ -1,0 +1,5 @@
+installs: |
+  brew tap yakitrak/yakitrak
+  brew install yakitrak/yakitrak/obsidian-cli
+  obsidian-cli completion fish
+  obsidian-cli set-default girlOS
