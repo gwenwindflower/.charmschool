@@ -1,6 +1,5 @@
 [flavor]
 dark = "catppuccin-frappe"
-# TODO: set light to Rose Pine Dawn
 light = "catppuccin-latte"
 
 [icon]

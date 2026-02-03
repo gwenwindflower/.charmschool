@@ -1,34 +1,34 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:git"
-rev = "b886025"
-hash = "63b6c222bf2103b3023389dde5e2ecfe"
+rev = "230b9c6"
+hash = "270915fa8282a19908449530ff66f7e2"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "b886025"
+rev = "230b9c6"
 hash = "3996fc74044bc44144b323686f887e1"
 
 [[plugin.deps]]
 use = "Rolv-Apneseth/starship"
-rev = "a63550b"
-hash = "c2021386289a0cbb3e152a052f67c177"
+rev = "eca1861"
+hash = "e519d894e94ded741e06aae4d4775981"
 
 [[plugin.deps]]
 use = "AnirudhG07/custom-shell"
-rev = "b04213d"
-hash = "3efc7ddc9bac120c618462eb994edf75"
+rev = "3449686"
+hash = "8009873342496fdb042bba09e239eef3"
 
 [[plugin.deps]]
 use = "stelcodes/bunny"
-rev = "bd8a767"
-hash = "5dded0f0f40142f99dda23aedd76b2bf"
+rev = "6ee99bc"
+hash = "417de633d0008580b386bd3358eea56f"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
-rev = "d04a298"
-hash = "d659c6fde5148fb5c066518d7fdecddc"
+rev = "9e053d0"
+hash = "e25fb61c14484de843b52430a72b5196"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-latte"
-rev = "d04a298"
-hash = "a4d508772dc7b20d739a2f9a1d2d396f"
+rev = "9e053d0"
+hash = "c6b710b2aa0fb9c6c7f1ec4db6146104"

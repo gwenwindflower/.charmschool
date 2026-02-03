@@ -3,7 +3,6 @@ installs:
     brew install yazi
     ya pkg install
 
-
 links:
   yazi.toml: ~/.config/yazi/yazi.toml
   keymap.toml: ~/.config/yazi/keymap.toml
