@@ -1,0 +1,244 @@
+// ~/.config/zellij/layouts/default.kdl
+// A soft, pretty layout with zjstatus ✨🦋
+
+layout {
+    // Swap layouts for when you create multiple panes
+    // This preserves the normal Zellij swap behavior
+    swap_tiled_layout name="vertical" {
+        tab max_panes=5 {
+            pane split_direction="vertical" {
+                pane
+                pane { children; }
+            }
+        }
+        tab max_panes=8 {
+            pane split_direction="vertical" {
+                pane { children; }
+                pane { pane; pane; pane; pane; }
+            }
+        }
+        tab max_panes=12 {
+            pane split_direction="vertical" {
+                pane { children; }
+                pane { pane; pane; pane; pane; }
+                pane { pane; pane; pane; pane; }
+            }
+        }
+    }
+
+    swap_tiled_layout name="horizontal" {
+        tab max_panes=5 {
+            pane split_direction="horizontal" {
+                pane
+                pane { children; }
+            }
+        }
+        tab max_panes=8 {
+            pane split_direction="horizontal" {
+                pane { children; }
+                pane { pane; pane; pane; pane; }
+            }
+        }
+        tab max_panes=12 {
+            pane split_direction="horizontal" {
+                pane { children; }
+                pane { pane; pane; pane; pane; }
+                pane { pane; pane; pane; pane; }
+            }
+        }
+    }
+
+    swap_tiled_layout name="stacked" {
+        tab min_panes=5 {
+            pane split_direction="vertical" {
+                pane
+                pane stacked=true { children; }
+            }
+        }
+    }
+
+    swap_floating_layout name="staggered" {
+        floating_panes
+    }
+
+    swap_floating_layout name="enlarged" {
+        floating_panes max_panes=10 {
+            pane { x "5%"; y 1; width "90%"; height "90%"; }
+            pane { x "5%"; y 2; width "90%"; height "90%"; }
+            pane { x "5%"; y 3; width "90%"; height "90%"; }
+            pane { x "5%"; y 4; width "90%"; height "90%"; }
+            pane { x "5%"; y 5; width "90%"; height "90%"; }
+            pane { x "5%"; y 6; width "90%"; height "90%"; }
+            pane { x "5%"; y 7; width "90%"; height "90%"; }
+            pane { x "5%"; y 8; width "90%"; height "90%"; }
+            pane { x "5%"; y 9; width "90%"; height "90%"; }
+            pane { x "5%"; y 10; width "90%"; height "90%"; }
+        }
+    }
+
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            // Download zjstatus.wasm and place in ~/.config/zellij/plugins/
+            // Or use the URL directly (downloads on first use)
+            plugin location="/Users/winnie/.config/zellij/plugins/zjstatus.wasm" {
+
+                // ═══════════════════════════════════════════════════════════
+                // 🎨 CATPPUCCIN FRAPPÉ COLOR ALIASES
+                // ═══════════════════════════════════════════════════════════
+                
+                // Base colors
+                color_base      "#303446"
+                color_mantle    "#292c3c"
+                color_crust     "#232634"
+                
+                // Surface colors
+                color_surface0  "#414559"
+                color_surface1  "#51576d"
+                color_surface2  "#626880"
+                
+                // Overlay colors
+                color_overlay0  "#737994"
+                color_overlay1  "#838ba7"
+                color_overlay2  "#949cbb"
+                
+                // Text colors
+                color_subtext0  "#a5adce"
+                color_subtext1  "#b5bfe2"
+                color_text      "#c6d0f5"
+                
+                // Accent colors (the pretty ones! ✨)
+                color_rosewater "#f2d5cf"
+                color_flamingo  "#eebebe"
+                color_pink      "#f4b8e4"
+                color_mauve     "#ca9ee6"  // 💜 Our star!
+                color_red       "#e78284"
+                color_maroon    "#ea999c"
+                color_peach     "#ef9f76"
+                color_yellow    "#e5c890"
+                color_green     "#a6d189"
+                color_teal      "#81c8be"
+                color_sky       "#99d1db"
+                color_sapphire  "#85c1dc"
+                color_blue      "#8caaee"
+                color_lavender  "#babbf1"
+
+                // ═══════════════════════════════════════════════════════════
+                // 📐 LAYOUT FORMAT
+                // ═══════════════════════════════════════════════════════════
+                
+                format_left   "{mode}#[bg=$base] {tabs}"
+                format_center ""
+                format_right  "#[bg=$base,fg=$surface1]#[bg=$surface1,fg=$subtext1] {session} #[bg=$surface1,fg=$mauve]#[bg=$mauve,fg=$crust] {datetime}"
+                format_space  "#[bg=$base]"
+                
+                // Hide overlapping parts gracefully
+                format_hide_on_overlength "true"
+                format_precedence         "lrc"
+
+                // ═══════════════════════════════════════════════════════════
+                // 🔲 BORDER (subtle top border when needed)
+                // ═══════════════════════════════════════════════════════════
+                
+                border_enabled  "false"
+                border_char     "─"
+                border_format   "#[fg=$surface2]{char}"
+                border_position "top"
+
+                // ═══════════════════════════════════════════════════════════
+                // 🪟 PANE FRAME BEHAVIOR
+                // ═══════════════════════════════════════════════════════════
+                
+                // Hide frames when only one pane, show when multiple
+                hide_frame_for_single_pane "true"
+                hide_frame_except_for_search "true"
+                hide_frame_except_for_fullscreen "true"
+
+                // ═══════════════════════════════════════════════════════════
+                // 🎯 MODE INDICATORS (soft pastel pills!)
+                // ═══════════════════════════════════════════════════════════
+                
+                // Normal - soft mauve (our accent color!)
+                mode_normal        "#[bg=$mauve,fg=$crust,bold] normal #[bg=$base,fg=$mauve]"
+                
+                // Locked - muted overlay
+                mode_locked        "#[bg=$overlay1,fg=$crust,bold]  locked #[bg=$base,fg=$overlay1]"
+                
+                // Pane mode - pink!
+                mode_pane          "#[bg=$pink,fg=$crust,bold] pane #[bg=$base,fg=$pink]"
+                
+                // Tab mode - lavender
+                mode_tab           "#[bg=$lavender,fg=$crust,bold] tab #[bg=$base,fg=$lavender]"
+                
+                // Resize - peach
+                mode_resize        "#[bg=$peach,fg=$crust,bold] resize #[bg=$base,fg=$peach]"
+                
+                // Move - yellow
+                mode_move          "#[bg=$yellow,fg=$crust,bold] move #[bg=$base,fg=$yellow]"
+                
+                // Scroll - sky blue
+                mode_scroll        "#[bg=$sky,fg=$crust,bold] scroll #[bg=$base,fg=$sky]"
+                
+                // Search modes - teal
+                mode_enter_search  "#[bg=$teal,fg=$crust,bold] search #[bg=$base,fg=$teal]"
+                mode_search        "#[bg=$teal,fg=$crust,bold] search #[bg=$base,fg=$teal]"
+                
+                // Rename modes - flamingo
+                mode_rename_tab    "#[bg=$flamingo,fg=$crust,bold] rename #[bg=$base,fg=$flamingo]"
+                mode_rename_pane   "#[bg=$flamingo,fg=$crust,bold] rename #[bg=$base,fg=$flamingo]"
+                
+                // Session - blue
+                mode_session       "#[bg=$blue,fg=$crust,bold] session #[bg=$base,fg=$blue]"
+                
+                // Tmux mode - rosewater
+                mode_tmux          "#[bg=$rosewater,fg=$crust,bold] tmux #[bg=$base,fg=$rosewater]"
+                
+                // Prompt - green
+                mode_prompt        "#[bg=$green,fg=$crust,bold] prompt #[bg=$base,fg=$green]"
+
+                // Default fallback
+                mode_default_to_mode "normal"
+
+                // ═══════════════════════════════════════════════════════════
+                // 📑 TAB STYLING
+                // ═══════════════════════════════════════════════════════════
+                
+                // Inactive tabs - subtle, muted
+                tab_normal              "#[bg=$surface0,fg=$subtext0] {index}:{name} #[bg=$base,fg=$surface0]"
+                tab_normal_fullscreen   "#[bg=$surface0,fg=$subtext0] {index}:{name} {fullscreen_indicator}#[bg=$base,fg=$surface0]"
+                tab_normal_sync         "#[bg=$surface0,fg=$subtext0] {index}:{name} {sync_indicator}#[bg=$base,fg=$surface0]"
+                
+                // Active tab - mauve accent! 💜
+                tab_active              "#[bg=$mauve,fg=$crust,bold] {name} {floating_indicator}#[bg=$base,fg=$mauve]"
+                tab_active_fullscreen   "#[bg=$mauve,fg=$crust,bold] {name} {fullscreen_indicator}#[bg=$base,fg=$mauve]"
+                tab_active_sync         "#[bg=$mauve,fg=$crust,bold] {name} {sync_indicator}#[bg=$base,fg=$mauve]"
+                
+                // Tab separator
+                tab_separator           "#[bg=$base] "
+                
+                // Renaming a tab
+                tab_rename              "#[bg=$flamingo,fg=$crust,italic] {name} #[bg=$base,fg=$flamingo]"
+                
+                // Indicators (cute symbols!)
+                tab_sync_indicator       ""
+                tab_fullscreen_indicator "󰊓"
+                tab_floating_indicator   "󰉈"
+
+                // ═══════════════════════════════════════════════════════════
+                // 🔀 SWAP LAYOUT DISPLAY
+                // ═══════════════════════════════════════════════════════════
+                
+                swap_layout_format        "#[bg=$surface1,fg=$subtext0,italic] 󱒓 {name} "
+                swap_layout_hide_if_empty "true"
+
+                // ═══════════════════════════════════════════════════════════
+                // 🕐 DATE & TIME
+                // ═══════════════════════════════════════════════════════════
+                
+                datetime          "{format}"
+                datetime_format   "%H:%M"
+                datetime_timezone "America/Los_Angeles"
+            }
+        }
+    }
+}

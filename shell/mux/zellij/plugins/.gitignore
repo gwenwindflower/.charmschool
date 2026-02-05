@@ -1,0 +1,6 @@
+# I don't want to commit compiled plugins
+# that I didn't write myself, so using
+# gitignore for both its intended purpose
+# and to keep a list of the plugins I use
+# for reconstruction on fresh setups
+zjstatus.wasm

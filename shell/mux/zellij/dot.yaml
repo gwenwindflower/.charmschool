@@ -1,3 +1,6 @@
-installs: null
+installs: |
+  brew install zellij
+  mkdir -p ~/.config/zellij/plugins
 links:
   config.kdl: ~/.config/zellij/config.kdl
+  layouts/: ~/.config/zellij/layouts/

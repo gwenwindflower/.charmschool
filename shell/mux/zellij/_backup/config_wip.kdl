@@ -1,0 +1,52 @@
+// ~/.config/zellij/config.kdl
+// Catppuccin Frappé themed config for a soft, girly terminal ✨
+
+// Use the built-in catppuccin-frappe theme as base
+theme "catppuccin-frappe"
+
+// Disable pane frames globally - zjstatus will manage them intelligently
+pane_frames false
+
+// Rounded corners when frames ARE shown (search mode, etc.)
+ui {
+    pane_frames {
+        rounded_corners true
+        hide_session_name true
+    }
+}
+
+// Use fish as default shell
+default_shell "fish"
+
+// Use our custom layout with zjstatus by default
+default_layout "default"
+
+// Copy on select for easy clipboard workflow
+copy_on_select true
+
+// Session serialization for persistent sessions (great for SSH + Claude Code!)
+session_serialization true
+serialize_pane_viewport true
+
+// Scrollback for serialization
+scrollback_lines_to_serialize 1000
+
+// Mirror session when attaching (useful for pair programming)
+mirror_session false
+
+// Simplified UI removes arrow fonts if your terminal doesn't support them
+// Set to true if you see weird characters
+simplified_ui false
+
+// Enable styled underlines (your terminal supports this!)
+styled_underlines true
+
+// Support for Kitty keyboard protocol (Kitty terminal supports this!)
+support_kitty_keyboard_protocol true
+
+// Keybindings - keeping defaults but you can customize here
+// Using the default keybindings which work well with the status bar
+keybinds {
+    // You can add custom bindings here if needed
+    // For now, keeping defaults which are discoverable via zjstatus
+}
