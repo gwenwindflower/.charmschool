@@ -42,13 +42,13 @@ end
 function M.markdown_table_fix_compact_spacing(opts)
   local r = opts.line1 .. "," .. opts.line2
   -- Normalize spacing around all pipes to exactly one space on each side
-  vim.cmd("silent " .. r .. [[s/\s*|\s*/ | /ge]])
+  vim.cmd("silent! " .. r .. [[s/\s*|\s*/ | /ge]])
 
   -- Remove the leading space before the first pipe
-  vim.cmd("silent " .. r .. [[s/^ |/|/e]])
+  vim.cmd("silent! " .. r .. [[s/^ |/|/e]])
 
   -- Remove the trailing space after the last pipe
-  vim.cmd("silent " .. r .. [[s/| $/|/e]])
+  vim.cmd("silent! " .. r .. [[s/| $/|/e]])
 
   -- Clear search highlighting
   vim.cmd("nohlsearch")
