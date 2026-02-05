@@ -1,1 +1,0 @@
-installs: brew tap snowflakedb/snowflake-cli; brew install snowflake-cli
