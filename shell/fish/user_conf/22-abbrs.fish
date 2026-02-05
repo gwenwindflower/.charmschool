@@ -71,6 +71,12 @@ abbr --add ccf "sd ~/.claude"
 abbr --add ghcp copilot
 abbr --add uwu crush
 
+# writing, notes, and to-dos
+## default Obsidian vault
+abbr --add notes "sd -e /Users/winnie/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/girlOS"
+abbr --add ob obsidian-cli
+abbr --add obsidian obsidian-cli
+
 # mitmproxy
 abbr -a 'prx?' prxstate
 abbr -a mp mitmproxy
@@ -78,12 +84,11 @@ abbr -a mp mitmproxy
 # zoxide quick directory jumping
 ## built on top of sd fish function wrapping zoxide -> [nvim | yazi]
 abbr --add s z
-abbr --add dots "sd $HOME/.charmschool -e"
+abbr --add dots "sd -e $HOME/.charmschool"
 abbr --add conf "sd $HOME/.config"
 abbr --add dev "sd $HOME/dev"
 abbr --add skill "sd $HOME/.charmschool/agents/claude/skills"
-abbr --add keeb "sd $HOME/dev/04_utils/tinybabykeeb -e"
-abbr --add notes "sd $HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/girlOS -e"
+abbr --add keeb "sd -e $HOME/dev/04_utils/tinybabykeeb"
 
 # dbt
 abbr --add db dbtf build -s
