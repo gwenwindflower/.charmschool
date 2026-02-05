@@ -6,6 +6,12 @@
  * use at your own risk, and if you're the type of person who lets Claude Code rip
  * maybe don't use this (you do you, I just want you to be safe!)
  * TODO: tighten permissions, improve error handling, optimize performance
+ * TODO: show active Skills? names would take up too much space,
+ * but could add a config for certain important skills to assign a devicon
+ * then when that Skill load happens we append it to a Skill segment?
+ * Very low priority though.
+ * TODO: show sandbox status - if we get it in the context fed to statusline
+ * then this is easy and super useful, high priority to investigate
  */
 
 import { readAll } from 'https://deno.land/std@0.224.0/io/read_all.ts';
