@@ -1,73 +1,79 @@
 return {
-  -- {
-  --   "olimorris/codecompanion.nvim",
-  --   opts = {
-  --     display = {
-  --       action_palette = {
-  --         width = 95,
-  --         height = 10,
-  --         provider = "snacks",
-  --         opts = {
-  --           show_default_actions = true,
-  --           show_default_prompt_library = true,
-  --         },
-  --       },
-  --     },
-  --     extensions = {
-  --       mcphub = {
-  --         callback = "mcphub.extensions.codecompanion",
-  --         opts = {
-  --           make_vars = true,
-  --           make_slash_commands = true,
-  --           show_result_in_chat = true,
-  --           show_server_tools_in_chat = true,
-  --         },
-  --       },
-  --     },
-  --   },
-  --   keys = {
-  --     {
-  --       "<D-p>",
-  --       "<cmd>CodeCompanionChat Toggle<CR>",
-  --       desc = "CodeCompanion",
-  --       mode = { "n", "v" },
-  --     },
-  --     {
-  --       "<Leader>aa",
-  --       "<cmd>CodeCompanionChat Toggle<CR>",
-  --       desc = "Toggle sidebar",
-  --       mode = { "n", "v" },
-  --     },
-  --     {
-  --       "<Leader>an",
-  --       "<cmd>CodeCompanionChat<CR>",
-  --       desc = "New thread",
-  --       mode = { "n", "v" },
-  --     },
-  --     {
-  --       "<Leader>ap",
-  --       ":CodeCompanion",
-  --       desc = "New prompt",
-  --       mode = { "n", "v" },
-  --     },
-  --     {
-  --       "<D-k>",
-  --       "<cmd>CodeCompanionActions<CR>",
-  --       desc = "Action Palette",
-  --       mode = { "n", "v" },
-  --     },
-  --     {
-  --       "<Leader>ak",
-  --       "<cmd>CodeCompanionActions<CR>",
-  --       desc = "Action Palette",
-  --       mode = { "n", "v" },
-  --     },
-  --   },
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  -- },
+  {
+    "olimorris/codecompanion.nvim",
+    opts = {
+      interactions = {
+        chat = {
+          adapter = "claude_code",
+          model = "sonnet",
+        },
+      },
+      adapters = {
+        acp = {
+          claude_code = function()
+            return require("codecompanion.adapters").extend("claude_code", {
+              env = {
+                CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+              },
+            })
+          end,
+        },
+      },
+      display = {
+        action_palette = {
+          width = 95,
+          height = 10,
+          provider = "snacks",
+          opts = {
+            show_default_actions = true,
+            show_default_prompt_library = true,
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<D-p>",
+        "<cmd>CodeCompanionChat Toggle<CR>",
+        desc = "CodeCompanion",
+        mode = { "n", "v" },
+      },
+      --   {
+      --     "<Leader>aa",
+      --     "<cmd>CodeCompanionChat Toggle<CR>",
+      --     desc = "Toggle sidebar",
+      --     mode = { "n", "v" },
+      --   },
+      --   {
+      --     "<Leader>an",
+      --     "<cmd>CodeCompanionChat<CR>",
+      --     desc = "New thread",
+      --     mode = { "n", "v" },
+      --   },
+      --   {
+      --     "<Leader>ap",
+      --     ":CodeCompanion",
+      --     desc = "New prompt",
+      --     mode = { "n", "v" },
+      --   },
+      {
+        "<D-k>",
+        "<cmd>CodeCompanionActions<CR>",
+        desc = "Action Palette",
+        mode = { "n", "v" },
+      },
+      {
+        "<Leader>ak",
+        "<cmd>CodeCompanionActions<CR>",
+        desc = "Action Palette",
+        mode = { "n", "v" },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
   {
     "folke/sidekick.nvim",
     opts = function(_, opts)
