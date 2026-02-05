@@ -3,4 +3,4 @@ installs: |
   brew install tpm
 
 links:
-  tmux.conf: ~/.tmux.conf
+  tmux.conf: ~/.config/tmux/tmux.conf
