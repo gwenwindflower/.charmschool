@@ -103,11 +103,11 @@ return {
           },
         },
         prompts = {
-          security = "Review {file} for security vulnerabilities",
-          functional = "Refactor {buffers} for a more data-oriented functional programming style with minimal side effects or state mutations",
-          class_design = "Improve naming, organization, and data structures of {class} using best practices for the language",
-          clarify = "Explain {file} step-by-step and suggest edits to improve clarity, simplicity, naming, and structure",
-          teach = "Explain {selection} as you would to a junior developer new to the language, focus on syntax, language-specific APIs, features, and idioms",
+          security = "Audit {file} for security issues including: input validation gaps, injection vulnerabilities (SQL, XSS, command), authentication/authorization flaws, unsafe data handling, and cryptographic weaknesses. Provide specific line numbers and remediation steps for each issue found.",
+          functional = "Refactor {buffers} toward functional programming principles: eliminate mutable state, extract pure functions, use immutable data structures, replace loops with map/filter/reduce, and minimize side effects. Preserve existing behavior while improving composability and testability.",
+          class_design = "Analyze {class} design quality and suggest improvements: better names that reveal intent, cohesive responsibility alignment, appropriate encapsulation, clearer type signatures, removal of code smells (long methods, feature envy, data clumps), and adherence to SOLID principles where applicable.",
+          clarify = "Review {file} for clarity and maintainability. Simplify complex logic, improve naming to be self-documenting, reduce cognitive load (nested conditionals, long functions), add strategic comments only where logic isn't self-evident, and restructure for better readability. Suggest specific refactorings with before/after examples.",
+          teach = "Explain {selection} for someone new to this language. Break down: syntax and language-specific idioms, standard library APIs being used, design patterns or conventions, potential gotchas or common mistakes, and why this approach was chosen over alternatives. Use clear examples and relate to concepts from other languages where helpful.",
         },
       }
       return opts
