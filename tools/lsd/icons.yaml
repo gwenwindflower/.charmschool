@@ -2,6 +2,8 @@ name:
   .prettierd: 
   .prettier: 
   .pnpm: 
+  pnpm: 
+  deno: 
   go.mod: 
   .go: 
   spotify-player: 
