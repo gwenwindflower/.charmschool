@@ -60,6 +60,7 @@ set -gx XDG_DATA_HOME $HOME/.local/share
 set -gx XDG_STATE_HOME $HOME/.local/state
 set -gx XDG_CACHE_HOME $HOME/.cache
 
+set -gx TMUX_PLUGIN_MANAGER_PATH $HOME/.config/tmux/plugins
 # a lot of tools use this location for macOS-specific configuration
 # it is technically correct! because of this, it is what the `dirs` Rust crate returns
 # for the macOS config dir - so Rust-based tools particularly often expect this
