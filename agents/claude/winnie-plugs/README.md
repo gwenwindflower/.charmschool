@@ -12,7 +12,7 @@ _I feel like this whole config system will probably change soon to allow Claude 
 
 Each plugin is a directory with two files:
 
-```
+```text
 <plugin-name>/
 ├── plugin.json    # Plugin metadata
 └── .lsp.json     # LSP server configuration
