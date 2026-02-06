@@ -47,7 +47,13 @@ return {
     "saghen/blink.cmp",
     opts = {
       completion = {
-        menu = { border = "rounded" },
+        menu = {
+          border = "rounded",
+          -- Disable auto-show in Markdown; completions still available via manual trigger
+          auto_show = function()
+            return vim.bo.filetype ~= "markdown"
+          end,
+        },
         documentation = {
           window = { border = "rounded" },
         },
