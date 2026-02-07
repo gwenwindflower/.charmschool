@@ -1,4 +1,4 @@
-function y2j -d "Convert between YAML and JSON format (or vice versa!)"
+function yj -d "Convert between YAML and JSON format (or vice versa!)"
     argparse h/help i/invert f/force s/safe 'r/rename=' -- $argv
     or return
 
