@@ -89,22 +89,25 @@ return {
         },
         win = {
           keys = {
-            -- Had to change this from default <c-p> because I need ctrl-n/p for scrolling options,
-            -- including cycling prompt history in Claude Code
-            -- also the menu launcher in OpenCode
-            -- OpenCode uses a primarily leader-based keymap, which defaults to <c-x>
-            -- I changed that to <c-o> for a more natural reach, and o for 'open'
-            -- which frees up <c-x> for the prompt menu in Sidekick, prompts operate like commands
-            -- in Sidekick, so <c-x> makes sense mnemonically to me
-            prompt = { "<c-x>", "prompt", mode = "t", desc = "insert prompt or context" },
-            -- This was <c-q> by default, <c-e> e for exit, felt more natural, doesn't seem
-            -- to be used by any of the agent CLIs so far
+            -- Pretty much all of the default Sidekick keybinds conflict with various agents,
+            -- e.g. ctrl-p for prompts is used in the ctrl-n/p based scrolling in Cluade Code,
+            -- so I've remapped everything to use alt/opt/meta + a mnemonic key where possible
+            prompt = { "<m-p>", "prompt", mode = "t", desc = "insert prompt or context" },
+            -- a for '@' is the mnemonic, you @ files in most agents, and usually I'm
+            -- @'ing an open buffer
+            buffers = { "<m-a>", "buffers", mode = "t", desc = "insert buffer context" },
+            -- f for 'files'/'fuzzy finder'
+            files = { "<m-f>", "files", mode = "t", desc = "insert files from picker" },
+            -- Escape to normal mode from within Claude Code terminal,
+            -- ctrl-b was default, which is send to background in Claude Code,
+            -- thankfully this seems to be unused across agents, which is nice because
+            -- it's a critical keybinding for this workflow
             stopinsert = { "<c-w>", "stopinsert", mode = "t", desc = "enter normal mode" },
           },
         },
         prompts = {
-          security = "Audit {file} for security issues including: input validation gaps, injection vulnerabilities (SQL, XSS, command), authentication/authorization flaws, unsafe data handling, and cryptographic weaknesses. Provide specific line numbers and remediation steps for each issue found.",
-          functional = "Refactor {buffers} toward functional programming principles: eliminate mutable state, extract pure functions, use immutable data structures, replace loops with map/filter/reduce, and minimize side effects. Preserve existing behavior while improving composability and testability.",
+          security = "Audit {file} for security issues including: input validation gaps, injection vulnerabilities (SQL, XSS, command), authentication/authorization flaws, unsafe data handling, and cryptographic weaknesses. Provide specific line numbers and remediation steps for each issue found. Current diagnostics for the file (may be empty): {diagnostics}",
+          functional = "Refactor {file} toward functional programming principles: eliminate mutable state, extract pure functions, use immutable data structures, replace loops with map/filter/reduce, and minimize side effects. Preserve existing behavior while improving composability and testability.",
           class_design = "Analyze {class} design quality and suggest improvements: better names that reveal intent, cohesive responsibility alignment, appropriate encapsulation, clearer type signatures, removal of code smells (long methods, feature envy, data clumps), and adherence to SOLID principles where applicable.",
           clarify = "Review {file} for clarity and maintainability. Simplify complex logic, improve naming to be self-documenting, reduce cognitive load (nested conditionals, long functions), add strategic comments only where logic isn't self-evident, and restructure for better readability. Suggest specific refactorings with before/after examples.",
           teach = "Explain {selection} for someone new to this language. Break down: syntax and language-specific idioms, standard library APIs being used, design patterns or conventions, potential gotchas or common mistakes, and why this approach was chosen over alternatives. Use clear examples and relate to concepts from other languages where helpful.",
