@@ -9,7 +9,7 @@ abbr --add fun functions
 abbr --add top btm # you can use ctrl+space to stop the abbreviation expansion
 abbr --add cat bat # helpful if you really do need the classic tool versus the modern alternative
 abbr --add mkt mktemp
-abbr --add mkd mkdir
+abbr --add md mkdir -p
 ## colorized help via bat
 abbr --add --position anywhere -- --help '--help | bat -plhelp'
 abbr --add --position anywhere -- -h '-h | bat -plhelp'
@@ -45,31 +45,32 @@ abbr --add f fzf
 ## useful if you know you want to search files in a directory
 abbr --add fp "fd . --color always --hidden --ignore | fzf --preview '_fzf_preview_file {}'"
 ## print the default opts in a readable list format
-abbr --add fzfopt "echo \$FZF_DEFAULT_OPTS | sed 's/^--//; s/ --/\n/g' | bat"
+abbr --add fzfopts "echo \$FZF_DEFAULT_OPTS | sed 's/^--//; s/ --/\n/g' | bat"
 
 # Homebrew
 abbr --add bri "brew update; brew install"
-abbr --add bruin "brew update; brew uninstall"
-abbr --add brup "brew update; brew upgrade; brew cleanup"
+abbr --add brr brew uninstall
+abbr --add bru "brew update; brew upgrade; brew cleanup"
 abbr --add brs "brew update; brew search"
-abbr --add brh brew info
-abbr --add brl brew list
-abbr --add brli brew list --installed-on-request
-abbr --add brlc brew list --cask
-abbr --add brdep brew deps
-abbr --add brtree brew deps --tree
+abbr --add br? brew info
+abbr --add brls brew list
+abbr --add brlsf brew list --installed-on-request
+abbr --add brlsc brew list --cask
+abbr --add brd brew deps
+abbr --add brdt brew deps --tree
 abbr --add bruise brew uses --installed
-abbr --add brsrv brew services
-abbr --add brcl brew cleanup
+abbr --add brbg brew services
+abbr --add brc brew cleanup
+# custom function to run commands across multiple fzf-selected formulae/casks
+abbr --add brx brewdo
 
 # ai
-abbr --add ccc claude
+abbr --add cco claude
 abbr --add ccu "bunx ccusage@latest"
 abbr --add ccf "sd ~/.claude"
-# the shorter `ghc` -> `gh copilot` is mapped to for running copilot
-# from the `gh` CLI, this is just an extra option that works
-abbr --add ghcp copilot
+abbr --add ghc copilot
 abbr --add uwu crush
+abbr --add opc opencode
 
 # writing, notes, and to-dos
 ## default Obsidian vault
@@ -126,6 +127,7 @@ abbr --add uvtu uv tool upgrade
 abbr --add uvr uv run
 abbr --add uvp uv pip
 abbr --add uvpi uv pip install
+abbr --add uvpir "uv pip install -r requirements.txt"
 abbr --add uva uv add
 abbr --add uvs uv sync
 abbr --add uvi uv init
@@ -180,7 +182,6 @@ abbr --add gcfg git config --global
 ## github
 abbr --add gho gh repo view -w
 abbr --add ghd gh dash
-abbr --add ghc gh copilot
 ## interactive tools
 abbr --add gui lazygit
 abbr --add gcmm meteor
