@@ -2,3 +2,4 @@ installs: brew install git
 links:
   gitconfig: ~/.gitconfig
   gitignore_global: ~/.gitignore_global
+  allowed_signers: ~/.ssh/allowed_signers
