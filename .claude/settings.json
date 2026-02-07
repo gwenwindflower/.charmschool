@@ -18,6 +18,7 @@
       "WebFetch(domain:chezmoi.io)",
       "WebFetch(domain:www.chezmoi.io)",
       "WebFetch(domain:docs.deno.com)",
+      "WebFetch(domain:yazi-rs.github.io)",
       "Skill(fish-function-development)",
       "Skill(neovim-configuration)",
       "Skill(neovim-plugin-development)",
