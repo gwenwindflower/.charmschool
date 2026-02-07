@@ -23,8 +23,8 @@ function logirl -d "Centralized logging helper with consistent color conventions
         printf "\n  %sHelp Text:%s\n" (set_color --underline) (set_color normal)
         printf "    %-20s Green 'Usage:' + body text with newline above, no newline below (1 arg)\n" help_usage
         printf "    %-20s Green title: + description with newlines above/below (2 args)\n" help_header
-        printf "    %-20s Bold command + description (2 args)\n" help_cmd
-        printf "    %-20s Italic blue flag: s/long or s/long=ARG + desc (2 or 3 args, the first arg must follow `f/flag` format)\n" help_flag
+        printf "    %-20s Bold command + description, indented (2 args)\n" help_cmd
+        printf "    %-20s Italic blue flag + desc, indented (s/long, s/long=ARG, long, or long=ARG)\n" help_flag
 
         printf "\n  %sUtility:%s\n" (set_color --underline) (set_color normal)
         printf "    %-20s Dimmed text\n" dim
@@ -61,8 +61,8 @@ function logirl -d "Centralized logging helper with consistent color conventions
         set -l command $argv[2]
         set -l description $argv[3..-1]
 
-        # Output formatted command + description with trailing newline
-        printf "%s%-18s%s %s\n" \
+        # Output indented formatted command + description
+        printf "  %s%-18s%s %s\n" \
             (set_color --bold) \
             "$command" \
             (set_color normal) \
@@ -71,7 +71,11 @@ function logirl -d "Centralized logging helper with consistent color conventions
     end
 
     # help_flag requires 2 args (flag_spec + description)
-    # flag_spec format: "s/long" or "s/long=ARG"
+    # flag_spec formats:
+    #   "s/long"       → -s, --long          (short + long)
+    #   "s/long=ARG"   → -s, --long <ARG>    (short + long with value)
+    #   "long"         → --long              (long-only)
+    #   "long=ARG"     → --long <ARG>        (long-only with value)
     if test "$msg_type" = help_flag
         if test (count $argv) -lt 3
             printf "%s help_flag requires <flag_spec> and <description>%s\n" \
@@ -83,21 +87,30 @@ function logirl -d "Centralized logging helper with consistent color conventions
         set -l flag_spec $argv[2]
         set -l description $argv[3..-1]
 
-        # Parse the flag spec
+        # Determine if this is short/long or long-only by checking for /
         set -l flags_split (string split '/' $flag_spec)
-        if test (count $flags_split) -ne 2
-            printf "%s Flag spec must be SHORT/LONG or SHORT/LONG=ARG (e.g., h/help or o/output=FILE)%s\n" \
-                (set_color red --bold) \
-                (set_color normal) >&2
-            printf "Got: $flag_spec\n" >&2
-            return 1
-        end
+        set -l is_long_only false
+        set -l short_flag ""
+        set -l long_with_arg ""
 
-        set -l short_flag $flags_split[1]
-        set -l long_with_arg $flags_split[2]
+        if test (count $flags_split) -eq 2
+            # short/long format
+            set short_flag $flags_split[1]
+            set long_with_arg $flags_split[2]
 
-        if test -z "$short_flag" -o -z "$long_with_arg"
-            printf "%s Both short and long flag names required%s\n" \
+            if test -z "$short_flag" -o -z "$long_with_arg"
+                printf "%s Both short and long flag names required in s/long format%s\n" \
+                    (set_color red --bold) \
+                    (set_color normal) >&2
+                printf "Got: $flag_spec\n" >&2
+                return 1
+            end
+        else if test (count $flags_split) -eq 1
+            # long-only format (no / found)
+            set is_long_only true
+            set long_with_arg $flag_spec
+        else
+            printf "%s Invalid flag spec format (expected s/long or long)%s\n" \
                 (set_color red --bold) \
                 (set_color normal) >&2
             printf "Got: $flag_spec\n" >&2
@@ -118,21 +131,32 @@ function logirl -d "Centralized logging helper with consistent color conventions
                 printf "Got: $flag_spec\n" >&2
                 return 1
             end
-            # Format: -s, --long <ARG>  Description
-            # Combine long flag and <ARG> first, then pad to 18 chars total
-            set -l flag_with_arg "$long_flag <$arg_name>"
-            printf "%s-%-1s, --%-18s%s %s\n" \
+        end
+
+        # Build the formatted output
+        # Short+long:  "  -s, --long             Description"
+        # Long-only:   "      --long             Description"
+        # The 6 chars of "  -s, " align with "      " for long-only
+        set -l flag_col
+        if test -n "$arg_name"
+            set flag_col "$long_flag <$arg_name>"
+        else
+            set flag_col "$long_flag"
+        end
+
+        if test "$is_long_only" = true
+            # Long-only: 6 spaces to align past "  -x, " then --flag
+            printf "  %s    --%-18s%s %s\n" \
                 (set_color --italics blue) \
-                "$short_flag" \
-                "$flag_with_arg" \
+                "$flag_col" \
                 (set_color normal) \
                 "$description"
         else
-            # Format: -s, --long  Description
-            printf "%s-%-1s, --%-18s%s %s\n" \
+            # Short + long
+            printf "  %s-%-1s, --%-18s%s %s\n" \
                 (set_color --italics blue) \
                 "$short_flag" \
-                "$long_flag" \
+                "$flag_col" \
                 (set_color normal) \
                 "$description"
         end

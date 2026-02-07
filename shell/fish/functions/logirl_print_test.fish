@@ -39,18 +39,20 @@ function logirl_print_test -d "Visual reference and test suite for logirl messag
     logirl help_header Options
 
     echo (set_color --dim)'$ logirl help_cmd "mytool" "Run the main tool"'(set_color normal)
-    printf "  "
     logirl help_cmd mytool "Run the main tool"
     printf "\n"
 
     echo (set_color --dim)'$ logirl help_flag "h/help" "Show this help message"'(set_color normal)
-    printf "  "
     logirl help_flag h/help "Show this help message"
-    printf "\n"
 
     echo (set_color --dim)'$ logirl help_flag "o/output=FILE" "Output file path"'(set_color normal)
-    printf "  "
     logirl help_flag "o/output=FILE" "Output file path"
+
+    echo (set_color --dim)'$ logirl help_flag "casks" "Only match casks (long-only)"'(set_color normal)
+    logirl help_flag casks "Only match casks (long-only)"
+
+    echo (set_color --dim)'$ logirl help_flag "format=FMT" "Output format (long-only with arg)"'(set_color normal)
+    logirl help_flag "format=FMT" "Output format (long-only with arg)"
     printf "\n"
 
     # Utility Types
