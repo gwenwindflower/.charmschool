@@ -1,4 +1,5 @@
 {
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.ts",
@@ -61,5 +62,6 @@
     ]
   },
   "syntaxHighlightingDisabled": false,
-  "model": "sonnet"
+  "DISABLE_AUTO_UPDATER": 1,
+  "effortLevel": "medium"
 }
