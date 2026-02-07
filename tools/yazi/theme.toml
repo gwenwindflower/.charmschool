@@ -7,8 +7,3 @@ prepend_dirs = [
   { name = "Downloads", text = "" },
   { name = "Movies", text = "" },
 ]
-
-[opener]
-edit_in_dir = [
-  { run = 'cd "$1" && $EDITOR .', block = true, desc = "Open $EDITOR with selected directory as cwd" },
-]

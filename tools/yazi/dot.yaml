@@ -9,3 +9,6 @@ links:
   package.toml: ~/.config/yazi/package.toml
   theme.toml: ~/.config/yazi/theme.toml
   init.lua: ~/.config/yazi/init.lua
+  plugins/editor.yazi: ~/.config/yazi/plugins/editor.yazi
+
+# TODO: move editor.yazi plugin into its own proper plugin repo then install as normal

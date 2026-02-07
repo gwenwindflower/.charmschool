@@ -4,10 +4,6 @@
 show_hidden = true
 sort_dir_first = true
 
-[open]
-# TODO: make this work
-prepend_rules = [{ url = "*/", use = "edit_in_dir" }]
-
 [[plugin.prepend_fetchers]]
 id = "git"
 url = "*"

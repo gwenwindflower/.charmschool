@@ -49,3 +49,13 @@ run = "plugin bunny"
 desc = "Start bunny.yazi fuzzy search"
 on = ["g", "@"]
 run = "plugin bunny fuzzy"
+
+[[mgr.prepend_keymap]]
+on = "e"
+run = "plugin editor -- edit"
+desc = "Open hovered item in $EDITOR"
+
+[[mgr.prepend_keymap]]
+on = "E"
+run = "plugin editor -- git-root"
+desc = "Open $EDITOR at git repo root"
