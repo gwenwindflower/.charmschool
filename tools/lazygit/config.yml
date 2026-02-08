@@ -31,6 +31,7 @@ git:
   pagers:
     - pager: 'delta --paging=never --features=catppuccin-frappe --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"'
   parseEmoji: true
+  overrideGpg: true
 os:
   editPreset: "nvim-remote"
 keybinding:
