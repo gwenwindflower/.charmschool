@@ -8,6 +8,8 @@ abbr --add eee fresh # clear and reload
 abbr --add fun functions
 abbr --add top btm # you can use ctrl+space to stop the abbreviation expansion
 abbr --add cat bat # helpful if you really do need the classic tool versus the modern alternative
+abbr --add vi nvim
+abbr --add vim nvim
 abbr --add mkt mktemp
 abbr --add md mkdir -p
 ## colorized help via bat
