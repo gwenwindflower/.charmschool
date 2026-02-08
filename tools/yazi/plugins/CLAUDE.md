@@ -50,14 +50,14 @@ local get_context = ya.sync(function()
   local cwd = tostring(cx.active.current.cwd)
 
   if not hovered then
-    return nil, cwd, "empty"
+    return nil, cwd, nil, "empty"
   end
 
-  return tostring(hovered.url), cwd, nil
+  return tostring(hovered.url), cwd, hovered.cha.is_dir, nil
 end)
 
 -- async code calls the sync reader
-local url, cwd, err = get_context()
+local url, cwd, is_dir, err = get_context()
 ```
 
 ## Key Globals
@@ -144,8 +144,10 @@ Opens `$EDITOR` from Yazi with proper terminal blocking. Two modes dispatched vi
 
 **Implementation notes:**
 
-- A single `ya.sync()` function (`get_context`) extracts both the hovered URL and cwd as strings, since `cx` is only available in sync context
+- A single `ya.sync()` function (`get_context`) extracts the hovered URL, cwd, and `is_dir` flag, since `cx` is only available in sync context. Returns 4 values: `url, cwd, is_dir, reason`.
 - The `cwd` is needed for the `git-root` mode to run `git rev-parse` in the right directory
+- **cwd alignment:** In `edit` mode, when the hovered item is a directory, the plugin emits `ya.emit("cd", { url })` before opening the editor. This moves Yazi into the project directory so the shell spawned for `$EDITOR` inherits the correct cwd. Without this, terminals opened inside the editor (e.g., via `:terminal` or a terminal plugin) would land in the parent directory instead of the project root. Yazi processes emitted events sequentially, so the `cd` completes before the `shell` command runs.
+- The `git-root` mode doesn't need an explicit `cd` — it passes the git root path directly to `$EDITOR`, which sets its own cwd to that directory.
 - Multi-select guard: if `#cx.active.selected > 0`, shows a warning instead of proceeding (avoids ambiguity about which item to open)
 - Empty directory guard: if `cx.active.current.hovered` is `nil`, shows a warning
 - Uses `ya.quote()` around paths to handle spaces and special characters

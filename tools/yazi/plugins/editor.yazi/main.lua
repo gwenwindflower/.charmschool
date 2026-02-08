@@ -9,17 +9,17 @@
 local get_context = ya.sync(function()
 	local selected = #cx.active.selected
 	if selected > 0 then
-		return nil, nil, "selected"
+		return nil, nil, nil, "selected"
 	end
 
 	local cwd = tostring(cx.active.current.cwd)
 	local hovered = cx.active.current.hovered
 
 	if not hovered then
-		return nil, cwd, "empty"
+		return nil, cwd, nil, "empty"
 	end
 
-	return tostring(hovered.url), cwd, nil
+	return tostring(hovered.url), cwd, hovered.cha.is_dir, nil
 end)
 
 local function notify_warn(msg)
@@ -36,7 +36,7 @@ local function open_editor(path)
 end
 
 local function edit()
-	local url, _, reason = get_context()
+	local url, _, is_dir, reason = get_context()
 
 	if reason == "selected" then
 		return notify_warn("Deselect files first (use `u` to clear selection)")
@@ -45,11 +45,18 @@ local function edit()
 		return notify_warn("No hovered item")
 	end
 
+	-- When opening a directory as a project, move Yazi into it first so the
+	-- shell spawned for $EDITOR inherits the correct cwd. Without this,
+	-- terminals opened inside the editor would land in the parent directory.
+	if is_dir then
+		ya.emit("cd", { url })
+	end
+
 	open_editor(url)
 end
 
 local function git_root()
-	local _, cwd, reason = get_context()
+	local _, cwd, _, reason = get_context()
 
 	if reason == "selected" then
 		return notify_warn("Deselect files first (use `u` to clear selection)")
