@@ -1,0 +1,10 @@
+installs: |
+  brew install ruby
+  gem install rails
+
+# The Rails guide encourages the use of mise over rbenv
+# I'm happy to do that as we're already using mise and that saves us a tool
+# but the mise ruby install consistently fails on my machine
+# I havent' investigated but my intuition/suspicion is that
+# something is hardcoded for Apple Silicon
+# and having an ancient Intel MacBook still is causing this
