@@ -14,11 +14,21 @@
   gpgsign = true
 
 [pull]
-  rebase = true
   ff = only
 
 [rebase]
+  autoSquash = true
   autoStash = true
+
+[merge]
+  ff = only
+  conflictstyle = zdiff3
+
+[fetch]
+  prune = true
+
+[rerere]
+  enabled = true
 
 [init]
   defaultBranch = main
@@ -36,8 +46,6 @@
   hyperlinks = true
   features = catppuccin-frappe
 
-[merge]
-  conflictstyle = zdiff3
 
 [color]
   ui = auto
@@ -81,6 +89,7 @@
 
 [pretty]
 	catppuccin-frappe = format:%C(magenta)%ad%C(reset) %s %C(green)%h%C(reset) %C(blue)(%an)%C(reset) %C(auto)%d
+  datecomp = format:%h %G? %ad %cd %s
 [alias]
   ; personal log recipes that are pretty :)
 	graph = log --graph --pretty=catppuccin-frappe --date=human --all
@@ -89,6 +98,8 @@
 	r25 = log --graph --pretty=catppuccin-frappe --date=human -25
   diary = log --pretty=catppuccin-frappe --date=human
   my-diary = log --pretty=catppuccin-frappe --date=human --author "winnie"
+  ; for comparing author date and committer date, in case of rebase or amend divergence
+  datecomp = log --pretty=datecomp --date=short
   ; concise status with branch info
   s = status -sb
   ; easy semantic names
