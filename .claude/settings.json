@@ -28,7 +28,7 @@
       "Bash(tree:*)",
       "Bash(ls:*)",
       "Bash(fd:*)",
-      "Bash(find:*)",
+      "Bash(find:*)"
     ]
   }
 }
