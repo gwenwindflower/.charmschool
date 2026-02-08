@@ -1,4 +1,3 @@
-
 # Welcome to Charm School
 
 Charm School is an opinionated macOS dotfiles repo for a terminal-forward, Neovim-first workflow (with a strong bias toward data/analytics work). It’s designed for people who want a setup that’s cohesive and documented, but don’t want dotfiles to become a second job.
