@@ -20,17 +20,18 @@ vim.filetype.add({
   },
   extension = {
     ["http"] = "http",
+    ["env"] = "dotenv",
   },
 })
 
+-- use bash syntax highlighting for dotenv files,
+-- since there isn't a dedicated one and it's close enough
+vim.treesitter.language.register("bash", "dotenv")
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("sql_formatting"),
-  pattern = { "sql" },
+  group = augroup("dotenv_files"),
+  pattern = { "dotenv" },
   callback = function()
-    vim.opt.expandtab = true
-    vim.opt_local.tabstop = 4
-    vim.opt.softtabstop = 4
-    vim.opt_local.shiftwidth = 4
+    vim.bo.commentstring = "#%s"
   end,
 })
 
@@ -42,6 +43,17 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "kitty" },
   callback = function()
     vim.bo.commentstring = "#%s"
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("sql_formatting"),
+  pattern = { "sql" },
+  callback = function()
+    vim.opt.expandtab = true
+    vim.opt_local.tabstop = 4
+    vim.opt.softtabstop = 4
+    vim.opt_local.shiftwidth = 4
   end,
 })
 
