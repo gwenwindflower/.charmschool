@@ -77,7 +77,7 @@ abbr --add opc opencode
 
 # writing, notes, and to-dos
 ## default Obsidian vault
-abbr --add notes "sd -e /Users/winnie/Library/Mobile\ Documents/iCloud~md~obsidian/Documents/girlOS"
+abbr --add notes sd -e "$OBSIDIAN_DEFAULT_VAULT"
 abbr --add ob obsidian-cli
 abbr --add obsidian obsidian-cli
 
