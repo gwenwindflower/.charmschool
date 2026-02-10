@@ -68,11 +68,13 @@ bind --user -M insert ctrl-super-e "fresh; commandline -f repaint"
 bind --user -M visual ctrl-super-e "fresh; commandline -f repaint"
 bind --user ctrl-super-e "fresh; commandline -f repaint"
 
-# print (p)
-## p is the echo abbr (print)
-## pp is the bat abbr (pretty print)
-## so it made sense to map this to p
-## echo_insert is a custom function that puts
-## `echo "[your cursor here]"` on the command line
-## anywhere you invoke it from
-bind --user -M insert ctrl-p echo_insert
+# wrapping commands
+#
+# print (p) (i use p -> echo and pp -> bat)
+## this wraps anything (or nothing) on the command line
+# with echo "[stuff]^", with ^ being the end location of the cursor
+bind --user -M insert ctrl-p _wrap_echo
+bind --user ctrl-p _wrap_echo
+# secrets (s) 1Password env wrapper
+bind --user -M insert ctrl-s _wrap_op
+bind --user ctrl-s _wrap_op
