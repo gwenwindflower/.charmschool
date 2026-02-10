@@ -23,6 +23,11 @@ use = "stelcodes/bunny"
 rev = "6ee99bc"
 hash = "417de633d0008580b386bd3358eea56f"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:toggle-pane"
+rev = "88990a6"
+hash = "8a7c58225816a163a6e8730c0adafbc8"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "9e053d0"
