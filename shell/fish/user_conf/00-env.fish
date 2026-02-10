@@ -19,6 +19,8 @@ set -gx TERM xterm-256color
 
 # set a handy env var for DRY, flexible pointer to dev projects home dir
 set -gx PROJECTS $HOME/dev
+set -gx OBSIDIAN_HOME $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents
+set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
 
 # TODO: move this into agent docs or context
 
