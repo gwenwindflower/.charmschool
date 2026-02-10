@@ -62,7 +62,11 @@ set -gx XDG_DATA_HOME $HOME/.local/share
 set -gx XDG_STATE_HOME $HOME/.local/state
 set -gx XDG_CACHE_HOME $HOME/.cache
 
-set -gx TMUX_PLUGIN_MANAGER_PATH $HOME/.config/tmux/plugins
+# this can be inconsistent if not set explicitly,
+# if this doesn't exist, tpm will default to ~/.tmux/plugins,
+# so in my effort to avoid package managers polluting my home directory
+# with .<tool> config directories we set it here so even on new machines it will be correct
+set -gx TMUX_PLUGIN_MANAGER_PATH $XDG_CONFIG_HOME/tmux/plugins
 # a lot of tools use this location for macOS-specific configuration
 # it is technically correct! because of this, it is what the `dirs` Rust crate returns
 # for the macOS config dir - so Rust-based tools particularly often expect this
@@ -76,10 +80,9 @@ set -gx MACOS_CONFIG_HOME $HOME/Library/Application Support
 # tldr client (tlrc) config file location 
 # defaults to be in $MACOS_CONFIG_HOME, but per the comments on that env var,
 # we can redirect with this env var
-set -gx TLRC_CONFIG $HOME/.config/tlrc/tlrc.toml
+set -gx TLRC_CONFIG $XDG_CONFIG_HOME/tlrc/tlrc.toml
 
-set -gx OBSIDIAN_HOME $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents
-# Private environment variables
+# global env var secrets
 if test -f ~/.env
     source ~/.env
 end
