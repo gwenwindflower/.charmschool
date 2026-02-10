@@ -26,7 +26,12 @@ function sd -d "Fuzzy navigate to file explorer in directory with optional actio
         echo "Error: No search terms provided"
         return 1
     else
-        set z_search (string replace '~' $HOME $argv)
+        set -l clean_args
+        # sanitize args
+        for arg in $argv
+            set -a clean_args (string replace -r -m 1 '^~' $HOME $arg)
+        end
+        set z_search $clean_args
     end
 
     # z_search is initilized as pwd, if it's not updated by the args, we exit
