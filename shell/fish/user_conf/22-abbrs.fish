@@ -20,7 +20,6 @@ abbr --add --position anywhere -- -h '-h | bat -plhelp'
 abbr --add --position anywhere -- qq '>/dev/null'
 ## if you want to discard both stdout and stderr
 abbr --add --position anywhere -- qqq '>/dev/null 2>&1'
-abbr --add mac macchina # stats of my mac? mac -> macchina
 
 # config and dotfiles
 abbr --add moi chezmoi
@@ -38,7 +37,9 @@ abbr --add mc mise config
 abbr --add mcl mise config list
 abbr --add mcs mise config set
 abbr --add mpth $HOME/.local/share/mise/installs/
+abbr --add mac macchina # stats of my mac? mac -> macchina
 ## TUIs
+abbr --add lgt lazygit
 abbr --add ldr lazydocker
 abbr --add lsh lazyssh
 abbr --add lku k9s
