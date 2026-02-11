@@ -1,10 +1,15 @@
 installs: |
   brew install ruby
   gem install rails
+  if not type -q rv
+    brew install rv
+    rv ruby install 4
+  else if not test -d /Users/winnie/.local/share/rv/rubies/ruby-4*
+    rv ruby install 4
+  else
+    echo "rv already installed and some version of ruby 4.* is already installed via rv, you're good to go!"
+  end
 
-# The Rails guide encourages the use of mise over rbenv
-# I'm happy to do that as we're already using mise and that saves us a tool
-# but the mise ruby install consistently fails on my machine
-# I havent' investigated but my intuition/suspicion is that
-# something is hardcoded for Apple Silicon
-# and having an ancient Intel MacBook still is causing this
+# NOTE: rv is in early development, and still missing a lot of features
+# so we keep Homebrew Ruby cooking above, and setup rv below
+# will shift over to rv as it matures
