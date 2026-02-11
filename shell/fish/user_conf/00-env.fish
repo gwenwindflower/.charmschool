@@ -16,30 +16,14 @@ set -gx EDITOR nvim
 set -gx SHELL /usr/local/bin/fish
 set -gx TEMP /tmp
 set -gx TERM xterm-256color
+set -gx SSH_AUTH_SOCK $HOME/.1password/agent.sock
 
-# set a handy env var for DRY, flexible pointer to dev projects home dir
+# handy env vars for DRY, flexible pointers
+# to notes and dev projects
 set -gx PROJECTS $HOME/dev
 set -gx OBSIDIAN_HOME $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents
 set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
 
-# TODO: move this into agent docs or context
-
-# moor gives us nice 'smart' search/filter in pager
-# bat will also use it as pager for paged output
-# *NB*: bat's auto-paging is pretty simple actually
-# it just always sends to pager (if --paging=auto, the default, or 'always'), 
-# but for less it also sends the 'quit-if-one-screen' option (among others)
-# so it appears to only page for larger output when 'auto' is set
-# we have to manually set that for moor, but
-# this means that bat's --paging=[auto|always] options 
-# don't work essentially, removing this from moor = 'always',
-# adding it = 'auto'
-# we *can* turn off paging all together from bat with --paging=never though
-# moor will add a duplicate row of line numbers for bat input,
-# and we don't need line numbers for stuff like man pages, so we turn them off
-# lastly, moor's status bar is weirdly ugly because it needs to be
-# compatible with even the most basic terminals, so we turn it off
-# both can be toggled with <- (line numbers) and = (status bar) if needed
 set -gx PAGER /usr/local/bin/moor
 set -gx MOOR "\
 --quit-if-one-screen \
