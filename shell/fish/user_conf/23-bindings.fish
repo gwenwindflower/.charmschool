@@ -33,11 +33,11 @@ bind --user super-f "ff; commandline -f repaint"
 bind --user -M insert super-g "commandline -r 'lazygit'; commandline -f execute"
 bind --user super-g "commandline -r 'lazygit'; commandline -f execute"
 ## quick pretty git log
-bind --user -M insert super-G "commandline -r 'git forgit log'; commandline -f execute"
-bind --user super-G "commandline -r 'git forgit log'; commandline -f execute"
+bind --user -M insert ctrl-alt-g "commandline -r 'git forgit log'; commandline -f execute"
+bind --user ctrl-alt-g "commandline -r 'git forgit log'; commandline -f execute"
 ## gh dash GitHub Dash extension for quick project management
-bind --user -M insert ctrl-super-g "commandline -r 'gh dash'; commandline -f execute"
-bind --user ctrl-super-g "commandline -r 'gh dash'; commandline -f execute"
+bind --user -M insert super-G "commandline -r 'gh dash'; commandline -f execute"
+bind --user super-G "commandline -r 'gh dash'; commandline -f execute"
 
 # AI agents (c - code)
 ## launch claude code
