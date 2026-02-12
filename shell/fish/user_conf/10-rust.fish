@@ -6,5 +6,5 @@
 # I prefer to have control over when it executes, so I do it here
 
 # For convenience we set an env var in case its useful elsewhere
-set -gx CARGO_HOME $HOME/.cargo
-fish_add_path $CARGO_HOME/bin
+set -gx RUST_HOME $HOME/.cargo
+fish_add_path $RUST_HOME/bin
