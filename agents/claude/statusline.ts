@@ -163,7 +163,7 @@ async function execCommand(
 // Check if directory is a git repository
 async function isGitRepo(cwd: string, env: Record<string, string>): Promise<boolean> {
   const result = await execCommand('git', ['rev-parse', '--git-dir'], cwd, env);
-  return result.length > 0;
+  return result !== 'failed';
 }
 
 // Get git branch name
