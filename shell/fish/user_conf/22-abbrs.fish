@@ -8,9 +8,9 @@ abbr --add eee fresh # clear and reload
 abbr --add fun functions
 abbr --add top btm # you can use ctrl+space to stop the abbreviation expansion
 abbr --add cat bat # helpful if you really do need the classic tool versus the modern alternative
-abbr --add vi nvim
-abbr --add vim nvim
-abbr --add o "op run --env-file=\$OP_GLOBAL_ENV --no-masking -- "
+abbr --add vi opo nvim
+abbr --add vim opo nvim
+abbr --add nvim opo nvim
 abbr --add mkt mktemp
 abbr --add mkd mkdir -p
 abbr --add cp. "pwd | pbcopy"
