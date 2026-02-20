@@ -12,7 +12,8 @@ abbr --add vi nvim
 abbr --add vim nvim
 abbr --add o "op run --env-file=\$OP_GLOBAL_ENV --no-masking -- "
 abbr --add mkt mktemp
-abbr --add md mkdir -p
+abbr --add mkd mkdir -p
+abbr --add cp. "pwd | pbcopy"
 ## colorized help via bat
 abbr --add --position anywhere -- --help '--help | bat -plhelp'
 abbr --add --position anywhere -- -h '-h | bat -plhelp'
