@@ -1,1 +1,6 @@
-installs: null
+installs: |
+  if type -q rip
+    echo "rm-imrpoved (rip) is already installed!"
+  else
+    brew install rm-improved
+  end
