@@ -1,4 +1,10 @@
-installs: brew install claude-code
+installs: |
+  if type -q claude
+    echo "Claude Code is already installed!"
+  else
+    brew install claude-code
+  end
+
 links:
   settings.json: ~/.claude/settings.json
   statusline.ts: ~/.claude/statusline.ts
