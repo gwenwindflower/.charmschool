@@ -124,6 +124,7 @@ abbr --add gdl gallery-dl
 
 # python
 abbr --add py python
+abbr --add pym python main.py
 abbr --add ip ipython
 abbr --add pyt pytest
 abbr --add uvpy uv python
