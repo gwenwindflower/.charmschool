@@ -1,13 +1,5 @@
-# Fish is installed via the bootstrap.sh script,
-# as it used to run all Rotz subshell install commands
-# This install script installs the `fisher` fish plugin manager and
-# installs/updates the list of plugins from fish_plugins
-installs: |
-  if type -q fisher
-    fisher update
-  else
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-    fisher update
+# Fish is installed via the bootstrap.sh script, as it used to run all Rotz subshell install commands
+# if you hit the need to update fish plugins at some point user the fisher_init.fish script
 
 links:
   config.fish: ~/.config/fish/config.fish
