@@ -140,29 +140,26 @@ return {
       opts = opts or {}
       opts.cli = {
         mux = {
-          backend = "tmux",
-          -- TODO: i *think* ideally i would like the below to be 'split', but my mux config is not fleshed out enough yet,
-          -- so it's easier to just stick with the default Neovim terminal for now
-          -- this is the default setting but i'm leaving it here to remind myself
-          create = "terminal",
-          enabled = true,
+          -- backend = "tmux",
+          -- create = "terminal",
+          enabled = false,
         },
         win = {
           keys = {
             -- Pretty much all of the default Sidekick keybinds conflict with various agents,
             -- e.g. ctrl-p for prompts is used in the ctrl-n/p based scrolling in Cluade Code,
             -- so I've remapped everything to use alt/opt/meta + a mnemonic key where possible
-            prompt = { "<m-p>", "prompt", mode = "t", desc = "insert prompt or context" },
+            prompt = { "<m-p>", "prompt", mode = "t", desc = "Insert prompt or context" },
             -- a for '@' is the mnemonic, you @ files in most agents, and usually I'm
             -- @'ing an open buffer
-            buffers = { "<m-a>", "buffers", mode = "t", desc = "insert buffer context" },
+            buffers = { "<m-a>", "buffers", mode = "t", desc = "Pick buffers to add" },
             -- f for 'files'/'fuzzy finder'
-            files = { "<m-f>", "files", mode = "t", desc = "insert files from picker" },
+            files = { "<m-f>", "files", mode = "t", desc = "Pick files to add" },
             -- Escape to normal mode from within Claude Code terminal,
             -- ctrl-b was default, which is send to background in Claude Code,
             -- thankfully this seems to be unused across agents, which is nice because
             -- it's a critical keybinding for this workflow
-            stopinsert = { "<c-w>", "stopinsert", mode = "t", desc = "enter normal mode" },
+            stopinsert = { "<c-w>", "stopinsert", mode = "t", desc = "Escape to normal mode" },
           },
         },
         prompts = {
