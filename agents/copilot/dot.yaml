@@ -1,1 +1,6 @@
-installs: brew install copilot-cli
+installs: |
+  if type -q copilot
+    echo "GitHub Copilot CLI is already installed!"
+  else
+    brew install copilot-cli
+  end
