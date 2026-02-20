@@ -6,31 +6,8 @@
       "Read(~/.config/fish/**)",
       "Read(~/.local/share/nvim/**)",
       "Read(~/.local/share/nvim/LazyVim)",
-      "WebFetch(domain:mise.jdx.dev)",
-      "WebFetch(domain:code.claude.com)",
-      "WebFetch(domain:docs.brew.sh)",
-      "WebFetch(domain:agentskills.io)",
-      "WebFetch(domain:fishshell.com)",
       "WebFetch(domain:homebrew-file.readthedocs.io)",
-      "WebFetch(domain:lazyvim.org)",
-      "WebFetch(domain:neovim.io)",
-      "WebFetch(domain:sw.kovidgoyal.net)",
-      "WebFetch(domain:chezmoi.io)",
-      "WebFetch(domain:www.chezmoi.io)",
-      "WebFetch(domain:docs.deno.com)",
-      "WebFetch(domain:yazi-rs.github.io)",
-      "Skill(fish-functions)",
-      "Skill(neovim-config)",
-      "Skill(neovim-plugin-development)",
-      "Skill(chezmoi)",
-      "Skill(gitignore)",
-      "Skill(gh-cli-use)",
-      "Skill(develop-agent-skills)",
-      "Skill(rotz-dotfiles)",
-      "Bash(tree:*)",
-      "Bash(ls:*)",
-      "Bash(fd:*)",
-      "Bash(find:*)"
+      "WebFetch(domain:yazi-rs.github.io)"
     ]
   }
 }
