@@ -11,12 +11,13 @@ vim.filetype.add({
     -- SQLFluff uses TOML format, but Tree-sitter doesn't clock that obviously
     -- because it's not a super popular tool/filetype so we have to manually set it
     [".sqlfluff"] = "toml",
-    -- For the sake of my gitconfig not being hidden in the explorer
-    -- my root file that is symlinked to ~/.gitconfig is named gitconfig
-    -- but that means we have to manually set the filetype
+    -- These are mappings so I don't have to deal with a hidden file
+    -- in my source dotfiles repo, they get linked out the .<equivalent> name,
+    -- but I also want them to behave normally undotted here
     ["gitconfig"] = "gitconfig",
     ["gitignore_global"] = "gitignore",
-    ["bashrc"] = "ft",
+    ["bashprofile"] = "bash",
+    ["zprofile"] = "zsh",
   },
   extension = {
     ["http"] = "http",
