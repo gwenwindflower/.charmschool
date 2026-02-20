@@ -69,12 +69,11 @@ bind --user -M visual ctrl-super-e "fresh; commandline -f repaint"
 bind --user ctrl-super-e "fresh; commandline -f repaint"
 
 # wrapping commands
-#
-# print (p) (i use p -> echo and pp -> bat)
+## print (p) (i use p -> echo and pp -> bat)
 ## this wraps anything (or nothing) on the command line
-# with echo "[stuff]^", with ^ being the end location of the cursor
+## with echo "[stuff]^", with ^ being the end location of the cursor
 bind --user -M insert ctrl-p _wrap_echo
 bind --user ctrl-p _wrap_echo
-# secrets (s) 1Password env wrapper
-bind --user -M insert ctrl-s _wrap_op
-bind --user ctrl-s _wrap_op
+## secrets (s) 1Password env wrapper
+bind --user -M insert ctrl-s _wrap_op_interactive
+bind --user ctrl-s _wrap_op_interactive
