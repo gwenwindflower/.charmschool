@@ -1,3 +1,4 @@
+# TODO: only on Darwin, not devcontainers
 installs: |
   brew tap stefanlogue/tools
   brew install --cask meteor

@@ -1,3 +1,4 @@
+# TODO: only on Darwin, not devcontainers
 installs: |
   if not type -q obsidian-cli
     brew tap yakitrak/yakitrak

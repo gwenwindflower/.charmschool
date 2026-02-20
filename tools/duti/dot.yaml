@@ -1,3 +1,5 @@
+# TODO: only on Darwin, not devcontainers
+
 installs: |
   brew install duti
   duti ~/.charmschool/tools/duti/duti.conf
