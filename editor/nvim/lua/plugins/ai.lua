@@ -4,19 +4,73 @@ return {
     opts = {
       interactions = {
         chat = {
-          adapter = "claude_code",
-          model = "sonnet",
+          adapter = "copilot",
+          model = "sonnet-4.6",
+        },
+        -- ACP integration works surprisingly well
+        -- but I want to see the difference when
+        -- the model has access to all of CodeCompanion's tools
+        -- because it's hooked into nvim, the editing, diffs, etc.
+        -- are more powerful, so I'm curious if that outweighs
+        -- Claude Code's agent harness when it comes to pairing inside nvim
+        -- as compared to purely driving from the CLI, and using nvim as a tool
+        -- for reviewing and cleaning up edits after the work is done
+        -- SO! using copilot for now, which is a purely http connection
+        -- chat = {
+        --   adapter = "claude_code",
+        --   model = "opus",
+        -- },
+        inline = {
+          adapter = "copilot",
+          model = "gpt-5.1-codex-max",
         },
       },
       adapters = {
+        -- TODO: add OpenRouter adapter
+        --
+        -- don't duplicate the base adapter: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/adapters/http/openai_compatible.lua
+        --
+        -- look at:
+        --    - openai-responses adapter https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/adapters/http/openai_responses.lua
+        --    - copilot adapter https://github.com/olimorris/codecompanion.nvim/tree/main/lua/codecompanion/adapters/http/copilot
+        -- https://codecompanion.olimorris.dev/extending/adapters
+        --
+        -- some notes on community implementations:
+        -- https://github.com/olimorris/codecompanion.nvim/discussions/1013
+        -- https://github.com/hanipcode/nvim/blob/main/lua/hanipcode/plugins/codecompanion.lua
+        -- https://github.com/hanipcode/nvim/blob/main/lua/hanipcode/local/adapter.lua
+        -- http = {
+        --   openrouter = function()
+        --     return require("codecompanion.adapters").extend("openai_compatible", {
+        --       env = {
+        --         url = "https://openrouter.ai/api",
+        --         api_key = "OPENROUTER_API_KEY",
+        --         chat_url = "/v1/chat/completions",
+        --       },
+        --       schema = {
+        --         model = {
+        --           default = "anthropic/claude-3.7-sonnet",
+        --           choices = "anthropic/claude-3.7-sonnet",
+        --         },
+        --       },
+        --     })
+        --   end,
+        -- },
         acp = {
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
-                CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+                CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_ACP_OAUTH_TOKEN",
               },
             })
           end,
+        },
+      },
+      prompt_library = {
+        markdown = {
+          dirs = {
+            "~/.charmschool/agents/prompt_library",
+          },
         },
       },
       display = {
@@ -33,9 +87,15 @@ return {
     },
     keys = {
       {
-        "<D-p>",
+        "<Leader>ao",
         "<cmd>CodeCompanionChat Toggle<CR>",
-        desc = "CodeCompanion",
+        desc = "CodeCompanion Toggle",
+        mode = { "n", "v" },
+      },
+      {
+        "<C-'>",
+        "<cmd>CodeCompanionChat Toggle<CR>",
+        desc = "CodeCompanion Toggle",
         mode = { "n", "v" },
       },
       --   {
