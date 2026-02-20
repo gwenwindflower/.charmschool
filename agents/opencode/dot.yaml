@@ -1,1 +1,9 @@
-installs: brew install opencode
+installs: |
+  if type -q opencode
+    echo "opencode is already installed!"
+  else
+    brew install opencode
+  end
+
+links:
+  opencode.jsonc: ~/.config/opencode/opencode.jsonc
