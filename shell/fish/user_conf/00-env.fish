@@ -12,8 +12,15 @@ set -e fish_user_paths
 set -gx fish_user_paths $HOME/.local/bin
 fish_add_path -g $HOME/.local/bin
 
-set -gx EDITOR nvim
-set -gx SHELL /usr/local/bin/fish
+# Sets $HOMEBREW_PREFIX, anything installed by Homebrew
+# in subsequent files should be referenced via $HOMEBREW_PREFIX,
+# not an absolute path,
+# for the sake of DRYness, as this is different across machines
+brew shellenv fish | source
+# Turn off Homebrew hints
+set -gx HOMEBREW_NO_ENV_HINTS 1
+
+set -gx SHELL $HOMEBREW_PREFIX/bin/fish
 set -gx TEMP /tmp
 set -gx TERM xterm-256color
 set -gx SSH_AUTH_SOCK $HOME/.1password/agent.sock
@@ -21,10 +28,10 @@ set -gx SSH_AUTH_SOCK $HOME/.1password/agent.sock
 # handy env vars for DRY, flexible pointers
 # to notes and dev projects
 set -gx PROJECTS $HOME/dev
-set -gx OBSIDIAN_HOME $HOME/Library/Mobile\ Documents/iCloud~md~obsidian/Documents
+set -gx OBSIDIAN_HOME "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
 set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
 
-set -gx PAGER /usr/local/bin/moor
+set -gx PAGER $HOMEBREW_PREFIX/bin/moor
 set -gx MOOR "\
 --quit-if-one-screen \
 --wrap \
@@ -62,11 +69,7 @@ set -gx TMUX_PLUGIN_MANAGER_PATH $XDG_CONFIG_HOME/tmux/plugins
 set -gx MACOS_CONFIG_HOME $HOME/Library/Application Support
 
 # tldr client (tlrc) config file location 
-# defaults to be in $MACOS_CONFIG_HOME, but per the comments on that env var,
-# we can redirect with this env var
+# defaults to be in $MACOS_CONFIG_HOME, but we prefer XDG_CONFIG_HOME for terminal tools
 set -gx TLRC_CONFIG $XDG_CONFIG_HOME/tlrc/tlrc.toml
 
-# global env var secrets
-if test -f ~/.env
-    source ~/.env
-end
+set -gx OP_ENV_DIR $XDG_CONFIG_HOME/op/environments
