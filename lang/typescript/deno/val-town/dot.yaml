@@ -1,5 +1,7 @@
 installs: |
-  if not type -q vt
+  if type -q vt
+    echo "valtown CLI already installed!"
+  else
     deno install -grAf jsr:@valtown/vt
   end
 depends:
