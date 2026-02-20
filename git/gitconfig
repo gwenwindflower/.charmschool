@@ -98,6 +98,7 @@
 	r25 = log --graph --pretty=catppuccin-frappe --date=human -25
   diary = log --pretty=catppuccin-frappe --date=human
   my-diary = log --pretty=catppuccin-frappe --date=human --author "winnie"
+  autograph = log --pretty=catppuccin-frappe --date=human --show-signature --author "winnie"
   ; for comparing author date and committer date, in case of rebase or amend divergence
   datecomp = log --pretty=datecomp --date=short
   ; concise status with branch info
