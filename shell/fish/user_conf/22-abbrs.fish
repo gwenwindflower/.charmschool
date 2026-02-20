@@ -197,6 +197,7 @@ abbr --add ghd gh dash
 abbr --add gui lazygit
 abbr --add gcmm meteor
 ## forgit
+abbr --add gfgii "git forgit ignore >> .gitignore"
 abbr --add gfg git forgit
 abbr --add gfga git forgit add
 abbr --add gfglo git forgit log
