@@ -1,0 +1,9 @@
+{
+  "entrymain": {
+    "body": [
+      "if __name__ == \"__main__\":",
+      "  ${1:function}"
+    ],
+    "prefix": "entrymain"
+  }
+}

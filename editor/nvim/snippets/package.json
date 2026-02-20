@@ -9,6 +9,12 @@
       },
       {
         "language": [
+          "python"
+        ],
+        "path": "./python/general.json"
+      },
+      {
+        "language": [
           "json"
         ],
         "path": "./json/config.json"
