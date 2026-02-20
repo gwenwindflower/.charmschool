@@ -111,6 +111,15 @@ abbr --add dra dbtf run
 abbr --add dbtp nvim ~/.dbt/profiles.yml
 abbr --add dbtpp bat ~/.dbt/profiles.yml
 
+# security
+## 1password
+# 'global'
+abbr --add ope "op run --env-file=$OP_ENV_DIR/global.env --no-masking -- " # run with default global env file, without setting env vars for the session, no masking (for interactive use)
+abbr --add opi "op run --no-masking -- "
+abbr --add opr "op run -- "
+abbr --add openv v $OP_ENV_DIR
+abbr --add keys security
+
 # compute and data
 abbr --add dbx databricks
 abbr --add ddb duckdb
