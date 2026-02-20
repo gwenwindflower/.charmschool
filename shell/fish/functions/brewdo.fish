@@ -193,14 +193,15 @@ function brewdo -d "Find Homebrew packages and perform actions on them"
         set packages $to_install
     end
 
+    if not type -q gum
+        logirl error "gum not found in PATH (required for destructive action confirmation)"
+        logirl info "Install with: brew install gum"
+        return 127
+    end
+
     # Safety gates: confirm for destructive actions
     set -l destructive_actions uninstall reinstall
     if contains $action $destructive_actions
-        if not type -q gum
-            logirl error "gum not found in PATH (required for destructive action confirmation)"
-            logirl info "Install with: brew install gum"
-            return 127
-        end
         echo ""
         if not gum confirm "Run 'brew $action' on "(count $packages)" package(s)?"
             logirl info Cancelled
@@ -208,7 +209,6 @@ function brewdo -d "Find Homebrew packages and perform actions on them"
         end
     else if test (count $packages) -gt 10
         # Confirm large batch operations even for non-destructive actions
-        if type -q gum
             echo ""
             if not gum confirm "Run 'brew $action' on "(count $packages)" packages?"
                 logirl info Cancelled
