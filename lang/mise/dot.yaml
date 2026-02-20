@@ -1,3 +1,9 @@
-installs: brew install mise
+installs: |
+  if type -q mise
+    echo "mise is already installed!"
+  else
+    brew install mise
+  end
+
 links:
   config.toml: ~/.config/mise/config.toml
