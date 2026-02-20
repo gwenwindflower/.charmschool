@@ -1,10 +1,10 @@
 # TODO: only on Darwin, not devcontainers
 installs: |
-  if not type -q obsidian-cli
+  if type -q obsidian-cli
+    echo "obsidian-cli is already installed!"
+  else
     brew tap yakitrak/yakitrak
     brew install yakitrak/yakitrak/obsidian-cli
     obsidian-cli completion fish > ~/.config/fish/completions/obsidian-cli.fish
     obsidian-cli set-default girlOS
-  else
-    echo "An obsidian-cli binary was found in PATH, it seems to already be installed!"
   end
