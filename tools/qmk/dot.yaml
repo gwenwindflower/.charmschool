@@ -1,4 +1,8 @@
 # TODO: only on Darwin, not devcontainers
 installs: |
-  brew tap qmk/qmk
-  brew install qmk/qmk/qmk
+  if type -q qmk
+    echo "qmk is already installed!"
+  else
+    brew tap qmk/qmk
+    brew install qmk/qmk/qmk
+  end
