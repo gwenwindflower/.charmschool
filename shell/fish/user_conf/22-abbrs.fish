@@ -70,12 +70,18 @@ abbr --add brc brew cleanup
 abbr --add brx brewdo
 
 # ai
-abbr --add cco claude
+abbr --add ccf zex $HOME/.claude
+abbr --add cco opo claude
+abbr --add claude opo claude
+abbr --add ccfs "zex $HOME/.charmschool/agents/claude/skills"
+# TODO: set up env files for crush, opencode, copilot, and codex
+abbr --add uwu opo crush
+# abbr --add crush opo crush
+abbr --add opc opo opencode
+# abbr --add opencode opo opencode
+abbr --add cdx opo codex
+# abbr --add codex opo codex
 abbr --add ccu "bunx ccusage@latest"
-abbr --add ccf "sd ~/.claude"
-abbr --add ghc copilot
-abbr --add uwu crush
-abbr --add opc opencode
 
 # writing, notes, and to-dos
 ## default Obsidian vault
