@@ -1,21 +1,21 @@
-# Mainly a utility function that other functions wrap
-function sd -d "Fuzzy navigate to file explorer in directory with optional actions"
-    argparse h/help e/editor x/no-explorer a/action= -- $argv
+# Navigate+Open launcher function, a helper for other functions, aliases, bindings, and abbreviations
+# basically a streamlined call to zoxide + yazi/nvim/whatever you want for edge cases
+function zex -d "Fuzzy navigate to a directory then take an action (file explorer or editor by default)"
+    argparse h/help e/editor a/action= -- $argv
     or return
 
     if set -q _flag_help
-        echo "Usage: sd [options] fuzzy_search_terms..."
+        echo "Usage: zex [options] fuzzy_search_terms..."
         echo "  All non-flag args are hierarchical z search terms"
         echo ""
         echo "Options:"
         echo "  -h, --help            Show this help"
         echo "  -e, --editor          Open with \$EDITOR instead of file explorer"
-        echo "  -x, --no-explorer     Don't open file explorer"
         echo "  -a, --action=ACTION   Take another action after navigating (overrides explorer/editor)"
         echo ""
         echo "Examples:"
-        echo "  sd config fish auto        # z config fish auto + open explorer"
-        echo "  sd -e dev project api      # z dev project api + open editor"
+        echo "  zex config fish auto        # z config fish auto + open explorer"
+        echo "  zex -e dev project api      # z dev project api + open editor"
         return 0
     end
 
@@ -48,18 +48,12 @@ function sd -d "Fuzzy navigate to file explorer in directory with optional actio
         if set -q _flag_action
             command $_flag_action
         else if set -q _flag_editor
-            if set -q EDITOR
-                $EDITOR
-            else
-                echo "Error: \$EDITOR is not set"
-                return 1
-            end
-        else if set -q _flag_no_explorer
-            return
+            opo nvim
         else
             # Otherwise, open file explorer
             if not test (type -q yazi) -a (type -q ff)
-                echo "Error: No file explorer found (requires yazi and the ff wrapper function)"
+                logirl error "No file explorer found (requires yazi and the ff wrapper function)"
+                return 127
             end
             ff
         end

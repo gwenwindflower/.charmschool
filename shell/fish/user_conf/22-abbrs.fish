@@ -78,7 +78,7 @@ abbr --add opc opencode
 
 # writing, notes, and to-dos
 ## default Obsidian vault
-abbr --add notes sd -e "$OBSIDIAN_DEFAULT_VAULT"
+abbr --add notes "zex -e '$OBSIDIAN_DEFAULT_VAULT'"
 abbr --add ob obsidian-cli
 abbr --add obsidian obsidian-cli
 
@@ -87,13 +87,12 @@ abbr -a 'prx?' prxstate
 abbr -a mp mitmproxy
 
 # zoxide quick directory jumping
-## built on top of sd fish function wrapping zoxide -> [nvim | yazi]
+## built on top of zex fish function wrapping zoxide -> [nvim | yazi]
 abbr --add s z
-abbr --add dots "sd -e $HOME/.charmschool"
-abbr --add conf "sd $HOME/.config"
-abbr --add dev "sd $HOME/dev"
-abbr --add skill "sd $HOME/.charmschool/agents/claude/skills"
-abbr --add keeb "sd -e $HOME/dev/04_utils/tinybabykeeb"
+abbr --add dots "zex -e $HOME/.charmschool"
+abbr --add conf "zex $HOME/.config"
+abbr --add dev "zex $HOME/dev"
+abbr --add keeb "zex -e $HOME/dev/04_utils/tinybabykeeb"
 
 # dbt
 abbr --add db dbtf build -s

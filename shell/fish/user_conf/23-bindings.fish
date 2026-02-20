@@ -43,8 +43,8 @@ bind --user super-G "commandline -r 'gh dash'; commandline -f execute"
 ## launch claude code
 bind --user -M insert ctrl-super-c claude_launch
 bind --user ctrl-super-c claude_launch
-bind --user -M insert alt-super-c "sd ~/.claude/"
-bind --user alt-super-c "sd ~/.claude/"
+bind --user -M insert alt-super-c "zex ~/.claude/"
+bind --user alt-super-c "zex ~/.claude/"
 
 # Opening stuff (o - open)
 # open nvim in current directory (via v.fish function)
