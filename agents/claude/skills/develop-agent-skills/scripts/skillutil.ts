@@ -12,7 +12,7 @@
  *   deno task skillutil:install
  *   skillutil <command> [options]
  *
- * Templates are read from: ~/.claude/skills/agent-skills/assets
+ * Templates are read from: ~/.claude/skills/develop-agent-skills/assets
  */
 
 import { parse as parseYAML } from '@std/yaml';
@@ -27,8 +27,8 @@ import { Command } from '@cliffy/command';
 const homeDir = Deno.env.get('HOME');
 if (!homeDir) throw new Error('HOME not set');
 
-const TEMPLATE_DIR = join(homeDir, '.claude/skills/agent-skills/assets');
-const AGENT_SKILLS_DIR = join(homeDir, '.claude/skills/agent-skills');
+const TEMPLATE_DIR = join(homeDir, '.claude/skills/develop-agent-skills/assets');
+const AGENT_SKILLS_DIR = join(homeDir, '.claude/skills/develop-agent-skills');
 const USER_LEVEL_SKILLS = join(homeDir, '.charmschool/agents/claude/skills');
 const DEACTIVATED_SKILLS = join(homeDir, '.charmschool/agents/claude/_deactivated_skills');
 

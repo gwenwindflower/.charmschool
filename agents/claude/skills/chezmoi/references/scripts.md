@@ -46,25 +46,9 @@ end
 {{ end }}
 ```
 
-### run_onchange_ (Config-Triggered)
+### run_onchange_ (Plugin Manager)
 
 Embed a hash of the config file to re-run when it changes:
-
-```fish
-#!/usr/bin/env fish
-# .chezmoiscripts/run_onchange_after_30-fisher.fish.tmpl
-# fish_plugins hash: {{ include "dot_config/fish/fish_plugins" | sha256sum }}
-
-if type -q fisher
-    fisher update
-else
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-    fisher install jorgebucaran/fisher
-    fisher update
-end
-```
-
-### run_onchange_ (Plugin Manager)
 
 ```fish
 #!/usr/bin/env fish
@@ -73,6 +57,9 @@ end
 
 if type -q ya
     ya pkg install
+else
+    echo "Yazi CLI not found, skipping plugin installation" >&2
+    return 1
 end
 ```
 
