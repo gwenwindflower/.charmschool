@@ -1,2 +1,9 @@
+installs: |
+  if type -q starship
+    echo "starship is already installed!"
+  else
+    brew install starship
+  end
+
 links:
   starship.toml: ~/.config/starship.toml
