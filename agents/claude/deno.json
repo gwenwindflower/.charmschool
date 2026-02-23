@@ -27,9 +27,9 @@
     "@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.8"
   },
   "tasks": {
-    "skillutil": "deno run --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com skills/develop-agent-skills/scripts/skillutil.ts",
+    "skillutil": "deno run --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com --allow-run=tar skills/develop-agent-skills/scripts/skillutil.ts",
     "skillutil:check": "deno check skills/develop-agent-skills/scripts/skillutil.ts",
-    "skillutil:test": "deno run --allow-read --allow-write --allow-run=deno --allow-env=HOME,TMPDIR --allow-net=platform.claude.com,code.claude.com skills/develop-agent-skills/scripts/test-skillutil.ts",
-    "skillutil:install": "deno install --global --config ~/.charmschool/agents/claude/deno.json --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com --name skillutil --force skills/develop-agent-skills/scripts/skillutil.ts"
+    "skillutil:test": "deno run --allow-read --allow-write --allow-run=deno,tar --allow-env=HOME,TMPDIR --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com skills/develop-agent-skills/scripts/test-skillutil.ts",
+    "skillutil:install": "deno install --global --config ~/.charmschool/agents/claude/deno.json --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com --allow-run=tar --name skillutil --force skills/develop-agent-skills/scripts/skillutil.ts"
   }
 }

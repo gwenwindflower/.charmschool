@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com
+#!/usr/bin/env -S deno run --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com --allow-run=tar
 
 /**
  * skillutil - Unified CLI for Claude Agent Skill management
@@ -105,6 +105,20 @@ function interpolate(template: string, vars: Record<string, string>): string {
   return template.replace(/\{\{(\w+)\}\}/g, (_, key) => vars[key] || '');
 }
 
+// Returns an error message string if invalid, null if valid.
+function validateSkillName(skillName: string): string | null {
+  if (!/^[a-z0-9-]+$/.test(skillName)) {
+    return `Invalid skill name '${skillName}'\n   Skill names must be lowercase letters, digits, and hyphens only`;
+  }
+  if (skillName.startsWith('-') || skillName.endsWith('-') || skillName.includes('--')) {
+    return `Invalid skill name '${skillName}'\n   Skill names cannot start/end with hyphen or contain consecutive hyphens`;
+  }
+  if (skillName.length > 64) {
+    return `Skill name too long (${skillName.length} characters)\n   Maximum length is 64 characters`;
+  }
+  return null;
+}
+
 // ============================================================================
 // Command: init
 // ============================================================================
@@ -114,25 +128,9 @@ async function initSkill(skillName: string, basePath: string): Promise<boolean> 
   const skillTitle = titleCase(skillName);
 
   // Validate skill name format first (before creating anything)
-  if (!/^[a-z0-9-]+$/.test(skillName)) {
-    console.error(
-      `❌ Error: Invalid skill name '${skillName}'\n` +
-        '   Skill names must be lowercase letters, digits, and hyphens only',
-    );
-    return false;
-  }
-  if (skillName.startsWith('-') || skillName.endsWith('-') || skillName.includes('--')) {
-    console.error(
-      `❌ Error: Invalid skill name '${skillName}'\n` +
-        '   Skill names cannot start/end with hyphen or contain consecutive hyphens',
-    );
-    return false;
-  }
-  if (skillName.length > 64) {
-    console.error(
-      `❌ Error: Skill name too long (${skillName.length} characters)\n` +
-        '   Maximum length is 64 characters',
-    );
+  const nameError = validateSkillName(skillName);
+  if (nameError) {
+    console.error(`❌ Error: ${nameError}`);
     return false;
   }
 
@@ -203,6 +201,101 @@ async function initSkill(skillName: string, basePath: string): Promise<boolean> 
     const message = error instanceof Error ? error.message : String(error);
     console.error(`❌ Error creating skill: ${message}`);
     return false;
+  }
+}
+
+// ============================================================================
+// Command: init --fork
+// ============================================================================
+
+async function forkSkill(skillName: string, basePath: string, forkUrl: string): Promise<boolean> {
+  const skillDir = resolve(basePath, skillName);
+
+  const nameError = validateSkillName(skillName);
+  if (nameError) {
+    console.error(`❌ Error: ${nameError}`);
+    return false;
+  }
+
+  // Validate GitHub URL and extract user/repo
+  const match = forkUrl.match(/^https:\/\/github\.com\/([^/]+)\/([^/\s]+?)(?:\.git)?(?:\/.*)?$/);
+  if (!match) {
+    console.error('❌ Error: Invalid GitHub URL');
+    console.error('   Expected format: https://github.com/user/repo');
+    return false;
+  }
+  const [, user, repo] = match;
+
+  // Check if destination already exists
+  if (await exists(skillDir)) {
+    console.error(`❌ Error: Skill directory already exists: ${skillDir}`);
+    return false;
+  }
+
+  const downloadUrl = `https://github.com/${user}/${repo}/archive/refs/heads/main.tar.gz`;
+
+  console.log(`Forking ${user}/${repo} as skill: ${skillName}`);
+  console.log(`Location: ${skillDir}\n`);
+
+  let tmpFile: string | undefined;
+  try {
+    console.log('Downloading main branch HEAD...');
+    const response = await fetch(downloadUrl);
+
+    if (!response.ok) {
+      console.error(`❌ Error: Failed to fetch repository (HTTP ${response.status})`);
+      if (response.status === 404) {
+        console.error(`   Repository not found or no main branch: ${forkUrl}`);
+      }
+      return false;
+    }
+
+    await Deno.mkdir(skillDir, { recursive: true });
+
+    // Write tarball to temp file then extract (avoids streaming complexity)
+    tmpFile = await Deno.makeTempFile({ suffix: '.tar.gz' });
+    await Deno.writeFile(tmpFile, new Uint8Array(await response.arrayBuffer()));
+
+    // --strip-components=1 removes the `repo-main/` prefix GitHub adds
+    const tar = new Deno.Command('tar', {
+      args: ['xzf', tmpFile, '--strip-components=1', '-C', skillDir],
+      stderr: 'piped',
+    });
+    const { success, stderr } = await tar.output();
+
+    if (!success) {
+      const errMsg = new TextDecoder().decode(stderr);
+      console.error(`❌ Error extracting archive: ${errMsg}`);
+      await Deno.remove(skillDir, { recursive: true });
+      return false;
+    }
+
+    console.log(`✅ Forked ${user}/${repo} to ${skillDir}`);
+
+    const hasSkillMd = await exists(join(skillDir, 'SKILL.md'));
+    console.log('\nNext steps:');
+    if (hasSkillMd) {
+      console.log('1. Review and edit SKILL.md to fit your needs');
+    } else {
+      console.log('1. Create SKILL.md with required frontmatter (name, description)');
+    }
+    console.log('2. Customize the skill contents for your use case');
+    console.log(`3. Validate when ready: skillutil validate ${skillDir}`);
+
+    return true;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`❌ Error forking repository: ${message}`);
+    if (await exists(skillDir)) {
+      await Deno.remove(skillDir, { recursive: true });
+    }
+    return false;
+  } finally {
+    if (tmpFile) {
+      try {
+        await Deno.remove(tmpFile);
+      } catch { /* ignore cleanup errors */ }
+    }
   }
 }
 
@@ -279,23 +372,9 @@ async function validateSkill(skillPath: string): Promise<ValidationResult> {
 
   // Validate name
   const name = frontmatter.name.trim();
-  if (!/^[a-z0-9-]+$/.test(name)) {
-    return {
-      valid: false,
-      message: `Name '${name}' should be hyphen-case (lowercase letters, digits, and hyphens only)`,
-    };
-  }
-  if (name.startsWith('-') || name.endsWith('-') || name.includes('--')) {
-    return {
-      valid: false,
-      message: `Name '${name}' cannot start/end with hyphen or contain consecutive hyphens`,
-    };
-  }
-  if (name.length > 64) {
-    return {
-      valid: false,
-      message: `Name is too long (${name.length} characters). Maximum is 64 characters.`,
-    };
+  const nameError = validateSkillName(name);
+  if (nameError) {
+    return { valid: false, message: nameError };
   }
 
   // Validate description
@@ -444,6 +523,165 @@ async function deactivateSkill(skillName: string): Promise<boolean> {
 }
 
 // ============================================================================
+// Command: add
+// ============================================================================
+
+async function installSkill(
+  sourceDir: string,
+  destPath: string,
+  skillName: string,
+  repoLabel: string,
+): Promise<boolean> {
+  const destDir = join(destPath, skillName);
+
+  if (await exists(destDir)) {
+    console.error(`❌ Skipping '${skillName}': already exists at ${destDir}`);
+    return false;
+  }
+
+  try {
+    await move(sourceDir, destDir);
+    console.log(`✅ Added '${skillName}' from ${repoLabel} → ${destDir}`);
+    return true;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`❌ Error installing '${skillName}': ${message}`);
+    return false;
+  }
+}
+
+async function addSkill(githubUrl: string, destPath: string): Promise<boolean> {
+  // Parse GitHub tree URL: https://github.com/user/repo/tree/ref[/subpath]
+  // Takes the first path segment after /tree/ as the ref — handles main, master,
+  // develop, staging, trunk, etc. Multi-segment branch names (e.g. feature/x) are
+  // not supported; use gunk for those.
+  const match = githubUrl.match(
+    /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/tree\/([^/]+)(\/.*)?$/,
+  );
+
+  if (!match) {
+    console.error('❌ Error: Invalid GitHub tree URL');
+    console.error('   Expected: https://github.com/user/repo/tree/branch[/path]');
+    console.error('   For plain repo URLs, use: skillutil init --fork <url>');
+    return false;
+  }
+
+  const [, user, repo, ref, subpathRaw] = match;
+  const subpath = subpathRaw ? subpathRaw.replace(/^\//, '') : '';
+
+  console.log(`Adding from ${user}/${repo} @ ${ref}...`);
+
+  // Try branch then tag
+  let response = await fetch(
+    `https://github.com/${user}/${repo}/archive/refs/heads/${ref}.tar.gz`,
+  );
+  if (!response.ok && response.status === 404) {
+    response = await fetch(
+      `https://github.com/${user}/${repo}/archive/refs/tags/${ref}.tar.gz`,
+    );
+  }
+  if (!response.ok) {
+    console.error(`❌ Failed to fetch repository (HTTP ${response.status})`);
+    if (response.status === 404) {
+      console.error(`   '${ref}' not found as a branch or tag in ${user}/${repo}`);
+      console.error('   For unusual branch names (e.g. feature/x), use gunk manually');
+    }
+    return false;
+  }
+
+  let tmpFile: string | undefined;
+  let tmpDir: string | undefined;
+
+  try {
+    console.log('Downloading...');
+    tmpFile = await Deno.makeTempFile({ suffix: '.tar.gz' });
+    await Deno.writeFile(tmpFile, new Uint8Array(await response.arrayBuffer()));
+
+    tmpDir = await Deno.makeTempDir();
+
+    // Extract full archive, stripping the `repo-ref/` prefix GitHub adds to all paths
+    const tar = new Deno.Command('tar', {
+      args: ['xzf', tmpFile, '--strip-components=1', '-C', tmpDir],
+      stderr: 'piped',
+    });
+    const { success, stderr } = await tar.output();
+    if (!success) {
+      console.error(`❌ Error extracting archive: ${new TextDecoder().decode(stderr)}`);
+      return false;
+    }
+
+    // Navigate to the target subpath within the extracted tree
+    const targetDir = subpath ? join(tmpDir, ...subpath.split('/').filter(Boolean)) : tmpDir;
+
+    if (!(await exists(targetDir))) {
+      console.error(`❌ Path not found in repository: ${subpath || '(root)'}`);
+      return false;
+    }
+
+    // Single-skill: SKILL.md exists directly at targetDir
+    if (await exists(join(targetDir, 'SKILL.md'))) {
+      const skillName = subpath.split('/').filter(Boolean).pop() ?? repo;
+      const ok = await installSkill(targetDir, destPath, skillName, `${user}/${repo}`);
+      if (ok) {
+        console.log('\nNext steps:');
+        console.log('1. Review SKILL.md to ensure it fits your setup');
+        console.log(`2. Validate: skillutil validate ${join(destPath, skillName)}`);
+      }
+      return ok;
+    }
+
+    // Multi-skill: scan direct subdirectories for SKILL.md
+    const skills: string[] = [];
+    for await (const entry of Deno.readDir(targetDir)) {
+      if (!entry.isDirectory) continue;
+      if (await exists(join(targetDir, entry.name, 'SKILL.md'))) {
+        skills.push(entry.name);
+      }
+    }
+
+    if (skills.length === 0) {
+      console.error(
+        '❌ No skills found: no SKILL.md at the given path or its direct subdirectories',
+      );
+      console.error(`   Checked: ${subpath || '(repo root)'}`);
+      return false;
+    }
+
+    skills.sort();
+    console.log(`Found ${skills.length} skill(s): ${skills.join(', ')}\n`);
+
+    let successCount = 0;
+    for (const skillName of skills) {
+      const ok = await installSkill(
+        join(targetDir, skillName),
+        destPath,
+        skillName,
+        `${user}/${repo}`,
+      );
+      if (ok) successCount++;
+    }
+
+    console.log(`\n✅ Added ${successCount}/${skills.length} skills to ${destPath}`);
+    return successCount > 0;
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`❌ Error: ${message}`);
+    return false;
+  } finally {
+    if (tmpFile) {
+      try {
+        await Deno.remove(tmpFile);
+      } catch { /* ignore */ }
+    }
+    if (tmpDir) {
+      try {
+        await Deno.remove(tmpDir, { recursive: true });
+      } catch { /* ignore */ }
+    }
+  }
+}
+
+// ============================================================================
 // CLI Definition with Cliffy
 // ============================================================================
 
@@ -464,10 +702,14 @@ cli
   .option('-p, --path <path:string>', 'Base path for new skill', {
     default: join(homeDir!, '.claude/skills'),
   })
+  .option('-f, --fork <url:string>', 'Use a GitHub repo as the skill basis (main branch HEAD)')
   .example('Create in default location', 'skillutil init my-new-skill')
   .example('Create in custom location', 'skillutil init my-new-skill --path skills/public')
+  .example('Fork from GitHub', 'skillutil init my-skill --fork https://github.com/user/repo')
   .action(async (options, skillName) => {
-    const success = await initSkill(skillName, options.path);
+    const success = options.fork
+      ? await forkSkill(skillName, options.path, options.fork)
+      : await initSkill(skillName, options.path);
     Deno.exit(success ? 0 : 1);
   });
 
@@ -509,6 +751,26 @@ cli
   .example('Disable a skill', 'skillutil deactivate old-skill')
   .action(async (_options, skillName) => {
     const success = await deactivateSkill(skillName);
+    Deno.exit(success ? 0 : 1);
+  });
+
+// Add command
+cli
+  .command('add <github-url:string>')
+  .description('Add skill(s) from a GitHub tree URL — single skill or a whole skills directory')
+  .option('-p, --path <path:string>', 'Destination directory for added skills', {
+    default: USER_LEVEL_SKILLS,
+  })
+  .example(
+    'Add a single skill',
+    'skillutil add https://github.com/user/repo/tree/main/.claude/skills/my-skill',
+  )
+  .example(
+    'Add all skills from a directory',
+    'skillutil add https://github.com/user/repo/tree/main/.claude/skills',
+  )
+  .action(async (options, githubUrl) => {
+    const success = await addSkill(githubUrl, options.path);
     Deno.exit(success ? 0 : 1);
   });
 
