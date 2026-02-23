@@ -1,5 +1,5 @@
 function envy -d "Interactively select op env vars to load into current shell session"
-    argparse a/all dangerously-load-secrets h/help -- $argv
+    argparse a/all sin-mode h/help -- $argv
     or return
 
     if set -q _flag_help
@@ -8,15 +8,15 @@ function envy -d "Interactively select op env vars to load into current shell se
         logirl help_header Options
         logirl help_flag h/help "Show this help message"
         logirl help_flag a/all "Skip selection and load the entire file"
-        logirl help_flag dangerously-load-secret "Validate and load the actual secret value (Not recommended)"
+        logirl help_flag sin-mode "Validate and load the actual secret value (Bad behavior, sinful!)"
         logirl help_header Details
         printf "  * Default env file is 'global', env file must exist in OP_ENV_DIR\n"
         printf "  * Do not include .env if passing an env file argument\n"
         logirl help_header Examples
-        printf "  * Select env vars from default global.env file to load:\n    %s\n" "$(set_color brmagenta)envy$(set_color normal)"
-        printf "  * Load all env vars from default global.env file:\n    %s\n" "$(set_color brmagenta)envy --all$(set_color normal)"
-        printf "  * Load all env vars from an env file called cool_api.env:\n    %s\n" "$(set_color brmagenta)envy --all cool_api$(set_color normal)"
-        printf "  * Selected env vars from default global.env file to load raw values into:\n    %s\n" "$(set_color brmagenta)envy --dangerously-load-secrets$(set_color normal)"
+        printf "  * Select env vars from default global.env file to load as URIs:\n    %s\n" "$(set_color brmagenta)envy$(set_color normal)"
+        printf "  * Load all env vars from default global.env file as URIs:\n    %s\n" "$(set_color brmagenta)envy --all$(set_color normal)"
+        printf "  * Load all env vars from an env file called cooltool.env as URIs:\n    %s\n" "$(set_color brmagenta)envy --all cooltool$(set_color normal)"
+        printf "  * Select env vars from default global.env file to load as secrets:\n    %s\n" "$(set_color brmagenta)envy --sin-mode$(set_color normal)"
         return 0
     end
 
@@ -50,14 +50,9 @@ function envy -d "Interactively select op env vars to load into current shell se
         end
     end
 
-    set -l cat_tool bat
-    if not type -q $cat_tool
-        set cat_tool cat
-    end
-
     set -l valid_env_vars
 
-    $cat_tool $env_file --color=never --style=plain | while read -l item
+    cat $env_file | while read -l item
         # skip empty lines
         if test -z "$item"
             continue
@@ -96,7 +91,7 @@ function envy -d "Interactively select op env vars to load into current shell se
     for var in $env_var_selection
         set -l uri (string split -m 1 = (grep "^$var=" $env_file))[2]
         if test -n "$uri"
-            if set -q _flag_dangerously_load_secrets
+            if set -q _flag_sin_mode
                 set -gx "$var" (op read $uri)
                 logirl success "Loaded $var from env file with raw value ($(set_color --bold red)be careful$(set_color normal))"
                 return 0
