@@ -9,10 +9,13 @@ fish_vi_key_bindings
 ## back/forward in your nav history
 bind --user -M insert ctrl-\[ prevd-or-backward-word
 bind --user -M insert ctrl-\] nextd-or-forward-word
-bind --user -M visual ctrl-\[ prevd-or-backward-word
-bind --user -M visual ctrl-\] nextd-or-forward-word
 bind --user ctrl-\[ prevd-or-backward-word
 bind --user ctrl-\] nextd-or-forward-word
+
+bind --user -M insert ctrl-alt-\[ backward-kill-word
+bind --user -M insert ctrl-alt-\] kill-word-vi
+bind --user ctrl-alt-\[ backward-kill-word
+bind --user ctrl-alt-\] kill-word-vi
 
 # TODO: find a way to bind up/down command history search to something
 # more home-row friendly (or put home row arrows on Planck 'adjust' layer)
