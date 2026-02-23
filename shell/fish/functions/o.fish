@@ -1,4 +1,4 @@
-function v -d "Navigate with zoxide to common directories and launch nvim"
+function o -d "Quick open - navigate with zoxide to common directories and launch nvim"
     if test (count $argv) -eq 0
         opo nvim
     end

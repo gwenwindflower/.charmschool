@@ -50,9 +50,9 @@ bind --user -M insert alt-super-c "zex ~/.claude/"
 bind --user alt-super-c "zex ~/.claude/"
 
 # Opening stuff (o - open)
-# open nvim in current directory (via v.fish function)
-bind --user -M insert super-o v
-bind --user super-o v
+# open nvim in current directory (via o.fish function)
+bind --user -M insert super-o o
+bind --user super-o o
 # open Mac Finder
 bind --user -M insert alt-super-o "open ."
 bind --user alt-super-o "open ."
