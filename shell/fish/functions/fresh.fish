@@ -1,5 +1,5 @@
 function fresh -d "Shell clearing and reloading for keybinding convenience"
-    argparse c/clear-only r/reload-only h/help -- $argv
+    argparse c/clear-only r/reload-only g/go-home h/help -- $argv
     or return
 
     if set -q _flag_help
@@ -8,6 +8,7 @@ function fresh -d "Shell clearing and reloading for keybinding convenience"
         echo "$(set_color --bold)Options:$(set_color normal)"
         echo "$(set_color brmagenta)-c, --clear-only  $(set_color normal)$(set_color blue)Clear the shell visually, but don't reload$(set_color normal)"
         echo "$(set_color brmagenta)-r, --reload-only $(set_color normal)$(set_color blue)Just start a fresh shell session, leaving previous output in-place$(set_color normal)"
+        echo "$(set_color brmagenta)-g, --go-home $(set_color normal)$(set_color blue)Go home before freshening up$(set_color normal)"
         echo "$(set_color brmagenta)-h, --help   $(set_color normal)$(set_color blue)Show this help message and exit$(set_color normal)"
         return 0
     end
@@ -18,13 +19,22 @@ function fresh -d "Shell clearing and reloading for keybinding convenience"
         echo "$(set_color green)Use 'fresh --help' to learn more.$(set_color normal)"
         return 1
     else if set -q _flag_clear_only
+        if set -q _flag_go_home
+            cd ~
+        end
         clear
         return 0
     else if set -q _flag_reload_only
+        if set -q _flag_go_home
+            cd ~
+        end
         echo "$(set_color --bold magenta)󱎝 Reloading shell...$(set_color normal)"
         _relaunch_shell
         return 0
     else
+        if set -q _flag_go_home
+            cd ~
+        end
         clear
         _relaunch_shell
         return 0
