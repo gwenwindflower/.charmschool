@@ -98,30 +98,6 @@ return {
         desc = "CodeCompanion Toggle",
         mode = { "n", "v" },
       },
-      --   {
-      --     "<Leader>aa",
-      --     "<cmd>CodeCompanionChat Toggle<CR>",
-      --     desc = "Toggle sidebar",
-      --     mode = { "n", "v" },
-      --   },
-      --   {
-      --     "<Leader>an",
-      --     "<cmd>CodeCompanionChat<CR>",
-      --     desc = "New thread",
-      --     mode = { "n", "v" },
-      --   },
-      --   {
-      --     "<Leader>ap",
-      --     ":CodeCompanion",
-      --     desc = "New prompt",
-      --     mode = { "n", "v" },
-      --   },
-      {
-        "<D-k>",
-        "<cmd>CodeCompanionActions<CR>",
-        desc = "Action Palette",
-        mode = { "n", "v" },
-      },
       {
         "<Leader>ak",
         "<cmd>CodeCompanionActions<CR>",
