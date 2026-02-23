@@ -10,7 +10,7 @@ function zex -d "Fuzzy navigate to a directory then take an action (file explore
         echo ""
         echo "Options:"
         echo "  -h, --help            Show this help"
-        echo "  -e, --editor          Open with \$EDITOR instead of file explorer"
+        echo "  -e, --editor          Open with nvim instead of file explorer"
         echo "  -a, --action=ACTION   Take another action after navigating (overrides explorer/editor)"
         echo ""
         echo "Examples:"
