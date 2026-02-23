@@ -4,16 +4,18 @@ abbr --add pp bat # pp for pretty print
 abbr --add r rip
 abbr --add e fresh -r # reload shell
 abbr --add ee fresh -c # clear screen
-abbr --add eee fresh # clear and reload
+abbr --add et fresh -g # navigate to ~ then clear and reload
+abbr --add er fresh # clear and reload
 abbr --add fun functions
 abbr --add top btm # you can use ctrl+space to stop the abbreviation expansion
 abbr --add cat bat # helpful if you really do need the classic tool versus the modern alternative
+abbr --add cp. "pwd | pbcopy"
+abbr --add mkd mkdir -p
+abbr --add mkt mktemp
 abbr --add vi opo nvim
 abbr --add vim opo nvim
 abbr --add nvim opo nvim
-abbr --add mkt mktemp
-abbr --add mkd mkdir -p
-abbr --add cp. "pwd | pbcopy"
+abbr --add zx zex # zoxide to search terms and launch Yazi (or nvim with -e)
 ## colorized help via bat
 abbr --add --position anywhere -- --help '--help | bat -plhelp'
 abbr --add --position anywhere -- -h '-h | bat -plhelp'
@@ -48,7 +50,7 @@ abbr --add lku k9s
 abbr --add f fzf
 ## this gives a nice preview for file searches by piping fd into fzf with a preview window
 ## useful if you know you want to search files in a directory
-abbr --add fp "fd . --color always --hidden --ignore | fzf --preview '_fzf_preview_file {}'"
+abbr --add fdf "fd . --color always --hidden --ignore | fzf --preview '_fzf_preview_file {}'"
 ## print the default opts in a readable list format
 abbr --add fzfopts "echo \$FZF_DEFAULT_OPTS | sed 's/^--//; s/ --/\n/g' | bat"
 
@@ -117,7 +119,7 @@ abbr --add dbtpp bat ~/.dbt/profiles.yml
 abbr --add ope "op run --env-file=$OP_ENV_DIR/global.env --no-masking -- " # run with default global env file, without setting env vars for the session, no masking (for interactive use)
 abbr --add opi "op run --no-masking -- "
 abbr --add opr "op run -- "
-abbr --add openv v $OP_ENV_DIR
+abbr --add openv o $OP_ENV_DIR
 abbr --add keys security
 
 # compute and data

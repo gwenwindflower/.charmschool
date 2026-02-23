@@ -60,23 +60,27 @@ bind --user alt-super-o "open ."
 # clearing and refreshing (e - erase)
 ## just reload a 'fresh' sesh with pretty output, keep output on screen
 bind --user -M insert super-e "fresh -r"
-bind --user -M visual super-e "fresh -r"
 bind --user super-e "fresh -r"
 ## just clear the screen via `fresh`
 bind --user -M insert ctrl-e "fresh -c; commandline -f repaint"
-bind --user -M visual ctrl-e "fresh -c; commandline -f repaint"
 bind --user ctrl-e "fresh -c; commandline -f repaint"
 ## clear *and* reload sesh, so fresh, so clean
 bind --user -M insert ctrl-super-e "fresh; commandline -f repaint"
-bind --user -M visual ctrl-super-e "fresh; commandline -f repaint"
 bind --user ctrl-super-e "fresh; commandline -f repaint"
+## clear, reload, *and* navigate to home dir - a brand new start
+## essentially the same as opening a new tab
+## but keeps random short-lived tabs for accumulating
+bind --user -M insert alt-super-e "fresh -g; commandline -f repaint"
+bind --user alt-super-e "fresh -g; commandline -f repaint"
 
 # wrapping commands
 ## print (p) (i use p -> echo and pp -> bat)
 ## this wraps anything (or nothing) on the command line
 ## with echo "[stuff]^", with ^ being the end location of the cursor
 bind --user -M insert ctrl-p _wrap_echo
+bind --user -M visual ctrl-p _wrap_echo
 bind --user ctrl-p _wrap_echo
 ## secrets (s) 1Password env wrapper
 bind --user -M insert ctrl-s _wrap_op_interactive
+bind --user -M visual ctrl-s _wrap_op_interactive
 bind --user ctrl-s _wrap_op_interactive
