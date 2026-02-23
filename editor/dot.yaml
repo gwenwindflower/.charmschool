@@ -1,3 +1,5 @@
+# NOTE: npm needs to be available for a smooth initial startup
+# of a fresh nvim on dev container, many mason tools are npm installs
 installs: brew install neovim
 
 links:
