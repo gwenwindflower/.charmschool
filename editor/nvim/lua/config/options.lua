@@ -13,3 +13,12 @@ vim.g.snacks_animate = true
 -- zg works a bit more magically, it will create a spellfile here if doesn't exist
 -- spellrare will not, so it fails if this is not specified
 vim.opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
+})
