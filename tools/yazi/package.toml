@@ -28,6 +28,11 @@ use = "yazi-rs/plugins:toggle-pane"
 rev = "88990a6"
 hash = "8a7c58225816a163a6e8730c0adafbc8"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:types"
+rev = "b224ddf"
+hash = "4161cfa043b5ba3341d82c6869007b41"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "9e053d0"
