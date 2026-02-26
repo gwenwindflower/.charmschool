@@ -11,7 +11,7 @@ This repo tries to be:
 **Target platform:** macOS only (Intel + Apple Silicon).  
 If you’re not on recent macOS, please don’t treat this as plug-and-play.
 
-> There isn’t a polished “undo/uninstall” path yet. Send your computer to Charm School at your own risk.
+> There isn't a polished “undo/uninstall” path yet. Send your computer to Charm School at your own risk.
 
 ## Table of contents
 
@@ -130,7 +130,7 @@ rotz install [path...]
 
 ### A note on Fish (important)
 
-rotz install hooks run in **Fish** (configured in `config.yaml`). That means shell commands in Rotz files must use Fish syntax. If you don't want ot use Fish htis is rpobably not the right dotfiles for you. That said, I encourage you to give Fish a try—it's a breath of fresh air compared to bash/zsh, instead of archaic syntax, it feels like writing with an expressive scripting language. This is why you see so many custom Fish functions in the `shell/fish/functions` directory, they are easy and delightful to write, you can essentially make highly customized, lightweight CLI tools for your anything in your workflow with minimal effort.
+`rotz` install hooks run in **Fish** (configured in `config.yaml`). That means shell commands in Rotz files must use Fish syntax. If you don't want to use Fish this is probably not the right dotfiles for you. That said, I encourage you to give Fish a try—it's a breath of fresh air compared to bash/zsh, instead of archaic syntax, it feels like writing with an expressive scripting language. This is why you see so many custom Fish functions in the `shell/fish/functions` directory, they are easy and delightful to write, you can essentially make highly customized, lightweight CLI tools for your anything in your workflow with minimal effort.
 
 Quick reminders:
 
