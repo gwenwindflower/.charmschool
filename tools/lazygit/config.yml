@@ -41,3 +41,65 @@ keybinding:
     scrollDownMain-alt1: <c-n>
     gotoTop-alt: g
     gotoBottom-alt: G
+customCommands:
+  - key: "C"
+    command: "meteor"
+    description: "Commit with meteor"
+    context: "files"
+    loadingText: "opening commitizen commit tool"
+    output: terminal
+  - key: "t"
+    context: "files"
+    description: "Interactive conventional commit"
+    prompts:
+      - type: "menu"
+        title: "Type of change"
+        key: "Type"
+        options:
+          - name: "✨ feat"
+            value: "feat"
+          - name: "🐛 fix"
+            value: "fix"
+          - name: "📚 docs"
+            value: "docs"
+          - name: "🎨 style"
+            value: "style"
+          - name: "♻️  refactor"
+            value: "refactor"
+          - name: "⚡ perf"
+            value: "perf"
+          - name: "🚨 test"
+            value: "test"
+          - name: "📦 build"
+            value: "build"
+          - name: "👷 ci"
+            value: "ci"
+          - name: "🔧 chore"
+            value: "chore"
+          - name: "🗑️  revert"
+            value: "revert"
+      - type: "input"
+        title: "Scope (optional):"
+        key: "Scope"
+        initialValue: ""
+      - type: "menu"
+        title: "Breaking change?"
+        key: "Breaking"
+        options:
+          - name: "no"
+            value: "no"
+            key: "n"
+          - name: "yes"
+            value: "yes"
+            key: "y"
+      - type: "input"
+        title: "Message:"
+        key: "Message"
+        initialValue: ""
+      - type: "confirm"
+        title: "Commit this?"
+        key: "Confirm"
+        body: |
+          {{.Form.Type}}{{ if .Form.Scope }}({{.Form.Scope}}){{ end }}{{ if eq .Form.Breaking "yes" }}!{{ end }}: {{ if eq .Form.Type "feat" }}✨{{ else if eq .Form.Type "fix" }}🐛{{ else if eq .Form.Type "docs" }}📚{{ else if eq .Form.Type "style" }}🎨{{ else if eq .Form.Type "refactor" }}♻️{{ else if eq .Form.Type "perf" }}⚡{{ else if eq .Form.Type "test" }}🚨{{ else if eq .Form.Type "build" }}📦{{ else if eq .Form.Type "ci" }}👷{{ else if eq .Form.Type "chore" }}🔧{{ else if eq .Form.Type "revert" }}🗑️{{ end }} {{.Form.Message}}
+    command: >-
+      git commit --message '{{.Form.Type}}{{ if .Form.Scope }}({{.Form.Scope}}){{ end }}{{ if eq .Form.Breaking "yes" }}!{{ end }}: {{ if eq .Form.Type "feat" }}✨{{ else if eq .Form.Type "fix" }}🐛{{ else if eq .Form.Type "docs" }}📚{{ else if eq .Form.Type "style" }}🎨{{ else if eq .Form.Type "refactor" }}♻️{{ else if eq .Form.Type "perf" }}⚡{{ else if eq .Form.Type "test" }}🚨{{ else if eq .Form.Type "build" }}📦{{ else if eq .Form.Type "ci" }}👷{{ else if eq .Form.Type "chore" }}🔧{{ else if eq .Form.Type "revert" }}🗑️{{ end }} {{.Form.Message}}'
