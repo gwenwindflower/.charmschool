@@ -55,19 +55,33 @@ abbr --add fdf "fd . --color always --hidden --ignore | fzf --preview '_fzf_prev
 abbr --add fzfopts "echo \$FZF_DEFAULT_OPTS | sed 's/^--//; s/ --/\n/g' | bat"
 
 # Homebrew
+## updates and installs
 abbr --add bri "brew update; brew install"
 abbr --add brr brew uninstall
 abbr --add bru "brew update; brew upgrade; brew cleanup"
 abbr --add brs "brew update; brew search"
-abbr --add br? brew info
+abbr --add brc brew cleanup
+abbr --add brcl brew cleanup
+## list
+abbr --add brl brew list
+abbr --add brl brew list
+abbr --add brlf brew list --installed-on-request
+abbr --add brli brew list --installed-on-request
+abbr --add brlc brew list --cask
 abbr --add brls brew list
 abbr --add brlsf brew list --installed-on-request
+abbr --add brlsi brew list --installed-on-request
 abbr --add brlsc brew list --cask
+## details and dependencies
+abbr --add br? brew info
+abbr --add brin brew info
 abbr --add brd brew deps
 abbr --add brdt brew deps --tree
+abbr --add bruse brew uses --installed
 abbr --add bruise brew uses --installed
+## background services
 abbr --add brbg brew services
-abbr --add brc brew cleanup
+abbr --add brsrv brew services
 # custom function to run commands across multiple fzf-selected formulae/casks
 abbr --add brx brewdo
 
