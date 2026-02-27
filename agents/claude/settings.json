@@ -135,7 +135,6 @@
       "Bash(mongosh *)"
     ]
   },
-  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.ts",
