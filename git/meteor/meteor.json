@@ -2,47 +2,47 @@
   "showIntro": false,
   "prefixes": [
     {
-      "type": "✨ feat",
+      "type": "feat",
       "description": "Introduce a new feature or significant enhancement."
     },
     {
-      "type": "🐛 fix",
+      "type": "fix",
       "description": "Resolve a bug or defect."
     },
     {
-      "type": "📚 docs",
+      "type": "docs",
       "description": "Add or update documentation."
     },
     {
-      "type": "🎨 style",
+      "type": "style",
       "description": "Adjust code style or formatting without affecting behavior."
     },
     {
-      "type": "♻️ refactor",
+      "type": "refactor",
       "description": "Improve code structure or readability without changing functionality."
     },
     {
-      "type": "⚡ perf",
+      "type": "perf",
       "description": "Optimize performance or resource usage."
     },
     {
-      "type": "🚨 test",
+      "type": "test",
       "description": "Add, update, or fix automated tests."
     },
     {
-      "type": "📦 build",
+      "type": "build",
       "description": "Modify build system files or external dependencies."
     },
     {
-      "type": "👷 ci",
+      "type": "ci",
       "description": "Update continuous integration configuration or pipelines."
     },
     {
-      "type": "🔧 chore",
+      "type": "chore",
       "description": "Perform maintenance tasks that do not affect code or tests."
     },
     {
-      "type": "🗑️ revert",
+      "type": "revert",
       "description": "Revert a previous commit or change."
     }
   ],
