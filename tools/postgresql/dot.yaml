@@ -1,4 +1,2 @@
 installs: |
-  brew install postgresql@16
-  brew install postgresql@17
   brew install postgresql@18
