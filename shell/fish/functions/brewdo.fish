@@ -2,7 +2,6 @@ function brewdo -d "Find Homebrew packages and perform actions on them"
     # Parse arguments
     # Note: -p/--pattern takes a value, prefix/suffix are boolean modifiers
     argparse h/help d/dry-run s/search 'p/pattern=' casks formulae prefix suffix -- $argv
-    or return
 
     # Handle --help
     if set -q _flag_help
@@ -209,11 +208,10 @@ function brewdo -d "Find Homebrew packages and perform actions on them"
         end
     else if test (count $packages) -gt 10
         # Confirm large batch operations even for non-destructive actions
-            echo ""
-            if not gum confirm "Run 'brew $action' on "(count $packages)" packages?"
-                logirl info Cancelled
-                return 0
-            end
+        echo ""
+        if not gum confirm "Run 'brew $action' on "(count $packages)" packages?"
+            logirl info Cancelled
+            return 0
         end
     end
 
