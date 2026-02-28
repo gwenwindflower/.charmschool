@@ -1,3 +1,4 @@
+# TODO: only on Darwin, not devcontainers
 installs: |
   brew tap databricks/tap
   brew install databricks

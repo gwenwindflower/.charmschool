@@ -1,2 +1,3 @@
+# TODO: only on Darwin, not devcontainers
 installs: |
   brew install postgresql@18

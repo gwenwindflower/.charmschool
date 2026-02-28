@@ -1,4 +1,4 @@
-# NOTE: not needed on dev container
+# TODO: only on Darwin, not devcontainers
 installs: |
   brew install spotify_player
   spotify_player generate fish > ~/.config/fish/completions/spotify_player.fish

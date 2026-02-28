@@ -1,4 +1,4 @@
-# NOTE: not needed on dev containers
+# TODO: only on Darwin, not devcontainers
 installs: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 links:
   kitty.conf: ~/.config/kitty/kitty.conf

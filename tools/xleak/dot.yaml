@@ -1,3 +1,4 @@
+# TODO: only on Darwin, not devcontainers
 installs: |
   if type -q xleak
     echo "xleak is already installed!"
