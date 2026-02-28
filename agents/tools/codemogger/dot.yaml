@@ -1,0 +1,2 @@
+# requires Apple Silicon or Linux
+installs: pnpm install -g codemogger
