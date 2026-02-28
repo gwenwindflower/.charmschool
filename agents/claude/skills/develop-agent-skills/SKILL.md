@@ -2,6 +2,7 @@
 name: develop-agent-skills
 description: |
   Guide for creating and improving highly effective Agent Skills. This skill should be used when (1) user wants to create a new skill (2) audit and improve and existing skill
+allowed-tools: Bash(skillutil *)
 ---
 
 # Skill Creator
