@@ -38,7 +38,7 @@ return {
       -- while vtsls handles Node/npm projects (package.json, tsconfig.json).
       -- See: lazyvim.plugins.extras.lang.typescript setup.vtsls for the logic.
       opts.servers.denols = {}
-      opts.servers.emmet_ls = {}
+      opts.servers.emmet_language_server = {}
       return opts
     end,
   },
