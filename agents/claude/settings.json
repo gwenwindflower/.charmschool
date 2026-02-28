@@ -200,5 +200,6 @@
       "Shopping with the girlypops"
     ]
   },
-  "syntaxHighlightingDisabled": false
+  "syntaxHighlightingDisabled": false,
+  "model": "opus"
 }
