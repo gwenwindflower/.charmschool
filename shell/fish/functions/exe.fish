@@ -3,5 +3,5 @@ function exe -d "SSH into an exe.dev server"
         echo "Usage: exe <server>"
         return 1
     end
-    ssh $argv[1].exe.xyz
+    ssh -A $argv[1].exe.xyz
 end

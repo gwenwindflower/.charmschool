@@ -23,7 +23,6 @@ set -gx HOMEBREW_NO_ENV_HINTS 1
 set -gx SHELL $HOMEBREW_PREFIX/bin/fish
 set -gx TEMP /tmp
 set -gx TERM xterm-256color
-set -gx SSH_AUTH_SOCK $HOME/.1password/agent.sock
 
 # handy env vars for DRY, flexible pointers
 # to notes and dev projects
