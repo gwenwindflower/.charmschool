@@ -33,6 +33,7 @@
       "Bash(rg *)",
       "Bash(find *)",
       "Bash(fd *)",
+      "Bash(uname *)",
       "Bash(skillutil *)",
       "Bash(echo *)",
       "Bash(printf *)",
