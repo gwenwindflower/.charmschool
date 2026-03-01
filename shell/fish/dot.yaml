@@ -4,6 +4,6 @@
 links:
   config.fish: ~/.config/fish/config.fish
   fish_plugins: ~/.config/fish/fish_plugins
-  conf.d/no_auto_mise.fish: ~/.config/fish/conf.d/no_auto_mise.fish
+  conf.d/: ~/.config/fish/conf.d/ # directory symlink
   user_conf/: ~/.config/fish/user_conf/ # directory symlink
   functions/: ~/.config/fish/functions/ # directory symlink
