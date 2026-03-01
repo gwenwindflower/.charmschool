@@ -1,6 +1,16 @@
 installs: |
-  brew install tmux
-  brew install tpm
+  if type -q tmux
+    echo "tmux is already installed!"
+    if test -d ~/.config/tmux/plugins/tpm
+      echo "Plugin directory ~/.config/tmux/plugins/tpm already exists, skipping tpm install."
+    else
+      brew install tpm
+    end
+    return 0
+  else
+    brew install tmux
+    brew install tpm
+  end
 
 links:
   tmux.conf: ~/.config/tmux/tmux.conf
