@@ -1,13 +1,4 @@
----
-name: fish-function-error-handling
-description: Patterns and best practices for handling errors in fish shell functions or scripts, including status propagation, stderr reporting, pipelines, and composing higher-level error messages (e.g., prefixing curl errors).
-compatibility:
-    fish: ">=3.0"
-allowed-tools:
-    - none
----
-
-# Purpose
+# Error Handling Best Practices in fish shell
 
 Provide reliable, idiomatic patterns for handling failures in fish functions:
 

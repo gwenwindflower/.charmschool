@@ -1,15 +1,13 @@
 ---
 name: fish-functions
 description: Write Fish shell functions in idiomatic fish syntax with delightful UX. Use when (1) Creating new Fish functions, (2) Refactoring or improving existing functions, (3) Adding flags, help text, or error handling, (4) Working with any `*.fish` files, (5) Converting bash/zsh scripts to Fish, (6) Debugging Fish syntax issues
+allowed-tools:
+  - WebFetch(domain:fishshell.com)
 ---
 
 # Fish Function Development
 
 Create and enhance Fish shell functions with excellent developer experience, colorful output, and robust error handling.
-
-When needed, search the official Fish documentation: <https://fishshell.com/docs/current/index.html>
-
-<!-- TODO: update modular docs -->
 
 ## Repository Context
 
@@ -672,3 +670,7 @@ After creating or modifying a function:
 3. Test `--help` output
 4. Test error cases (missing args, bad input, missing deps)
 5. Verify colors display correctly
+
+## External Resources
+
+If you can't find a solution within the skill and reference guides, WebFetch the [fish shell docs](https://fishshell.com/docs/current/index.html).

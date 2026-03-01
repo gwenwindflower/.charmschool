@@ -1,4 +1,4 @@
-# Gum - Glamorous Shell Script Interfaces
+# Gum Shell Script Helper CLI
 
 [Gum](https://github.com/charmbracelet/gum) provides beautiful, interactive CLI components for shell scripts. Use it to create polished user experiences in Fish functions.
 
