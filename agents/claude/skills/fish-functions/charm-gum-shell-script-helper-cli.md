@@ -47,6 +47,7 @@ gum confirm "Remove temp files?" && rm *.tmp
 ```
 
 **Best practices:**
+
 - Always handle both cases (user confirms and user declines)
 - Use clear, specific questions (not "Are you sure?")
 - Pair with logirl messages for consistent output
@@ -70,6 +71,7 @@ set commit_msg (gum input --width 72 --placeholder "Commit summary")
 ```
 
 **Common flags:**
+
 - `--placeholder TEXT` - Grayed hint text
 - `--value TEXT` - Pre-filled value
 - `--password` - Hide input
@@ -88,6 +90,7 @@ set notes (gum write --width 80 --height 10 --placeholder "Notes...")
 ```
 
 **Use when:**
+
 - Need more than one line of input
 - Writing commit messages, descriptions, notes
 - Editing configuration values
@@ -111,6 +114,7 @@ set branch (git branch | gum choose --height 10)
 ```
 
 **Common flags:**
+
 - `--limit N` - Allow selecting up to N items
 - `--no-limit` - Allow selecting any number of items
 - `--height N` - Visible options (scrollable if more)
@@ -148,6 +152,7 @@ set files (fd | gum filter --no-limit)
 ```
 
 **Use when:**
+
 - Searching through many items
 - Need fuzzy matching
 - Alternative to fzf with consistent gum styling
@@ -173,6 +178,7 @@ gum join --vertical "$header" "$body"
 ```
 
 **Common flags:**
+
 - `--foreground N` - Text color (256 color)
 - `--bold` - Bold text
 - `--border TYPE` - Border style (none, normal, rounded, thick, double)
@@ -336,18 +342,21 @@ logirl info "Proceeding..."
 ## When to Use Gum vs. Traditional Approaches
 
 **Use gum when:**
+
 - Need confirmation for dangerous operations
 - Offering choices from a predefined list
 - Building interactive wizards or setup scripts
 - Want polished, consistent UI components
 
 **Use traditional Fish when:**
+
 - Simple yes/no with `read -P` is sufficient
 - No interactivity needed (batch scripts)
 - Gum not available in target environment
 - Performance is critical (gum adds small overhead)
 
 **Use logirl for:**
+
 - Status messages (error, warning, info, success)
 - Progress indicators
 - Help text formatting
@@ -384,4 +393,4 @@ Gum provides professional interactive components for Fish functions:
 
 **Golden rule:** Use gum for input, logirl for output, combine them for delightful Fish functions.
 
-For complete documentation: https://github.com/charmbracelet/gum
+For complete documentation: <https://github.com/charmbracelet/gum>

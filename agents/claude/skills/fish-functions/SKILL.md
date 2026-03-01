@@ -9,6 +9,8 @@ Create and enhance Fish shell functions with excellent developer experience, col
 
 When needed, search the official Fish documentation: <https://fishshell.com/docs/current/index.html>
 
+<!-- TODO: update modular docs -->
+
 ## Repository Context
 
 - **Location:** `shell/fish/functions/`
@@ -112,7 +114,7 @@ end
 - `help_flag` takes 2 args for boolean flags: `logirl help_flag "h/help" "Description"`
 - `help_flag` takes 3 args for flags with values: `logirl help_flag "o/output" "FILE" "Description"`
 
-See [LOGIRL_USAGE.md](./references/LOGIRL_USAGE.md) for complete help text formatting guide.
+If you need to do something beyond this with the help text, the [logirl reference guide](logirl-custom-logging-framework.md) has more examples of how to create consistent, advanced help text easily with `logirl`, as well as any other logging needs for fish scripts and functions.
 
 ### Error Handling
 
@@ -160,7 +162,9 @@ Write errors to stderr for pipeable functions:
 echo "Error message" >&2
 ```
 
-For detailed logging patterns, see [LOGIRL_USAGE.md](./references/LOGIRL_USAGE.md). For traditional error handling, see [ERROR_HANDLING.md](./references/ERROR_HANDLING.md).
+For detailed logging patterns, see the [guide to our custom fish function logging helper, logirl](logirl-custom-logging-framework.md).
+
+If you need an error handling pattern not covered here, look at the [error handling best practices guide](error-handling-best-practices.md).
 
 ### Dependency Checks
 
@@ -257,9 +261,9 @@ end
 
 ### Colorful Output
 
-**IMPORTANT:** Instead of manually using `set_color`, use the `logirl` helper for consistent formatting. See [LOGIRL_USAGE.md](./references/LOGIRL_USAGE.md) for complete documentation.
+**IMPORTANT:** Use the `logirl` helper for consistent formatting whenever possible, if you need special formatting outside of what `logirl` provides, fallback to using `set_color` directly.
 
-To color output not covered by `logirl` (which provides for most standard function needs), use `set_color` for vibrant, readable output:
+The `set_color` builtin provides a range of colors and modifiers:
 
 ```fish
 # Basic colors
@@ -289,9 +293,11 @@ echo "Status: "$(set_color green)"OK"$(set_color normal)
 echo $(set_color --bold cyan)"==> "$(set_color normal)"Doing something..."
 ```
 
+**IMPORTANT:** Always reset colors with `(set_color normal)` after using `set_color` to avoid color bleed in the terminal.
+
 #### Preferred Color Conventions
 
-**NOTE**: these are all handled automatically by `logirl`, in the LOGIRL_USAGE.md reference.
+**NOTE**: these are all handled automatically by `logirl`.
 
 If bold or italics are not specified, use normal weight.
 
@@ -342,8 +348,6 @@ end
 printf " done!\n"
 ```
 
-**Tip:** The `logirl` helper provides consistent progress formatting with `logirl special "Step N: ..."`. See [LOGIRL_USAGE.md](./references/LOGIRL_USAGE.md) for examples.
-
 ### Interactive Prompts
 
 **Recommended:** Use `gum` for polished interactive components. Falls back to `read` if gum unavailable.
@@ -374,7 +378,7 @@ end
 read -P "Password: " -s password
 ```
 
-See [GUM_REFERENCE.md](./references/GUM_REFERENCE.md) for complete gum documentation and patterns.
+Gum can do more than just handle input, if you need something beyond the above, check the [gum guide](charm-gum-shell-script-helper-cli.md) before writing custom input handling.
 
 ### String Manipulation
 
@@ -500,8 +504,6 @@ function cleanup -d "Remove temp files with confirmation"
     logirl success "Deleted "(count $files)" files"
 end
 ```
-
-See [GUM_REFERENCE.md](./references/GUM_REFERENCE.md) for more interactive prompt patterns.
 
 ## Examples
 

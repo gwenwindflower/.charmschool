@@ -13,7 +13,7 @@ description: |
 - **No destructive commands without explicit user instruction.** Destructive/high-risk subcommands: `delete`, `close`, `merge`, `revert`, `archive`, `unarchive`, `transfer`, `lock/unlock`, `release delete`, `cache delete`, `run delete`.
 - **Protect secrets.** Never log tokens or print `gh auth token` output.
 
-For commands not covered below, consult the [gh CLI reference map](./references/gh-cli-guide.md).
+For commands not covered below, consult the [gh CLI reference map](gh-cli-guide.md).
 
 ## Common Start-up Errors
 
@@ -79,4 +79,4 @@ Do **not** merge unless the user explicitly requests it and specifies the strate
 
 ## Other Needs
 
-The `gh` CLI is very deep and well-designed, with great help text. If you need to do a less common operation, check the [reference guide](./references/gh-cli-guide.md) for the right command structure, and always follow the safety rules above. The reference guide may be out of date, so it's good to check the help text or, if necessary, the [latest docs from the manual](https://cli.github.com/manual/).
+The `gh` CLI is very deep and well-designed, with great help text. If you need to do a less common operation, check the [reference guide](gh-cli-guide.md) for the right command structure, and always follow the safety rules above. The reference guide may be out of date, so it's good to check the help text or, if necessary, the [latest docs from the manual](https://cli.github.com/manual/).

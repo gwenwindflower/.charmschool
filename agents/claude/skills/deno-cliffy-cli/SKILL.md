@@ -113,4 +113,4 @@ Set `"nodeModulesDir": "auto"` when npm packages need to read their own files fr
 
 ## Reference
 
-For detailed API patterns (option types, command nesting, global options, error handling), see [./references/cliffy-patterns.md](./references/cliffy-patterns.md).
+For detailed API patterns (option types, command nesting, global options, error handling), see the [Patterns Reference Guide](patterns.md).
