@@ -28,7 +28,7 @@ set -gx FZF_DEFAULT_OPTS "\
 --bind='ctrl-d:preview-page-down' \
 --bind='ctrl-u:preview-page-up' \
 --bind 'alt-p:toggle-preview' \
---bind 'ctrl-y:execute-silent(printf {} | pbcopy)+abort' \
+--bind 'ctrl-y:execute-silent(printf {} | fish_clipboard_copy)+abort' \
 --bind 'ctrl-e:become($EDITOR {} &>/dev/tty)' \
 "
 
@@ -55,7 +55,7 @@ set -gx fzf_variables_opts --bind "\
 ctrl-y:execute-silent( \
   echo {} \
   | xargs -I{} sh -c '"'eval printf '%s' \$$0'"' {} \
-  | pbcopy \
+  | fish_clipboard_copy \
 )+abort"
 set -gx fzf_directory_opts --bind 'enter:become($EDITOR {} &>/dev/tty)'
 fzf_configure_bindings --variables='ctrl-alt-v' --git_log= --git_status=

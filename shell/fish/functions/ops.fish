@@ -52,7 +52,7 @@ function ops --description "Search and retrieve 1Password API credentials via fz
 
     if set -q _flag_read
         if set -l credential $(op read $item_uri)
-            echo -n $credential | pbcopy
+            echo -n $credential | fish_clipboard_copy
             logirl success "Copied credential for: $item_name"
             return 0
         else
@@ -60,6 +60,6 @@ function ops --description "Search and retrieve 1Password API credentials via fz
             return 1
         end
     end
-    echo -n $item_uri | pbcopy
+    echo -n $item_uri | fish_clipboard_copy
     logirl success "Copied URI for: $item_name"
 end
