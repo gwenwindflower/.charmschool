@@ -68,7 +68,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "<LocalLeader>m",
         mode = { "x", "v" },
         group = "markdown",
-        icon = { icon = " ", color = "orange" },
+        icon = { icon = " ", color = "orange" },
         buffer = event.buf,
       },
     })

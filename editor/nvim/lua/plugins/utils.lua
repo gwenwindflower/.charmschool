@@ -9,8 +9,8 @@ return {
     version = "*",
     opts = {
       mappings = {
-        start = "<LocalLeader>uaa",
-        start_with_preview = "<LocalLeader>uap",
+        start = "<LocalLeader>na",
+        start_with_preview = "<LocalLeader>np",
       },
       options = {
         split_pattern = " ",
@@ -50,11 +50,9 @@ return {
       opts.editSnippetPopup.border = "rounded"
       return opts
     end,
-    -- TODO: fix colors (check for Catppuccin integration [there isn't one])
-    -- TODO: add package.json
     keys = {
-      { "<LocalLeader>usa", "<cmd>ScissorsAddNewSnippet<cr>", mode = { "n", "x" }, desc = "Create new snippet" },
-      { "<LocalLeader>use", "<cmd>ScissorsEditSnippet<cr>", mode = { "n" }, desc = "Edit snippet" },
+      { "<LocalLeader>sa", "<cmd>ScissorsAddNewSnippet<cr>", mode = { "n", "x" }, desc = "Create new snippet" },
+      { "<LocalLeader>se", "<cmd>ScissorsEditSnippet<cr>", mode = { "n" }, desc = "Edit snippet" },
     },
   },
 }
