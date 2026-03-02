@@ -28,8 +28,8 @@ bind --user -M insert super-l "commandline -r 'lsd -lAg .'; commandline -f execu
 bind --user super-l "commandline -r 'lsd -lAg .'; commandline -f execute"
 
 # launch yazi file explorer (f - finder/file/folder)
-bind --user -M insert super-f "ff; commandline -f repaint"
-bind --user super-f "ff; commandline -f repaint"
+bind --user -M insert super-f "fe; commandline -f repaint"
+bind --user super-f "fe; commandline -f repaint"
 
 # TUI git tools (g - git)
 ## launch lazygit

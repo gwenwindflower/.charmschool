@@ -1,14 +1,49 @@
 return {
+  {
+    "folke/snacks.nvim",
+    keys = {
+      { "<leader>e", false },
+      { "<leader>E", false },
+      {
+        "<leader>fe",
+        false,
+      },
+      {
+        "<leader>fE",
+        false,
+      },
+      {
+        "<leader>e",
+        function()
+          Snacks.explorer({ cwd = LazyVim.root() })
+        end,
+        desc = "Explorer Snacks (root dir)",
+      },
+      {
+        "<leader>E",
+        function()
+          Snacks.explorer()
+        end,
+        desc = "Explorer Snacks (cwd)",
+      },
+    },
+  },
   -- Yazi integration
   {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     keys = {
       {
-        "<leader>fd",
+        "<leader>fe",
         mode = { "n" },
         "<cmd>Yazi<cr>",
         desc = "Explorer Yazi (file)",
+      },
+      {
+        "<leader>fE",
+        mode = { "n" },
+        "<cmd>Yazi cwd<cr>",
+        desc = "Explorer Yazi (cwd)",
       },
       {
         "<D-f>",
@@ -17,7 +52,7 @@ return {
         desc = "Explorer Yazi (file)",
       },
       {
-        "<leader>fD",
+        "<D-F>",
         mode = { "n" },
         "<cmd>Yazi cwd<cr>",
         desc = "Explorer Yazi (cwd)",
