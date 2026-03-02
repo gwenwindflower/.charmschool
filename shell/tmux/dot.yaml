@@ -14,3 +14,4 @@ installs: |
 
 links:
   tmux.conf: ~/.config/tmux/tmux.conf
+  pane-icon.sh: ~/.config/tmux/pane-icon.sh
