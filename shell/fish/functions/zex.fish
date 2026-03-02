@@ -51,11 +51,11 @@ function zex -d "Fuzzy navigate to a directory then take an action (file explore
             opo nvim
         else
             # Otherwise, open file explorer
-            if not test (type -q yazi) -a (type -q ff)
-                logirl error "No file explorer found (requires yazi and the ff wrapper function)"
+            if not test (type -q yazi) -a (type -q fe)
+                logirl error "No file explorer found (requires yazi and the fe wrapper function)"
                 return 127
             end
-            ff
+            fe
         end
     end
 end
