@@ -1,0 +1,7 @@
+# Skills Before Explore
+
+At the end of a session, after doing a lot of research and implementing a new feature or fix, it's very common to wrap that learning up in an Agent Skill, rather than preserve it directly in the project context files. If it involves in-depth, specific information or patterns that will not be relevant in every session, a Skill is generally a more appropriate construct to store that learning. As such, it's important to consider the available Skills before kicking off token-intensive research that is materially expensive for the user.
+
+If you're getting ready to run an Explore or entering Plan Mode *without* a specific user prompt to do so - that is, you've decided independently that you need to do an Explore and/or Plan before implementing a request: look at the available skills *first*. Very often you will get the information you need by loading the relevant skills, rather than kicking off an Explore agent, crawling through files and calling the Read tool repeatedly, or sending out 5+ WebFetch or WebSearch calls. All of those are fine and appropriate, they have their place. It's just important to establish that you haven't already done this research before, and made it conditionally available to yourself via Skills.
+
+If no Skills look promising to give you the research context you need, *then* proceed with the research as planned, and keep in mind as you do that you will want to preserve that knowledge in either Skills or your project context files.
