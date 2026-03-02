@@ -21,15 +21,9 @@ brew shellenv fish | source
 set -gx HOMEBREW_NO_ENV_HINTS 1
 
 set -gx SHELL $HOMEBREW_PREFIX/bin/fish
-set -gx TEMP /tmp
 set -gx TERM xterm-256color
 
-# handy env vars for DRY, flexible pointers
-# to notes and dev projects
-set -gx PROJECTS $HOME/dev
-set -gx OBSIDIAN_HOME "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
-set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
-
+#  Pager
 set -gx PAGER $HOMEBREW_PREFIX/bin/moor
 set -gx MOOR "\
 --quit-if-one-screen \
@@ -45,6 +39,7 @@ set -gx MOOR "\
 # and good search :)
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 
+#  XDG
 # set XDG config directory to *nix-y standards, for various tools
 # this is my personal preference, versus the below re Application Support
 set -gx XDG_CONFIG_HOME $HOME/.config
@@ -72,3 +67,18 @@ set -gx MACOS_CONFIG_HOME $HOME/Library/Application Support
 set -gx TLRC_CONFIG $XDG_CONFIG_HOME/tlrc/tlrc.toml
 
 set -gx OP_ENV_DIR $XDG_CONFIG_HOME/op/environments
+
+#  Bookmarks
+## handy env vars for DRY, flexible pointers
+## to notes and dev projects
+set -gx PROJECTS $HOME/dev
+set -gx PROJECTS_WORKTREES $HOME/dev/00_grand-central
+set -gx PROJECTS_AGENTS $HOME/dev/01_agent-workbench
+set -gx PROJECTS_SCRIPTS $HOME/dev/02_spellbook
+set -gx PROJECTS_SANDBOX $HOME/dev/03_sandboxes
+set -gx PROJECTS_FORKS $HOME/dev/04_forks
+set -gx PROJECTS_UTILS $HOME/dev/05_utils
+set -gx PROJECTS_ARCHIVE $HOME/dev/zzz/
+set -gx PROJECTS_GRAVEYARD $HOME/dev/zzz-rip
+set -gx OBSIDIAN_HOME "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
