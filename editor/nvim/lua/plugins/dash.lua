@@ -84,7 +84,7 @@ return {
                 icon = " ",
                 key = "x",
                 desc = "Lazy Extras",
-                action = ":Lazy",
+                action = ":LazyExtras",
                 enabled = package.loaded.lazy ~= nil,
               },
               open_repo_key,
