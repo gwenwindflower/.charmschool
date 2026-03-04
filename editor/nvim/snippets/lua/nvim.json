@@ -19,5 +19,9 @@
   "tins": {
     "body": "table.insert(${1:target table}, ${2:item})",
     "prefix": "tins"
+  },
+  "vimpath": {
+    "body": "vim.fn.expand(${1:path_with_vars})",
+    "prefix": "vimpath"
   }
 }
