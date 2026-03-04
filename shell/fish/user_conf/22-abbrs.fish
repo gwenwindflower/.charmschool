@@ -82,6 +82,7 @@ abbr --add brx brewdo
 abbr --add bri "brew update; brew install"
 abbr --add brr brew uninstall
 abbr --add bru "brew update; brew upgrade; brew cleanup"
+abbr --add brup brew upgrade
 abbr --add brs "brew update; brew search"
 abbr --add brc brew cleanup
 abbr --add brcl brew cleanup
