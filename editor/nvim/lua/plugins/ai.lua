@@ -116,9 +116,10 @@ return {
       opts = opts or {}
       opts.cli = {
         mux = {
-          -- backend = "tmux",
-          -- create = "terminal",
-          enabled = false,
+          -- TODO: get this run `tmux_hint [tool]` when it launches
+          backend = "tmux",
+          create = "window",
+          enabled = true,
         },
         win = {
           keys = {
