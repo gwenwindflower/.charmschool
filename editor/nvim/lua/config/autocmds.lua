@@ -16,8 +16,10 @@ vim.filetype.add({
     -- but I also want them to behave normally undotted here
     ["gitconfig"] = "gitconfig",
     ["gitignore_global"] = "gitignore",
-    ["bashprofile"] = "bash",
+    ["profile"] = "bash",
+    ["bashrc"] = "bash",
     ["zprofile"] = "zsh",
+    ["zshrc"] = "zsh",
   },
   extension = {
     ["http"] = "http",
