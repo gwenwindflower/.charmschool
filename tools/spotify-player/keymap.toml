@@ -1,7 +1,7 @@
 [[keymaps]]
-command = "None"
-key_sequence = "q"
+command = "Quit"
+key_sequence = "C-q"
 
 [[keymaps]]
-command = "Quit"
-key_sequence = "q !"
+command = "PreviousPage"
+key_sequence = "q"
