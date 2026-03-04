@@ -7,7 +7,6 @@
   format = ssh
 
 [gpg "ssh"]
-  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
   allowedSignersFile = /Users/winnie/.ssh/allowed_signers
 
 [commit]

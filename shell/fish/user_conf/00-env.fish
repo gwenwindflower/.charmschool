@@ -23,6 +23,18 @@ set -gx HOMEBREW_NO_ENV_HINTS 1
 set -gx SHELL $HOMEBREW_PREFIX/bin/fish
 set -gx TERM xterm-256color
 
+# If we don't set SSH_AUTH_SOCK
+# then we have to point gitconfig to
+# the 1password op signing tool to sign git commits
+# with the 1password ssh keys
+# doing that will break on linux devcontainers with no 1password app
+# but setting it for macOS values will also break
+# thus, we only set this if we're on a macOS desktop
+# so it can be set by ssh agent forwarding in VMs
+if uname | grep -q Darwin
+    set -gx SSH_AUTH_SOCK "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+end
+
 #  Pager
 set -gx PAGER $HOMEBREW_PREFIX/bin/moor
 set -gx MOOR "\
