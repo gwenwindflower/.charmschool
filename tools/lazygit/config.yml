@@ -86,7 +86,7 @@ customCommands:
           - name: "🧰 chore"
             value: "chore"
             key: "c"
-          - name: "💥 revert"
+          - name: "📼 revert"
             value: "revert"
             key: "z"
       - type: "input"
@@ -111,7 +111,7 @@ customCommands:
         title: "Commit this?"
         key: "Confirm"
         body: |
-          {{.Form.Type}}{{ if .Form.Scope }}({{.Form.Scope}}){{ end }}{{ if eq .Form.Breaking "yes" }}!{{ end }}: {{ if eq .Form.Type "feat" }}✨{{ else if eq .Form.Type "fix" }}🐛{{ else if eq .Form.Type "docs" }}📚{{ else if eq .Form.Type "style" }}🎨{{ else if eq .Form.Type "refactor" }}♻️{{ else if eq .Form.Type "perf" }}⚡{{ else if eq .Form.Type "test" }}🧪{{ else if eq .Form.Type "build" }}🛠️{{ else if eq .Form.Type "ci" }}🚧{{ else if eq .Form.Type "chore" }}🧰{{ else if eq .Form.Type "revert" }}💥{{ end }} {{.Form.Message}}
+          {{.Form.Type}}{{ if .Form.Scope }}({{.Form.Scope}}){{ end }}{{ if eq .Form.Breaking "yes" }}!{{ end }}: {{ if eq .Form.Type "feat" }}✨{{ else if eq .Form.Type "fix" }}🐛{{ else if eq .Form.Type "docs" }}📚{{ else if eq .Form.Type "style" }}🎨{{ else if eq .Form.Type "refactor" }}♻️{{ else if eq .Form.Type "perf" }}⚡{{ else if eq .Form.Type "test" }}🧪{{ else if eq .Form.Type "build" }}🛠️{{ else if eq .Form.Type "ci" }}🚧{{ else if eq .Form.Type "chore" }}🧰{{ else if eq .Form.Type "revert" }}📼{{ end }} {{.Form.Message}}
     command: >-
-      git commit --message '{{.Form.Type}}{{ if .Form.Scope }}({{.Form.Scope}}){{ end }}{{ if eq .Form.Breaking "yes" }}!{{ end }}: {{ if eq .Form.Type "feat" }}✨{{ else if eq .Form.Type "fix" }}🐛{{ else if eq .Form.Type "docs" }}📚{{ else if eq .Form.Type "style" }}🎨{{ else if eq .Form.Type "refactor" }}♻️{{ else if eq .Form.Type "perf" }}⚡{{ else if eq .Form.Type "test" }}🧪{{ else if eq .Form.Type "build" }}🛠️{{ else if eq .Form.Type "ci" }}🚧{{ else if eq .Form.Type "chore" }}🧰{{ else if eq .Form.Type "revert" }}💥{{ end }} {{.Form.Message}}'
+      git commit --message '{{.Form.Type}}{{ if .Form.Scope }}({{.Form.Scope}}){{ end }}{{ if eq .Form.Breaking "yes" }}!{{ end }}: {{ if eq .Form.Type "feat" }}✨{{ else if eq .Form.Type "fix" }}🐛{{ else if eq .Form.Type "docs" }}📚{{ else if eq .Form.Type "style" }}🎨{{ else if eq .Form.Type "refactor" }}♻️{{ else if eq .Form.Type "perf" }}⚡{{ else if eq .Form.Type "test" }}🧪{{ else if eq .Form.Type "build" }}🛠️{{ else if eq .Form.Type "ci" }}🚧{{ else if eq .Form.Type "chore" }}🧰{{ else if eq .Form.Type "revert" }}📼{{ end }} {{.Form.Message}}'
     loadingText: Committing conventionally...
