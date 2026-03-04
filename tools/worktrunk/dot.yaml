@@ -1,0 +1,7 @@
+installs: |
+  if type -q wt
+    echo "worktrunk is already installed!"
+  else
+    brew install worktrunk
+    echo "Run `wt config shell install` and follow the prompts to complete setup"
+  end
