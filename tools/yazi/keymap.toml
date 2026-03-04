@@ -61,11 +61,16 @@ run = "plugin editor -- git-root"
 desc = "Open $EDITOR at git repo root"
 
 [[mgr.prepend_keymap]]
+on = "?"
+run = "help"
+desc = "Open keymaps help"
+
+[[mgr.prepend_keymap]]
 on = "<A-p>"
-run = "plugin toggle-pane min-preview"
-desc = "Show or hide the preview pane"
+run = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
 
 [[mgr.prepend_keymap]]
 on = "<A-P>"
-run = "plugin toggle-pane max-preview"
-desc = "Maximize or restore the preview pane"
+run = "plugin toggle-pane min-preview"
+desc = "Show or hide the preview pane"
