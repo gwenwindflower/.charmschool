@@ -1,10 +1,6 @@
 ---
 name: rotz-dotfiles
-description: |
-  Use when working with a rotz-based dotfiles repository. This includes: (1) Managing tools or apps
-  (adding, configuring, or removing), (2) Modifying rotz configuration files (dot.yaml, defaults.yaml,
-  config.yaml), (3) Updating tool configurations managed by rotz (mise.toml, config.fish, etc.),
-  (4) Restructuring the dotfiles hierarchy, (5) Planning architectural changes to the dotfiles project.
+description: Load for any request that involves the 'charmschool' rotz-based dotfiles project, across any task.
 ---
 
 # Rotz Dotfiles Management

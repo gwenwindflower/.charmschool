@@ -1,7 +1,6 @@
 ---
-name: agent-context-docs
-description: |
-  Write, create, and improve AGENTS.md project memory files for coding agents. Use when: (1) Creating or bootstrapping a new AGENTS.md, (2) Improving or refactoring an AGENTS.md towards best practices, (3) Questions about AGENTS.md best practices, (4) After significant codebase exploration to cache valuable learning for the future.
+name: write-agent-context-docs
+description: Use markdown context files effectively. When starting a new project or finishing a chunk of work use this skill to preserve your knowledge. If prompted to improve an existing agent context file, you should immediately load this skill to be your guide.
 ---
 
 # AGENTS.md Authoring

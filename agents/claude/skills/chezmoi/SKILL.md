@@ -1,8 +1,6 @@
 ---
 name: chezmoi
-description: |
-  Manage dotfiles with chezmoi - a cross-platform dotfile manager using a source-state model.
-  Use when: (1) Working with chezmoi (2) Managing user-level configs outside of chezmoi that would be useful to bring into chezmoi
+description: Manage dotfiles with chezmoi, load for any request using the tool or involving a user's dotfiles project.
 ---
 
 # chezmoi Dotfile Management
