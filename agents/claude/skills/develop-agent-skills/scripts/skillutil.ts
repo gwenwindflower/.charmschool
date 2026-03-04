@@ -28,7 +28,7 @@ const homeDir = Deno.env.get('HOME');
 if (!homeDir) throw new Error('HOME not set');
 
 const TEMPLATE_DIR = join(homeDir, '.claude/skills/develop-agent-skills/assets');
-const AGENT_SKILLS_DIR = join(homeDir, '.claude/skills/develop-agent-skills');
+const SKILL_DEV_DIR = join(homeDir, '.claude/skills/develop-agent-skills');
 const USER_LEVEL_SKILLS = join(homeDir, '.charmschool/agents/claude/skills');
 const DEACTIVATED_SKILLS = join(homeDir, '.charmschool/agents/claude/_deactivated_skills');
 
@@ -42,16 +42,8 @@ const TEMPLATES = {
 // Anthropic documentation sources
 const DOC_SOURCES = [
   {
-    url: 'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview.md',
-    filename: 'overview.md',
-  },
-  {
     url: 'https://code.claude.com/docs/en/skills.md',
-    filename: 'skills.md',
-  },
-  {
-    url: 'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices.md',
-    filename: 'best-practices.md',
+    filename: 'overview.md',
   },
 ];
 
@@ -158,6 +150,14 @@ async function initSkill(skillName: string, basePath: string): Promise<boolean> 
     await Deno.writeTextFile(join(skillDir, 'SKILL.md'), skillContent);
     console.log('✅ Created SKILL.md');
 
+    const referenceTemplate = await loadTemplate('reference');
+    const referenceContent = interpolate(referenceTemplate, vars);
+    await Deno.writeTextFile(
+      join(skillDir, 'example-reference.md'),
+      referenceContent,
+    );
+    console.log('✅ Created example-reference.md');
+
     // Create scripts/ directory
     await Deno.mkdir(join(skillDir, 'scripts'));
     const scriptTemplate = await loadTemplate('script');
@@ -168,16 +168,6 @@ async function initSkill(skillName: string, basePath: string): Promise<boolean> 
     );
     await Deno.chmod(join(skillDir, 'scripts', 'example.ts'), 0o755);
     console.log('✅ Created scripts/example.ts');
-
-    // Create references/ directory
-    await Deno.mkdir(join(skillDir, 'references'));
-    const refTemplate = await loadTemplate('reference');
-    const refContent = interpolate(refTemplate, vars);
-    await Deno.writeTextFile(
-      join(skillDir, 'references', 'api_reference.md'),
-      refContent,
-    );
-    console.log('✅ Created references/api_reference.md');
 
     // Create assets/ directory
     await Deno.mkdir(join(skillDir, 'assets'));
@@ -192,7 +182,9 @@ async function initSkill(skillName: string, basePath: string): Promise<boolean> 
     console.log(`\n✅ Skill '${skillName}' initialized successfully at ${skillDir}`);
     console.log('\nNext steps:');
     console.log('1. Edit SKILL.md to complete the TODO items and update the description');
-    console.log('2. Customize or delete the example files in scripts/, references/, and assets/');
+    console.log(
+      '2. Customize or delete the example reference file or the examples in scripts/, and assets/',
+    );
     console.log('3. Run the validator when ready to check the skill structure');
     console.log(`   skillutil validate ${skillDir}`);
 
@@ -401,14 +393,9 @@ async function validateSkill(skillPath: string): Promise<ValidationResult> {
 // ============================================================================
 
 async function refreshDocs(): Promise<boolean> {
-  const outputDir = join(AGENT_SKILLS_DIR, 'references', 'anthropic-docs');
-
   console.log('Fetching latest Anthropic skill documentation...\n');
 
   try {
-    // Create output directory
-    await Deno.mkdir(outputDir, { recursive: true });
-
     let successCount = 0;
 
     for (const source of DOC_SOURCES) {
@@ -422,7 +409,7 @@ async function refreshDocs(): Promise<boolean> {
         }
 
         const content = await response.text();
-        const outputPath = join(outputDir, source.filename);
+        const outputPath = join(SKILL_DEV_DIR, source.filename);
         await Deno.writeTextFile(outputPath, content);
         console.log(`  ✅ Saved to ${outputPath}`);
         successCount++;
@@ -432,7 +419,7 @@ async function refreshDocs(): Promise<boolean> {
       }
     }
 
-    console.log(`\n✅ Fetched ${successCount}/${DOC_SOURCES.length} documents to ${outputDir}`);
+    console.log(`\n✅ Fetched ${successCount}/${DOC_SOURCES.length} documents to ${SKILL_DEV_DIR}`);
     return successCount > 0;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
