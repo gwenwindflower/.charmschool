@@ -2,7 +2,7 @@ local bookmarks = {
 	{ key = "@", path = "~", desc = " User Home" },
 	{ key = { "c", "f" }, path = "~/.config", desc = " User Config" },
 	{ key = { "c", "m" }, path = "~/.charmschool", desc = " My Dotfiles" },
-	{ key = { "c", "s" }, path = "~/.charmschool/agents/claude/skills/agent-skills", desc = " Agent Skills" },
+	{ key = { "c", "s" }, path = "~/.charmschool/agents/claude/skills", desc = " Agent Skills" },
 	{ key = "w", path = "~/Library/Mobile Documents/iCloud~md~obsidian/Documents", desc = "󰓥 Obsidian" },
 	{ key = { "c", "c" }, path = "~/.claude", desc = "󱜙 Claude Code Config" },
 	{
