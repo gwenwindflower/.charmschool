@@ -72,7 +72,6 @@ set -gx OP_ENV_DIR $XDG_CONFIG_HOME/op/environments
 ## handy env vars for DRY, flexible pointers
 ## to notes and dev projects
 set -gx PROJECTS $HOME/dev
-set -gx PROJECTS_WORKTREES $HOME/dev/00_grand-central
 set -gx PROJECTS_AGENTS $HOME/dev/01_agent-workbench
 set -gx PROJECTS_SCRIPTS $HOME/dev/02_spellbook
 set -gx PROJECTS_SANDBOX $HOME/dev/03_sandboxes
