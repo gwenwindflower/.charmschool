@@ -64,6 +64,7 @@ return {
         grep_in_directory = "snacks.picker",
         grep_in_selected_files = "snacks.picker",
         picker_add_copy_relative_path_action = "snacks.picker",
+        resolve_relative_path_application = "realpath",
       },
     },
   },
