@@ -33,11 +33,11 @@ return {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
       opts.servers = opts.servers or {}
-      -- Deno LSP: LazyVim's TypeScript extra handles vtsls/denols disambiguation.
       -- denols will attach to files in directories containing deno.json or deno.jsonc,
-      -- while vtsls handles Node/npm projects (package.json, tsconfig.json).
-      -- See: lazyvim.plugins.extras.lang.typescript setup.vtsls for the logic.
+      -- while vtsls handles Node/npm projects (package.json, tsconfig.json)
+      -- this is disambiguated in the nvim-lspconfig default setup
       opts.servers.denols = {}
+      -- this is a less 'official' but better emmet lsp, it has better tag-chaining specifically
       opts.servers.emmet_language_server = {}
       return opts
     end,
@@ -48,6 +48,7 @@ return {
   ---- particularly stuff from folke and others heavily in the LazyVim ecosystem
   ---- who are very rigorous about their type annotations, which I also happen
   ---- to use and customize the most
+  --- TODO: add overseer
   {
     "folke/lazydev.nvim",
     opts = function(_, opts)
