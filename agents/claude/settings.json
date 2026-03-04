@@ -150,9 +150,15 @@
     "pyright-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true
+    "context7-plugin@context7-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "context7-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "upstash/context7"
+      }
+    }
   },
   "sandbox": {
     "enabled": true
