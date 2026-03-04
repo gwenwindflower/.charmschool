@@ -14,6 +14,9 @@ wk.add({
 wk.add({
   { "<LocalLeader>nj", "<cmd>%!jq -S<cr>", mode = { "n" }, desc = "Sort JSON keys with jq" },
 })
+wk.add({
+  { "<LocalLeader>L", "<cmd>LazyExtras<cr>", mode = { "n" }, desc = "LazyExtras" },
+})
 
 -- Resize window using <ctrl> arrow keys
 -- vim.keymap.del("n", "<c-left>")
