@@ -125,7 +125,7 @@ abbr --add openv o $OP_ENV_DIR
 ## macos keyring
 abbr --add keys security
 ## mitmproxy
-abbr -a 'prx?' prxstate
+abbr -a 'prx?' prx status
 abbr -a mp mitmproxy
 # data
 abbr --add dbx databricks
