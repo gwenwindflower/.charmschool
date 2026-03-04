@@ -16,15 +16,14 @@ Optional body with rationale and context. Feel free to be detailed here.
 
 - `feat` - New functionality
 - `fix` - Bug fixes
-- `chore` - Maintenance, config changes
-- `docs` - Documentation only
-- `refactor` - Code restructuring without behavior change
-
-### Type details
-
-- `feat`: Wholly new functionality (new tool, new function, new feature)
-- `chore`: Updates to existing configs, non-functional changes
-- `fix`: Bug fixes, corrections to broken behavior
+- `chore` - Tooling, config changes, workflow, maintenance tasks
+- `docs` - Documentation ONLY
+- `refactor` - Code restructuring or renaming without behavior change
+- `style` - Code style changes ONLY (formatting, indentation, etc.)
+- `test` - Adding or updating tests ONLY
+- `build` - Changes to build system or deployment configs
+- `ci` - Updates to CI configuration, automated checks, pre-commit hooks, etc.
+- `perf` - Can involve a variety of work, but if the explicit focus is improving performance, use this
 
 ## Style
 
