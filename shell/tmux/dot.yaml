@@ -1,8 +1,8 @@
 installs: |
   if type -q tmux
     echo "tmux is already installed!"
-    if test -d ~/.config/tmux/plugins/tpm
-      echo "Plugin directory ~/.config/tmux/plugins/tpm already exists, skipping tpm install."
+    if test -d $TMUX_PLUGIN_MANAGER_INSTALL
+      echo "tpm is already installed!"
     else
       brew install tpm
     end

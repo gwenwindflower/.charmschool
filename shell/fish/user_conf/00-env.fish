@@ -64,6 +64,7 @@ set -gx XDG_CACHE_HOME $HOME/.cache
 # so in my effort to avoid package managers polluting my home directory
 # with .<tool> config directories we set it here so even on new machines it will be correct
 set -gx TMUX_PLUGIN_MANAGER_PATH $XDG_CONFIG_HOME/tmux/plugins
+set -gx TMUX_PLUGIN_MANAGER_INSTALL $HOMEBREW_PREFIX/opt/tpm/share/tpm
 # a lot of tools use this location for macOS-specific configuration
 # it is technically correct! because of this, it is what the `dirs` Rust crate returns
 # for the macOS config dir - so Rust-based tools particularly often expect this
