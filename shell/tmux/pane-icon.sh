@@ -1,4 +1,5 @@
 #!/bin/sh
+
 # pane-icon.sh — resolve a tmux pane command to a Nerd Font icon
 # Called by tmux via #() in window-status-format / window-status-current-format.
 # Usage: pane-icon.sh <pane_current_command> [hint_cmd] [assigned_icon]
