@@ -85,7 +85,7 @@ function envy -d "Interactively select op env vars to load into current shell se
     # If called without --all, re-set to a selection via gum choose prompt
     # Otherwise continue with the full list assigned above
     if not set -q _flag_all
-        set env_var_selection (gum choose --no-limit $valid_env_vars)
+        set env_var_selection (printf '%s\n' $valid_env_vars | fzf --multi --header "Select env vars to load")
     end
 
     for var in $env_var_selection
