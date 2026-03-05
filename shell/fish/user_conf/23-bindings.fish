@@ -78,9 +78,9 @@ bind --user alt-super-e "fresh -g; commandline -f repaint"
 ## this wraps anything (or nothing) on the command line
 ## with echo "[stuff]^", with ^ being the end location of the cursor
 bind --user -M insert ctrl-p _wrap_echo
-bind --user -M visual ctrl-p _wrap_echo
 bind --user ctrl-p _wrap_echo
 ## secrets (s) 1Password env wrapper
-bind --user -M insert ctrl-s _wrap_op_interactive
-bind --user -M visual ctrl-s _wrap_op_interactive
-bind --user ctrl-s _wrap_op_interactive
+bind --user -M insert ctrl-o "_wrap_op_interactive -a"
+bind --user ctrl-o "_wrap_op_interactive -a"
+bind --user -M insert ctrl-alt-o _wrap_op_interactive
+bind --user ctrl-alt-o _wrap_op_interactive
