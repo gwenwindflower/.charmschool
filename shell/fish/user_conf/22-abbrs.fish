@@ -207,11 +207,12 @@ abbr --add ba bun add
 abbr --add bu bun upgrade
 abbr --add bs bun start
 abbr --add br bun run
+abbr --add bt bun test
 abbr --add bx bunx
 ### deno
-abbr --add bt bun test
 abbr --add d deno
 abbr --add dig deno install -grAf --root $DENO_HOME
+abbr --add dt deno task
 # git
 abbr --add g git
 ## config
