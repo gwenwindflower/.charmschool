@@ -117,8 +117,10 @@ abbr --add brsrv brew services
 # ai
 abbr --add opc opo opencode
 abbr --add ghc opo copilot
+abbr --add copilot opo copilot
 ## claude
 abbr --add cco opo claude
+abbr --add claude opo claude
 abbr --add ccf zex $HOME/.claude
 abbr --add ccfs "zex $HOME/.charmschool/agents/claude/skills"
 abbr --add ccu "bunx ccusage@latest"
