@@ -33,6 +33,15 @@ abbr --add cmme chmod 700 # give me all permsissions and nobody else any
 abbr --add vi opo nvim
 abbr --add vim opo nvim
 abbr --add nvim opo nvim
+# ssh
+abbr --add sshk kitten ssh -A
+# tmux
+abbr --add tm tmux
+abbr --add tmls tmux list-sessions
+abbr --add tmn tmux new-session
+abbr --add tma tmux attach-session
+abbr --add tmh tmux_hint
+abbr --add tmhspark 'tmux_hint -d ""'
 # shell snippets
 ## colorized help via bat
 abbr --add --position anywhere -- --help '--help | bat -plhelp'

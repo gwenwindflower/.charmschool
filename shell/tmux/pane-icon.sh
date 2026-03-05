@@ -1,17 +1,26 @@
 #!/bin/sh
 # pane-icon.sh — resolve a tmux pane command to a Nerd Font icon
 # Called by tmux via #() in window-status-format / window-status-current-format.
-# Usage: pane-icon.sh <pane_current_command> [hint_cmd]
+# Usage: pane-icon.sh <pane_current_command> [hint_cmd] [assigned_icon]
 #
-# When @hint_cmd is set (via tmux_hint), it takes priority over
-# pane_current_command. This handles wrappers like `opo` (where tmux
-# sees "op") and pager pipelines like `man` (where tmux sees "less").
+# Priority chain:
+#   1. @assigned_icon — literal string set via `tmux_hint -d`, bypasses lookup
+#   2. @hint_cmd  — command name override set via `tmux_hint <name>`
+#   3. pane_current_command — tmux default
 
 cmd="$1"
 hint="$2"
+assigned="$3"
 
-# @hint_cmd is the authoritative signal when set
-if [ -n "$hint" ]; then
+# @assigned_icon bypasses the case statement entirely
+# tmux passes "none" as a sentinel when the option is unset
+if [ -n "$assigned" ] && [ "$assigned" != "none" ]; then
+  printf ' %s ' "$assigned"
+  exit 0
+fi
+
+# @hint_cmd overrides pane_current_command for the lookup
+if [ -n "$hint" ] && [ "$hint" != "none" ]; then
   cmd="$hint"
 fi
 
