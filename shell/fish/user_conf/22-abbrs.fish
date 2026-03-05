@@ -143,13 +143,13 @@ abbr --add ddb duckdb
 abbr --add pg pgcli
 abbr --add sqli sqlite3
 ## dbt
-abbr --add db dbtf build -s
-abbr --add dba dbtf build
-abbr --add dt dbtf test -s
-abbr --add dta dbtf test
-abbr --add dr dbtf run -s
-abbr --add dra dbtf run
-abbr --add dbtp nvim ~/.dbt/profiles.yml
+abbr --add dbbs dbtf build -s
+abbr --add dbba dbtf build
+abbr --add dbts dbtf test -s
+abbr --add dbta dbtf test
+abbr --add dbrs dbtf run -s
+abbr --add dbra dbtf run
+abbr --add dbtpo nvim ~/.dbt/profiles.yml
 abbr --add dbtpp bat ~/.dbt/profiles.yml
 # languages
 ## multi-runtime
