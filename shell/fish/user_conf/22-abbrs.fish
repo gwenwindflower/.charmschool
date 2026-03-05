@@ -31,8 +31,6 @@ abbr --add cmme chmod 700 # give me all permsissions and nobody else any
 # editor
 ## opo = run nvim via `op run` with nvim environment file
 abbr --add vi opo nvim
-abbr --add vim opo nvim
-abbr --add nvim opo nvim
 # ssh
 abbr --add sshk kitten ssh -A
 # tmux
