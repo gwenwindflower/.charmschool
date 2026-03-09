@@ -14,6 +14,7 @@ format = """
 $os\
 $username\
 [](bg:peach fg:mauve)\
+$hostname\
 $directory\
 [](bg:yellow fg:peach)\
 $git_branch\
@@ -69,6 +70,13 @@ show_always = true
 style_user = "bg:mauve fg:crust"
 style_root = "bg:mauve fg:crust"
 format = '[ $user ]($style)'
+
+[hostname]
+ssh_only = true
+ssh_symbol = " "
+aliases = { "Winnies-MacBook-Pro" = "  " }
+style = "bg:peach fg:crust"
+format = '[$ssh_symbol]($style)($style bold)[$hostname]($style)'
 
 [directory]
 style = "bg:peach fg:crust"
