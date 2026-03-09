@@ -17,13 +17,3 @@ wk.add({
 wk.add({
   { "<LocalLeader>L", "<cmd>LazyExtras<cr>", mode = { "n" }, desc = "LazyExtras" },
 })
-
--- Resize window using <ctrl> arrow keys
--- vim.keymap.del("n", "<c-left>")
--- vim.keymap.del("n", "<c-right>")
--- vim.keymap.del("n", "<c-up>")
--- vim.keymap.del("n", "<c-down>")
--- vim.keymap.set("n", "<c-m-up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
--- vim.keymap.set("n", "<c-m-down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
--- vim.keymap.set("n", "<c-m-left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
--- vim.keymap.set("n", "<c-m-right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
