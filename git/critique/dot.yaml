@@ -1,0 +1,1 @@
+installs: bun install -g critique@latest
