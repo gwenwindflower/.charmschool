@@ -1,3 +1,0 @@
-# TODO: only on Darwin, not devcontainers
-
-installs: brew install withgraphite/tap/graphite
