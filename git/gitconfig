@@ -45,7 +45,6 @@
   hyperlinks = true
   features = catppuccin-frappe
 
-
 [color]
   ui = auto
 
@@ -105,6 +104,10 @@
   ; easy semantic names
   unstage = restore --staged
   unstage-all = restore --staged .
+  ; difftastic structural diffs
+  logd = -c diff.external=difft log -p --ext-diff
+  showd = -c diff.external=difft show --ext-diff
+  diffd = -c diff.external=difft diff
   ; quick forgit access as i use these constantly
   ; these are also aliased in my shell config, but
   ; sometimes i type git first out of habit
