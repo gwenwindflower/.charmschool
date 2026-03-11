@@ -1,0 +1,10 @@
+# TODO: only on Darwin, not devcontainers
+installs: |
+  if type -q notesmd-cli
+    echo "notesmd-cli is already installed!"
+  else
+    brew tap yakitrak/yakitrak
+    brew install yakitrak/yakitrak/notesmd-cli
+    notesmd-cli completion fish > ~/.config/fish/completions/notesmd-cli.fish
+    notesmd-cli set-default girlOS
+  end
