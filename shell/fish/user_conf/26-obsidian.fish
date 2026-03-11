@@ -1,10 +1,8 @@
+set -gx OBSIDIAN_HOME "$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
 # Obsidian now ships with a CLI that works with a running app instance
 # the 'obsidian' bin is at the path below
-# we use the '-a' flag to append it
-# as we don't want it coming before `mise`, our last addition (in 19-mise.fish)
-# it's a very unique and low-priority path (the only bin here is 'obsidian')
-# so it's easiest to just append it rather than break our file patterns
-# by putting it elsewhere
+# we use the '-a' flag to append it so mise can stay our last addition (in 19-mise.fish)
+# it's a unique and low-priority path (the only bin here is 'obsidian')
+# so it's fine to put at the back of the PATH
 fish_add_path -a /Applications/Obsidian.app/Contents/MacOS
-# This is not to be confused with 'obsidian-cli', installed by Homebrew
-# which operates on static files and doesn't require a running app instance
