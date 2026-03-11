@@ -1,8 +1,8 @@
---- editor.yazi — open $EDITOR from Yazi with proper terminal blocking.
+--- editor.yazi — open nvim from Yazi with proper terminal blocking.
 --
 -- Modes (passed as first arg):
---   "edit"     — open hovered item in $EDITOR (dirs as projects, files directly)
---   "git-root" — open $EDITOR at the git repo root of the current directory
+--   "edit"     — open hovered item in nvim (dirs as projects, files directly)
+--   "git-root" — open nvim at the git repo root of the current directory
 
 -- Returns hovered URL and current cwd (both as strings).
 -- Url objects can't cross the sync/async boundary, so we stringify here.
@@ -31,7 +31,7 @@ local function notify_error(msg)
 end
 
 local function open_editor(path)
-	local cmd = string.format("fish -c 'tmux_hint $EDITOR; $EDITOR %s; tmux_hint'", ya.quote(path))
+	local cmd = string.format("fish -c 'tmux_hint nvim; opo nvim %s; tmux_hint'", ya.quote(path))
 	ya.emit("shell", { cmd, block = true })
 end
 
@@ -46,7 +46,7 @@ local function edit()
 	end
 
 	-- When opening a directory as a project, move Yazi into it first so the
-	-- shell spawned for $EDITOR inherits the correct cwd. Without this,
+	-- shell spawned for nvim inherits the correct cwd. Without this,
 	-- terminals opened inside the editor would land in the parent directory.
 	if is_dir then
 		ya.emit("cd", { url })
