@@ -20,6 +20,7 @@ vim.filetype.add({
     ["bashrc"] = "bash",
     ["zprofile"] = "zsh",
     ["zshrc"] = "zsh",
+    ["statusline.conf"] = "tmux",
   },
   extension = {
     ["http"] = "http",
