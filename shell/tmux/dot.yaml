@@ -15,4 +15,5 @@ installs: |
 links:
   tmux.conf: ~/.config/tmux/tmux.conf
   statusline.conf: ~/.config/tmux/statusline.conf
+  statusline-powerline.conf: ~/.config/tmux/statusline-powerline.conf
   pane-icon.sh: ~/.config/tmux/pane-icon.sh
