@@ -2,7 +2,6 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "env": {
     "DISABLE_AUTO_UPDATER": "1",
-    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
