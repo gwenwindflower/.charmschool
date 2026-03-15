@@ -1,0 +1,25 @@
+{
+	"$schema": "https://biomejs.dev/schemas/latest/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+    "defaultBranch": "main"
+	},
+	"files": {
+		"includes": [
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.js",
+			"**/*.mjs",
+			"**/*.cjs",
+			"**/*.jsx",
+			"**/*.json",
+			"**/*.jsonc",
+			"**/*.css"
+		]
+	},
+	"formatter": {
+		"formatWithErrors": true
+	}
+}
