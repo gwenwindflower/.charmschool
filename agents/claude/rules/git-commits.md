@@ -1,6 +1,8 @@
 # Git Commits
 
-Conventional commit style with scope preferences.
+## Signing Commits
+
+**IMPORTANT**: Commits are signed with SSH keys, stored in 1Password. This should be accessible via 1Password's SSH agent, but if commits are failing because of signatures, stop and ask the user to do the commit manually, and instruct them to troubleshoot their signing key setup.
 
 ## Format
 
