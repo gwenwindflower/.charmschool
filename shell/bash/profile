@@ -1,1 +1,7 @@
 export SHELL="$HOMEBREW_PREFIX/bin/fish"
+# This is set by ssh agent forwarding when ssh-ing into Linux VMs
+# but required on macOS for signing commits
+# We need it in bash for Claude to make commits
+if [ "$(uname -s)" = "Darwin" ]; then
+  export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+fi
