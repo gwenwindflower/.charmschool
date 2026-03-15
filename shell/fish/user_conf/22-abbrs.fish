@@ -12,10 +12,9 @@ abbr --add p echo # p for print
 abbr --add pp bat # pp for pretty print
 abbr --add cat bat
 # shell
-abbr --add e fresh -r # reload shell
-abbr --add ee fresh -c # clear screen
-abbr --add et fresh -g # navigate to ~ then clear and reload
-abbr --add er fresh # clear and reload
+abbr --add r fresh -r # reload shell
+abbr --add rr fresh # clear and reload
+abbr --add rrh fresh -g # navigate to ~ then clear and reload
 abbr --add fun functions
 # processes
 abbr --add top btm
@@ -24,13 +23,13 @@ abbr --add pps procs
 abbr --add cp. "pwd | pbcopy"
 abbr --add mkd mkdir -p
 abbr --add mkt mktemp
-abbr --add r rip
 abbr --add mac macchina
 abbr --add cmx chmod +x # make executable
 abbr --add cmme chmod 700 # give me all permsissions and nobody else any
 # editor
 ## opo = run nvim via `op run` with nvim environment file
-abbr --add vi opo nvim
+abbr --add v nvim
+abbr --add vi nvim
 # ssh
 abbr --add sshk kitten ssh -A
 # tmux
@@ -77,20 +76,19 @@ abbr --add lla lsd -lA
 abbr --add lt lsd --tree
 # navigation
 abbr --add s z
-abbr --add ss zex # zoxide > launch yazi/nvim
-abbr --add dots "zex -e $HOME/.charmschool"
-abbr --add conf "zex $XDG_CONFIG_HOME"
-abbr --add proj "zex $PROJECTS"
-abbr --add keeb "zex -e $PROJECTS_UTILS/tinybabykeeb"
+abbr --add dots "ee -e $HOME/.charmschool"
+abbr --add conf "ee $XDG_CONFIG_HOME"
+abbr --add proj "ee $PROJECTS"
+abbr --add keeb "ee -e $PROJECTS_UTILS/tinybabykeeb"
 # Homebrew
 ## custom function to run commands across multiple fzf-selected formulae/casks
 abbr --add brx brewdo
 ## updates and installs
 abbr --add bri "brew update; brew install"
-abbr --add brr brew uninstall
-abbr --add bru "brew update; brew upgrade; brew cleanup"
+abbr --add brrm brew uninstall
 abbr --add brup brew upgrade
-abbr --add brs "brew update; brew search"
+abbr --add brcup "brew update; brew upgrade; brew cleanup"
+abbr --add brs brew search
 abbr --add brc brew cleanup
 abbr --add brcl brew cleanup
 ## details and dependencies
@@ -119,12 +117,12 @@ abbr --add copilot opo copilot
 ## claude
 abbr --add cco opo claude
 abbr --add claude opo claude
-abbr --add ccf zex $HOME/.claude
-abbr --add ccfs "zex $HOME/.charmschool/agents/claude/skills"
+abbr --add ccf ee $HOME/.claude
+abbr --add ccfs "ee $HOME/.charmschool/agents/claude/skills"
 abbr --add ccu "bunx ccusage@latest"
 # writing
 ## default Obsidian vault
-abbr --add notes "zex -e '$OBSIDIAN_DEFAULT_VAULT'"
+abbr --add notes "ee -e '$OBSIDIAN_DEFAULT_VAULT'"
 abbr --add ob obsidian-cli
 # security and network
 ## 1password
@@ -193,16 +191,26 @@ abbr --add gob go build
 ## rust
 abbr --add ruu rustup up
 ## typescript
+### npm
+abbr --add n npm
+abbr --add nx npx
+abbr --add ni npm install
+abbr --add nu npm update # synonyms up/upgrade
+abbr --add nd npm run dev
+abbr --add nb npm run build
 ### pnpm
-abbr --add n pnpm
-abbr --add nx pnpx
-abbr --add ni pnpm i
-abbr --add nu pnpm up
-abbr --add nd pnpm dev
-abbr --add nb pnpm build
+abbr --add pn pnpm
+abbr --add pnx pnpm dlx
+abbr --add pni pnpm install
+abbr --add pnrm pnpm remove # synonyms uni/uninstall
+abbr --add pna pnpm add
+abbr --add pnu pnpm update # synonyms up/upgrade
+abbr --add pnd pnpm dev
+abbr --add pnb pnpm build
+abbr --add pnl pnpm lint
 ### bun
 abbr --add b bun
-abbr --add bi bun i
+abbr --add bi bun install
 abbr --add ba bun add
 abbr --add bu bun upgrade
 abbr --add bs bun start

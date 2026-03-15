@@ -1,4 +1,7 @@
-function fe -d "Launch yazi and exit into the directory you navigated to in yazi"
+function ff -d "Launch yazi and exit into the directory you navigated to in yazi"
+    # This logic is replicated in ee.fish - if updates are made here,
+    # consider making them there as well
+
     # Create a temporary file for yazi to write the final directory path
     set -l tmp (mktemp -t "yazi-cwd.XXXXXX")
 
