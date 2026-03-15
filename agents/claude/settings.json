@@ -161,7 +161,12 @@
     }
   },
   "sandbox": {
-    "enabled": true
+    "enabled": true,
+    "filesystem": {
+      "allowWrite": [
+        "~/.local/share/graveyard/**"
+      ]
+    }
   },
   "spinnerTipsEnabled": false,
   "spinnerVerbs": {
