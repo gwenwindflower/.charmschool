@@ -7,7 +7,6 @@
 vim.g.lazyvim_prettier_needs_config = true
 -- Snacks is awesome
 vim.g.lazyvim_picker = "snacks"
-vim.g.lazyvim_python_ruff = "ruff"
 vim.g.snacks_animate = true
 -- Set the spellfile explicitly to the standard path so we can add rare words
 -- zg works a bit more magically, it will create a spellfile here if doesn't exist
