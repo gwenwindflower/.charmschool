@@ -108,7 +108,8 @@
       "Bash(git push -f *)",
       "Bash(kubectl delete *)",
       "Bash(kubectl apply * --namespace=prod*)",
-      "Bash(terraform destroy *)"
+      "Bash(terraform destroy *)",
+      "Bash(op *)"
     ],
     "ask": [
       "Bash(rip *)",
