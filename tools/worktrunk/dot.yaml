@@ -5,3 +5,6 @@ installs: |
     brew install worktrunk
     echo "Run `wt config shell install` and follow the prompts to complete setup"
   end
+
+links:
+  config.toml: ~/.config/worktrunk/config.toml
