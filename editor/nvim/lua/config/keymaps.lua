@@ -17,3 +17,6 @@ wk.add({
 wk.add({
   { "<LocalLeader>L", "<cmd>LazyExtras<cr>", mode = { "n" }, desc = "LazyExtras" },
 })
+wk.add({
+  { "<LocalLeader>T", "<cmd>!tmux_hint nvim -l<cr>", mode = { "n" }, desc = "Set tmux_hint" },
+})
