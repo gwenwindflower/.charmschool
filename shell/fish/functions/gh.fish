@@ -1,3 +1,7 @@
+# opo wrapper
+# we wrap the most common `op run`ified commands
+# so that we get completions and normal behavior
+# but the actual execution goes through op
 function gh
-    op run --env-file=$OP_ENV_DIR/gh.env --no-masking -- gh $argv
+    opo gh $argv
 end

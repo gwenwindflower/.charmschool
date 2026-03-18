@@ -25,14 +25,29 @@ if [ -n "$hint" ] && [ "$hint" != "none" ]; then
   cmd="$hint"
 fi
 
+# Filter: transient processes that should never claim the icon.
+# If the real pane_current_command is filtered, prefer the hint (already
+# applied above) or fall back to the shell default rather than displaying
+# an icon for a process that doesn't represent what the window is "about".
+case "$1" in
+op | ssh-agent | gpg-agent | 1Password | git-credential-* | sudo)
+  # Only matters when there's no hint override — if cmd was already
+  # replaced by the hint above, the filter has no effect.
+  if [ "$cmd" = "$1" ]; then
+    cmd="fish"
+  fi
+  ;;
+esac
+
 case "$cmd" in
 # Shells
 fish | zsh | bash | tmux) icon="" ;;
 # Tools
 nvim | vim) icon="" ;;
 yazi) icon="󰀶" ;;
-git | lazygit) icon="" ;;
+git | lazygit | wt) icon="" ;;
 gh) icon="" ;;
+obsidian | 'notesmd-cli') icon="" ;;
 man) icon="" ;;
 glow | moor | less | bat | cat) icon="" ;;
 ls | lsd | eza | exa) icon="󰙅" ;;
@@ -41,7 +56,7 @@ docker | lazydocker | orbstack) icon="" ;;
 k9s | kubectl) icon="" ;;
 htop | btm | top) icon="" ;;
 # AI
-claude | codex | crush | opencode) icon="󱜚" ;;
+claude | codex | crush | opencode | goose | copilot | pi | gemini | ai) icon="󱜚" ;;
 # Network
 mitmproxy) icon="" ;;
 ssh) icon="" ;;

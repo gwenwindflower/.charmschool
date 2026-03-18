@@ -24,8 +24,10 @@ function opo -d "Run a command via 'op run' with a tool-scoped env file matching
     end
 
     # Tell tmux the real command name so pane-icon.sh and status-left
-    # can display it instead of "op" (which is what pane_current_command sees)
-    tmux_hint $cmd_name
+    # can display it instead of "op" (which is what pane_current_command sees).
+    # --lock prevents background processes (like op for git auth) from
+    # clearing the hint while the main command is running.
+    tmux_hint --lock $cmd_name
 
     op run --env-file=$env_file --no-masking -- $argv
 
