@@ -1,5 +1,9 @@
 .DS_Store
 .env*
+*.env
+*.pem
+*.id_rsa
+*.id_ed25519
 *.local.toml
 *.local.yaml
 *.local.json
