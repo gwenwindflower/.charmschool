@@ -22,7 +22,7 @@ function fresh -d "Shell clearing and reloading for keybinding convenience"
         if set -q _flag_go_home
             cd ~
         end
-        clear
+        status test-terminal-feature scroll-content-up; and commandline -f scrollback-push clear-screen
         return 0
     else if set -q _flag_reload_only
         if set -q _flag_go_home
