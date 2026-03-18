@@ -11,3 +11,12 @@ __pycache__
 node_modules
 .pnpm-store
 .swp
+# obviously this is already ignored by default
+# but for some reason fd does not include it
+# in its defaults when in ignore mode
+# i think perhaps to not make assumptions about your VCS?
+# either way, it does respect the global gitignore
+# unless you use the flag to do otherwisea
+# so we set this explicitly here for fd
+# and other tools with similar behavior
+.git
