@@ -5,7 +5,7 @@ return {
       interactions = {
         chat = {
           adapter = "copilot",
-          model = "sonnet-4.6",
+          model = "opus-4.6",
         },
         -- ACP integration works surprisingly well
         -- but I want to see the difference when
@@ -22,7 +22,7 @@ return {
         -- },
         inline = {
           adapter = "copilot",
-          model = "gpt-5.1-codex-max",
+          model = "gpt-5.3-codex",
         },
       },
       adapters = {
