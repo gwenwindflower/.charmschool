@@ -1,0 +1,3 @@
+# Prefer pnpm over npm
+
+For projects explicitly using bun or deno, which we often use, stick with those. For projects using node, even when docs use npm, prefer pnpm when you can. If a project is already set up to use npm, stick with that, but if starting a new project or if the project is already using pnpm, always use pnpm. Similarly, for docs that reference using npx to run a command, prefer pnpx (or pnpm dlx, which is the same thing) instead. The performance benefits of pnpm are significant, and it's more likely that the command you're running will already be in the cache or pnpm store if you use pnpm/pnpx over npm/npx.
