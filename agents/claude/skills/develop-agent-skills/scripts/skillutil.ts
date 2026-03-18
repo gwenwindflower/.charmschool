@@ -27,6 +27,7 @@ import { Command } from '@cliffy/command';
 const homeDir = Deno.env.get('HOME');
 if (!homeDir) throw new Error('HOME not set');
 
+// TODO: move to using ~/.agents/skills and symlinking to Claude
 const TEMPLATE_DIR = join(homeDir, '.claude/skills/develop-agent-skills/assets');
 const SKILL_DEV_DIR = join(homeDir, '.claude/skills/develop-agent-skills');
 const USER_LEVEL_SKILLS = join(homeDir, '.charmschool/agents/claude/skills');
