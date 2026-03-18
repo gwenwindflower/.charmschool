@@ -7,15 +7,20 @@
 # use ctrl+space to block expanding the abbr
 # so classic commands I abbr can still be run: `cat>ctrl+space>enter` will run `cat` instead of `bat`
 
-# printing
+# print, copy, paste
 abbr --add p echo # p for print
 abbr --add pp bat # pp for pretty print
 abbr --add cat bat
+abbr --add pcp fish_clipboard_copy
+abbr --add ppp fish_clipboard_paste
 # shell
 abbr --add r fresh -r # reload shell
 abbr --add rr fresh # clear and reload
 abbr --add rrh fresh -g # navigate to ~ then clear and reload
 abbr --add fun functions
+# bypass functions+aliases, run direct command
+# useful when a wrapper is broken
+abbr --add cmd command
 # processes
 abbr --add top btm
 abbr --add pps procs
@@ -115,15 +120,30 @@ abbr --add opc opo opencode
 abbr --add ghc opo copilot
 abbr --add copilot opo copilot
 ## claude
-abbr --add cco opo claude
-abbr --add claude opo claude
+abbr --add cco claude
 abbr --add ccf ee $HOME/.claude
 abbr --add ccfs "ee $HOME/.charmschool/agents/claude/skills"
 abbr --add ccu "bunx ccusage@latest"
 # writing
 ## default Obsidian vault
 abbr --add notes "ee -e '$OBSIDIAN_DEFAULT_VAULT'"
-abbr --add ob obsidian-cli
+abbr --add ob notesmd-cli
+## fd>fzf tailored for obsidian vault markdown files
+abbr --add obf "fd . --color always --hidden --ignore --extension md | fzf --preview '_fzf_preview_file {}'"
+abbr --add obs notesmd-cli search -e
+abbr --add obg notesmd-cli search-content
+abbr --add oba notesmd-cli create
+abbr --add obrm notesmd-cli delete
+abbr --add obday notesmd-cli daily
+abbr --add obfm notesmd-cli frontmatter
+abbr --add ob? notesmd-cli help
+abbr --add obls notesmd-cli list
+abbr --add oblsv notesmd-cli list-vaults
+abbr --add obmv notesmd-cli move
+abbr --add obo notesmd-cli open
+abbr --add obp notesmd-cli print
+abbr --add obdv notesmd-cli print-default
+abbr --add obfmp "fd . --color always --hidden --ignore --extension md | fzf --preview '_fzf_preview_file {}' --bind 'enter:execute(notesmd-cli frontmatter {} --print)+abort'"
 # security and network
 ## 1password
 abbr --add ope "op run --env-file=$OP_ENV_DIR/global.env --no-masking -- " # run with default global env file, without setting env vars for the session, no masking (for interactive use)

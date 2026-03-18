@@ -55,32 +55,34 @@ bind --user super-G "commandline -r 'opo gh dash'; commandline -f execute"
 bind --user -M insert alt-G "commandline -r 'opo gh dash'; commandline -f execute"
 bind --user alt-G "commandline -r 'opo gh dash'; commandline -f execute"
 
-# AI agents (c - code)
-## launch claude code
-bind --user -M insert ctrl-super-c claude_launch
-bind --user ctrl-super-c claude_launch
-bind --user -M insert ctrl-alt-c claude_launch
-bind --user ctrl-alt-c claude_launch
-bind --user -M insert alt-C "ee ~/.claude/"
-bind --user alt-C "ee ~/.claude/"
-
 # clearing and reloading (e - erase, r - reload)
 ## just reload a 'fresh' sesh with pretty output, keep output on screen
 bind --user -M insert super-r "fresh -r"
 bind --user super-r "fresh -r"
 bind --user -M insert alt-r "fresh -r"
 bind --user alt-r "fresh -r"
-## just clear the screen via `fresh`
-bind --user -M insert alt-e "fresh -c; commandline -f repaint"
-bind --user alt-e "fresh -c; commandline -f repaint"
-## clear *and* reload sesh, so fresh, so clean
-bind --user -M insert ctrl-super-e "fresh; commandline -f repaint"
-bind --user ctrl-super-e "fresh; commandline -f repaint"
+## just clear the screen
+## i usually use Kitty for this, but it can't operate inside tmux
+## so this the tmux-friendly quick clear
+bind --user -M insert super-e "fresh -c"
+bind --user super-e "fresh -c"
+bind --user -M insert alt-e "fresh -c"
+bind --user alt-e "fresh -c"
+## alt-e is fish's default to open the command line in $EDITOR
+## so we remap that to alt-o
+bind --user -M insert alt-o edit_command_buffer
+bind --user alt-o edit_command_buffer
+bind --user -M insert super-R "fresh; commandline -f repaint"
+bind --user super-R "fresh; commandline -f repaint"
+bind --user -M insert alt-R "fresh; commandline -f repaint"
+bind --user alt-R "fresh; commandline -f repaint"
 ## clear, reload, *and* navigate to home dir - a brand new start
 ## essentially the same as opening a new tab
 ## but keeps random short-lived tabs for accumulating
-bind --user -M insert alt-super-e "fresh -g; commandline -f repaint"
-bind --user alt-super-e "fresh -g; commandline -f repaint"
+bind --user -M insert ctrl-super-r "fresh -g; commandline -f repaint"
+bind --user ctrl-super-r "fresh -g; commandline -f repaint"
+bind --user -M insert ctrl-alt-r "fresh -g; commandline -f repaint"
+bind --user ctrl-alt-r "fresh -g; commandline -f repaint"
 
 # wrapping commands
 ## print (p) (i use p -> echo and pp -> bat)
@@ -88,7 +90,7 @@ bind --user alt-super-e "fresh -g; commandline -f repaint"
 ## with echo "[stuff]^", with ^ being the end location of the cursor
 bind --user -M insert alt-p _wrap_echo
 bind --user alt-p _wrap_echo
-## secrets (s) 1Password env wrapper
+## 1Password (op -> o) env wrapper
 bind --user -M insert ctrl-o "_wrap_op_interactive -a"
 bind --user ctrl-o "_wrap_op_interactive -a"
 bind --user -M insert ctrl-alt-o _wrap_op_interactive
