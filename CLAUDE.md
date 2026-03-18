@@ -44,6 +44,12 @@ References:
 - `lang/` — language tooling (Homebrew formulae for global runtimes, with `mise` for any multi-version needs - currently just Node)
 - `git/` — git tooling/config.
 
+## Context Docs
+
+`.claude/docs/statusline.md` — Claude Code statusline architecture, segments, worktrunk integration, and wt-icon usage
+`.claude/docs/tmux-hints.md` — Tmux pane icon system: tmux_hint, opo, pane-icon.sh, lock mechanism, process filtering
+`.claude/docs/worktrunk.md` — Worktrunk plugin hooks, user config, marker/icon system, and how the pieces fit together
+
 ## Essential Commands (prefer safe wrappers)
 
 Prefer Fish wrapper functions when available (more safety/help/flags).
