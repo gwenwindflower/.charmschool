@@ -75,7 +75,7 @@ format = '[ $user ]($style)'
 ssh_only = true
 ssh_symbol = " "
 style = "bg:peach fg:crust"
-format = '[ @ $ssh_symbol]($style)[$hostname]($style) '
+format = '[ @ $ssh_symbol]($style)[$hostname ]($style)'
 
 [directory]
 style = "bg:peach fg:crust"
