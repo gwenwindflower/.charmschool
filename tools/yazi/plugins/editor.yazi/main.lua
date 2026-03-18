@@ -31,7 +31,7 @@ local function notify_error(msg)
 end
 
 local function open_editor(path)
-	local cmd = string.format("fish -c 'tmux_hint nvim; opo nvim %s; tmux_hint'", ya.quote(path))
+	local cmd = string.format("fish -c 'nvim %s'", ya.quote(path))
 	ya.emit("shell", { cmd, block = true })
 end
 
