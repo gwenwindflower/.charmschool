@@ -1,7 +1,7 @@
 ---
 name: agent-browser
-description: Browser automation CLI for AI agents. Use when the user needs to interact with websites, including navigating pages, filling forms, clicking buttons, taking screenshots, extracting data, testing web apps, or automating any browser task. Triggers include requests to "open a website", "fill out a form", "click a button", "take a screenshot", "scrape data from a page", "test this web app", "login to a site", "automate browser actions", or any task requiring programmatic web interaction.
-allowed-tools: Bash(npx agent-browser:*), Bash(agent-browser:*)
+description: Simple browser automation CLI wrapping Playwright -- use for dynamic browser tasks like navigating or interacting with pages, screenshots, scraping data, etc. Prefer full Playwright for repeat automations that require scripting with a complete API.
+allowed-tools: Bash(agent-browser:*)
 ---
 
 # Browser Automation with agent-browser
@@ -330,6 +330,7 @@ export AGENT_BROWSER_ACTION_POLICY=./policy.json
 ```
 
 Example `policy.json`:
+
 ```json
 {"default": "deny", "allow": ["navigate", "snapshot", "click", "scroll", "wait", "get"]}
 ```
@@ -443,6 +444,7 @@ agent-browser click @e2              # Click using ref from annotated screenshot
 ```
 
 Use annotated screenshots when:
+
 - The page has unlabeled icon buttons or visual-only elements
 - You need to verify visual layout or styling
 - Canvas or chart elements are present (invisible to text snapshots)
@@ -485,6 +487,7 @@ agent-browser eval -b "$(echo -n 'Array.from(document.querySelectorAll("a")).map
 **Why this matters:** When the shell processes your command, inner double quotes, `!` characters (history expansion), backticks, and `$()` can all corrupt the JavaScript before it reaches agent-browser. The `--stdin` and `-b` flags bypass shell interpretation entirely.
 
 **Rules of thumb:**
+
 - Single-line, no nested quotes -> regular `eval 'expression'` with single quotes is fine
 - Nested quotes, arrow functions, template literals, or multiline -> use `eval --stdin <<'EVALEOF'`
 - Programmatic/generated scripts -> use `eval -b` with base64
@@ -547,10 +550,11 @@ agent-browser --engine lightpanda --executable-path /path/to/lightpanda open exa
 ```
 
 Supported engines:
+
 - `chrome` (default) -- Chrome/Chromium via CDP
 - `lightpanda` -- Lightpanda headless browser via CDP (10x faster, 10x less memory than Chrome)
 
-Lightpanda does not support `--extension`, `--profile`, `--state`, or `--allow-file-access`. Install Lightpanda from https://lightpanda.io/docs/open-source/installation.
+Lightpanda does not support `--extension`, `--profile`, `--state`, or `--allow-file-access`. Install Lightpanda from <https://lightpanda.io/docs/open-source/installation>.
 
 ## Ready-to-Use Templates
 
