@@ -6,3 +6,5 @@ set -gx OBSIDIAN_DEFAULT_VAULT $OBSIDIAN_HOME/girlOS
 # it's a unique and low-priority path (the only bin here is 'obsidian')
 # so it's fine to put at the back of the PATH
 fish_add_path -a /Applications/Obsidian.app/Contents/MacOS
+# Monodraw also has a CLI bundled in its app contents
+fish_add_path -a /Applications/Monodraw.app/Contents/Resources/monodraw
