@@ -46,6 +46,8 @@ set -gx XDG_CONFIG_HOME $HOME/.config
 # Most GUI tools will be there though, and some command line tools insist on it
 # so we set an 'unofficial' env var for it to make it easy to reference
 set -gx MACOS_CONFIG_HOME $HOME/Library/Application Support
+# For tools and runtimes that look for $TEMP instead of $TMPDIR
+set -gx TEMP $TMPDIR
 
 #   pager, docs, man
 # This is a nice cascade that lets us get bat
