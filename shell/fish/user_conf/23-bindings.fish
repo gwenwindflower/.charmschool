@@ -37,6 +37,8 @@ bind --user super-f "ff; commandline -f repaint"
 bind --user -M insert alt-f "ff; commandline -f repaint"
 bind --user alt-f "ff; commandline -f repaint"
 # open Mac Finder
+bind --user -M insert super-F "open ."
+bind --user super-F "open ."
 bind --user -M insert alt-F "open ."
 bind --user alt-F "open ."
 
