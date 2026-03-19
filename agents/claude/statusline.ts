@@ -2,16 +2,17 @@
 /**
  * Claude Code statusline - inspired by Starship prompt config
  * Using Catppuccin Frappe colors
- * WARN: this is a WIP, it runs with way too many permissions for my comfort
- * use at your own risk, and if you're the type of person who lets Claude Code rip
- * maybe don't use this (you do you, I just want you to be safe!)
- * TODO: tighten permissions, improve error handling, optimize performance
- * TODO: show active Skills? names would take up too much space,
- * but could add a config for certain important skills to assign a devicon
- * then when that Skill load happens we append it to a Skill segment?
- * Very low priority though.
+ * TODO: tighten permissions, improve error handling, optimize performance,
+ * and add a loading state, as this can sometimes be laggy because Claude's
+ * context refresh cycle is slow and we run a lot of commands -- just spiking out
+ * the color sections that are always present with some loading text would be enough
+ * TODO: show active Skills via emojis --
+ * similar to what we do with worktree sessions markers for worktrunk
+ * skill load hook runs a function to append an emoji to a session scoped env var
  * TODO: show sandbox status - if we get it in the context fed to statusline
- * then this is easy and super useful, high priority to investigate
+ * then this is easy and super useful, high priority to investigate -- use  symbol
+ * TODO: Figure out why colors look washed on in tmux sessions --
+ * maybe we need to set the palette values differently for that environment?
  */
 
 import { readAll } from "https://deno.land/std@0.224.0/io/read_all.ts";
@@ -187,6 +188,7 @@ async function isGitRepo(
 }
 
 // Race a promise against a timeout, returning fallback if the promise is too slow
+// # FIX: we get a warning here because it's async with no await
 async function withTimeout<T>(
 	promise: Promise<T>,
 	ms: number,
