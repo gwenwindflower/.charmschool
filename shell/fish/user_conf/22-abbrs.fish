@@ -228,6 +228,7 @@ abbr --add pnu pnpm update # synonyms up/upgrade
 abbr --add pnd pnpm dev
 abbr --add pnb pnpm build
 abbr --add pnl pnpm lint
+abbr --add pnf pnpm fix # run linter and formatter in write mode
 ### bun
 abbr --add b bun
 abbr --add bi bun install
