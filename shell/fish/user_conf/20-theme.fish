@@ -1,4 +1,4 @@
-fish_config theme choose Catppuccin\ Frappe
+fish_config theme choose catppuccin-frappe
 
 # Null out fish greeting
 set -gx fish_greeting
