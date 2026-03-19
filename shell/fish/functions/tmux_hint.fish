@@ -1,5 +1,5 @@
 function tmux_hint -d "Set or clear the tmux pane command hint for icon/status display"
-    argparse h/help 'd/direct=' l/lock -- $argv
+    argparse h/help 'd/direct=' l/lock 't/target=' -- $argv
     or return
 
     if set -q _flag_help
@@ -9,14 +9,17 @@ function tmux_hint -d "Set or clear the tmux pane command hint for icon/status d
         printf "  tmux_hint <name>        Set hint (e.g. tmux_hint man)\n"
         printf "  tmux_hint -l <name>     Set hint with lock (survives bg clears)\n"
         printf "  tmux_hint -d <str>      Set a literal icon/label (max 6 chars, no spaces)\n"
+        printf "  tmux_hint -t <id> nvim  Set hint on a specific pane/window\n"
         printf "  tmux_hint               Clear all hints (respects lock)\n"
         logirl help_header Options
         logirl help_flag h/help "Show this help message"
         logirl help_flag l/lock "Lock the hint to this shell's PID; other processes can't clear it"
         logirl help_flag d/direct STR "Literal string for the icon slot (devicon, emoji, or short label)"
+        logirl help_flag t/target ID "Target a specific pane or window ID (default: current pane)"
         logirl help_header Details
         printf "  Sets @hint_cmd and/or @assigned_icon pane options, which\n"
         printf "  pane-icon.sh and status-left read for display.\n"
+        printf "  --target lets you set hints on a remote pane (e.g. from twin).\n"
         printf "  --lock prevents background processes from clearing the hint.\n"
         printf "  The lock is released when the owning shell exits or clears.\n"
         printf "  A new --lock call always upgrades the lock to the new owner.\n"
@@ -24,9 +27,10 @@ function tmux_hint -d "Set or clear the tmux pane command hint for icon/status d
         return 0
     end
 
-    # Quietly no-op if not in tmux
-    # so this can be called by other commands without being noisy
-    if not set -q TMUX
+    # Quietly no-op if not in tmux — unless targeting a specific pane,
+    # which only requires the tmux server to be running (e.g. setup scripts
+    # that create sessions from outside tmux)
+    if not set -q TMUX; and not set -q _flag_target
         return 0
     end
 
@@ -42,7 +46,16 @@ function tmux_hint -d "Set or clear the tmux pane command hint for icon/status d
         end
     end
 
-    set -l pane_id (tmux display-message -p '#{pane_id}')
+    # Use explicit target or resolve current pane via $TMUX_PANE.
+    # $TMUX_PANE is set by tmux in every pane's environment and is always
+    # correct — unlike display-message -p which resolves against the active
+    # *client*, producing wrong results in detached sessions.
+    set -l pane_id
+    if set -q _flag_target
+        set pane_id $_flag_target
+    else
+        set pane_id $TMUX_PANE
+    end
     if test -z "$pane_id"
         logirl warning "Could not determine tmux pane ID, hint skipped"
         return 1

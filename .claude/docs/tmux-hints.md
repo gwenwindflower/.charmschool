@@ -20,6 +20,7 @@ Priority flows top-down: assigned icon wins over hint, hint wins over pane comma
 | `shell/fish/functions/opo.fish` | Wraps `op run` with per-tool env files; sets locked hints |
 | `shell/tmux/pane-icon.sh` | POSIX script resolving command names to Nerd Font icons |
 | `shell/tmux/statusline.conf` | Tmux status bar format strings that consume hints |
+| `shell/fish/functions/twin.fish` | Creates persistent tmux windows with hint support |
 | `shell/fish/functions/nvim.fish` | opo wrapper (nvim, claude, gh follow same pattern) |
 
 ## tmux_hint
@@ -30,6 +31,7 @@ Fish function that manages `@hint_cmd`, `@assigned_icon`, and `@hint_locked` pan
 tmux_hint nvim          # set hint (icon lookup uses "nvim")
 tmux_hint -l nvim       # set hint with lock (bg processes can't clear it)
 tmux_hint -d "󱜚"        # set literal icon (max 6 chars, no spaces)
+tmux_hint -t %5 nvim    # set hint on a specific pane/window (e.g. from twin)
 tmux_hint               # clear all hints (respects lock)
 ```
 
@@ -63,6 +65,29 @@ function nvim
     opo nvim $argv
 end
 ```
+
+## twin (tmux window launcher)
+
+Creates persistent tmux windows via `send-keys` (shell stays alive after command exits). `--cmd` sets both the command to run and the locked hint for icon display. Works from outside tmux.
+
+```fish
+twin myproject                  # empty shell window
+twin --cmd nvim myproject       # run nvim with locked nvim hint
+twin --cmd lazygit myproject    # run lazygit with locked lazygit hint
+```
+
+Designed for project `mux.fish` setup scripts (run from outside tmux):
+
+```fish
+set -l s cool-tool
+tmux new-session -d -s $s
+twin --cmd nvim $s
+twin --cmd claude $s
+twin --cmd lazygit $s
+tmux attach -t $s
+```
+
+Each `twin` call targets the new window's pane via `tmux_hint --target`, so hints land correctly even when the script runs outside tmux.
 
 ## pane-icon.sh
 
