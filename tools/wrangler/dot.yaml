@@ -1,0 +1,6 @@
+installs: |
+  if type -q wrangler
+    echo "Cloudflare wrangler already installed!"
+  else
+    brew install cloudflare-wrangler
+  end
