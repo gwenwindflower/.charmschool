@@ -172,14 +172,15 @@ abbr --add dbtpo nvim ~/.dbt/profiles.yml
 abbr --add dbtpp bat ~/.dbt/profiles.yml
 # languages
 ## multi-runtime
-abbr --add m mise
-abbr --add mu mise use
-abbr --add mi mise install
-abbr --add mr mise run
-abbr --add mc mise config
-abbr --add mcl mise config list
-abbr --add mcs mise config set
-abbr --add mpth $HOME/.local/share/mise/installs/
+abbr --add mi mise
+abbr --add mia mise "activate fish | source"
+abbr --add miu mise use
+abbr --add mii mise install
+abbr --add mir mise run
+abbr --add mic mise config
+abbr --add micl mise config list
+abbr --add mics mise config set
+abbr --add mipth $HOME/.local/share/mise/installs/
 ## python
 abbr --add py python
 abbr --add pym python main.py
