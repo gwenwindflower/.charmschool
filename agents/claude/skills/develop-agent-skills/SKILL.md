@@ -9,6 +9,9 @@ allowed-tools:
 
 Guide for creating and improving Agent Skills: modular packages that extend Claude with specialized workflows, domain knowledge, and bundled resources. The primary guidance for this skill in the [overview](overview.md) file fetched from the Anthropic docs via `skillutil refresh-docs`. You do not need to run this command to start, this file already exist. You should always read this, any other reference docs are optional based on need.
 
+> [!NOTE]
+> `skillutil` is available on PATH, in `~/.local/bin/skillutil`, there's no need to access the script directly.
+
 ## Creating a New Skill
 
 1. Read overview file
@@ -26,7 +29,7 @@ When editing an existing skill, first ask the user what they want to improve or 
 
 ## `skillutil` Tool
 
-There is a mini CLI tool, written in Deno, housed in the `scripts/` directory of this skill (with the templates it consumes in `assets/`. Use it to create, validate, or fork third-party skills from GitHub.
+There is a custom CLI tool available for skill management, written in Deno and installed locally. Use it to create, validate, or fork third-party skills from GitHub.
 
 ### Creation
 
@@ -79,6 +82,10 @@ skillutil add <GitHub repo url>
 The key reference docs from Anthropic are available in this skill's root directory, with `overview.md` as the main entry point.
 
 If these files were last modified more than a month ago, run `skillutil refresh-docs` to fetch updated documentation before relying on them for skill development.
+
+### Listing and Managing Skills
+
+Skills can be deactivated without deleting, using the `skillutil deactivate <skill-name>` command. Deactivated skills will not be loaded in sessions but remain available for future use or editing. To reactivate, use `skillutil activate <skill-name>`. To see the list of active skills, run `skillutil list`, or include deactivated skills with `skillutil list --all`.
 
 ## Full Schema Details
 
