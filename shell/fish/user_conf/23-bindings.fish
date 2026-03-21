@@ -7,29 +7,21 @@ fish_vi_key_bindings
 ## or commands where you need to change something towards the end
 ## comes in handy constantly - if the command line is empty it goes
 ## back/forward in your nav history
-bind --user -M insert ctrl-\[ prevd-or-backward-word
-bind --user -M insert ctrl-\] nextd-or-forward-word
-bind --user ctrl-\[ prevd-or-backward-word
-bind --user ctrl-\] nextd-or-forward-word
+bind --user -M insert alt-h prevd-or-backward-word
+bind --user -M insert alt-l nextd-or-forward-word
+bind --user alt-h prevd-or-backward-word
+bind --user alt-l nextd-or-forward-word
 
-bind --user -M insert ctrl-alt-\[ backward-kill-word
-bind --user -M insert ctrl-alt-\] kill-word-vi
-bind --user ctrl-alt-\[ backward-kill-word
-bind --user ctrl-alt-\] kill-word-vi
+bind --user -M insert alt-H backward-kill-word
+bind --user -M insert alt-L kill-word-vi
+bind --user alt-H backward-kill-word
+bind --user alt-L kill-word-vi
 
 # TODO: find a way to bind up/down command history search to something
 # more home-row friendly (or put home row arrows on Planck 'adjust' layer)
 # not sure this is exactly the ideal binding, but i want j/k history search for sure
 # bind --user -M insert alt-k history-search-backwards
 # bind --user -M insert alt-j history-search-forward
-
-# quick pretty list (l - list)
-# fish has a default binding for plain 'ls' to alt-l
-# this overrides it with better output and supports super as well
-bind --user -M insert super-l "commandline -r 'lsd -lAg .'; commandline -f execute"
-bind --user super-l "commandline -r 'lsd -lAg .'; commandline -f execute"
-bind --user -M insert alt-l "commandline -r 'lsd -lAg .'; commandline -f execute"
-bind --user alt-l "commandline -r 'lsd -lAg .'; commandline -f execute"
 
 # launch yazi file explorer (f - finder/file/folder)
 bind --user -M insert super-f "ff; commandline -f repaint"
@@ -52,10 +44,10 @@ bind --user alt-g "commandline -r 'lazygit'; commandline -f execute"
 bind --user -M insert ctrl-alt-g "commandline -r 'git forgit log'; commandline -f execute"
 bind --user ctrl-alt-g "commandline -r 'git forgit log'; commandline -f execute"
 ## gh dash GitHub Dash extension for quick project management
-bind --user -M insert super-G "commandline -r 'opo gh dash'; commandline -f execute"
-bind --user super-G "commandline -r 'opo gh dash'; commandline -f execute"
-bind --user -M insert alt-G "commandline -r 'opo gh dash'; commandline -f execute"
-bind --user alt-G "commandline -r 'opo gh dash'; commandline -f execute"
+bind --user -M insert super-G "commandline -r 'gh dash'; commandline -f execute"
+bind --user super-G "commandline -r 'gh dash'; commandline -f execute"
+bind --user -M insert alt-G "commandline -r 'gh dash'; commandline -f execute"
+bind --user alt-G "commandline -r 'gh dash'; commandline -f execute"
 
 # clearing and reloading (e - erase, r - reload)
 ## just reload a 'fresh' sesh with pretty output, keep output on screen
@@ -73,6 +65,7 @@ bind --user alt-e "fresh -c"
 ## alt-e is fish's default to open the command line in $EDITOR
 ## so we remap that to alt-o
 bind --user -M insert alt-o edit_command_buffer
+bind --user -M visual alt-o edit_command_buffer
 bind --user alt-o edit_command_buffer
 bind --user -M insert super-R "fresh; commandline -f repaint"
 bind --user super-R "fresh; commandline -f repaint"
@@ -86,12 +79,18 @@ bind --user ctrl-super-r "fresh -g; commandline -f repaint"
 bind --user -M insert ctrl-alt-r "fresh -g; commandline -f repaint"
 bind --user ctrl-alt-r "fresh -g; commandline -f repaint"
 
+# print, list, pager
+bind --user -M insert super-p "commandline -r 'lsd -lAg .'; commandline -f execute"
+bind --user super-p "commandline -r 'lsd -lAg .'; commandline -f execute"
+bind --user -M insert alt-p "commandline -r 'lsd -lAg .'; commandline -f execute"
+bind --user alt-p "commandline -r 'lsd -lAg .'; commandline -f execute"
 # wrapping commands
-## print (p) (i use p -> echo and pp -> bat)
 ## this wraps anything (or nothing) on the command line
 ## with echo "[stuff]^", with ^ being the end location of the cursor
-bind --user -M insert alt-p _wrap_echo
-bind --user alt-p _wrap_echo
+bind --user -M insert alt-P _wrap_echo
+bind --user alt-P _wrap_echo
+bind --user -M insert super-P _wrap_echo
+bind --user super-P _wrap_echo
 ## 1Password (op -> o) env wrapper
 bind --user -M insert ctrl-o "_wrap_op_interactive -a"
 bind --user ctrl-o "_wrap_op_interactive -a"
