@@ -1,4 +1,5 @@
 export SHELL="$HOMEBREW_PREFIX/bin/fish"
+export TEMP="$TMPDIR"
 # This is set by ssh agent forwarding when ssh-ing into Linux VMs
 # but required on macOS for signing commits
 # We need it in bash for Claude to make commits
