@@ -275,8 +275,8 @@ abbr --add gfgsp git forgit stash_push
 abbr --add gfgcp git forgit cherry_pick
 abbr --add gfgcpb git forgit cherry_pick_from_branch
 ## worktrunk
-abbr --add wts wt switch
-abbr --add wtsc wt switch -c
+abbr --add wtsw wt switch
+abbr --add wtswc wt switch -c
 abbr --add wtm wt merge
 # media
 abbr --add spotify spotify_player
