@@ -42,6 +42,23 @@ return {
       return opts
     end,
   },
+  -- Go
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      opts.servers.gopls = opts.servers.gopls or {}
+      -- gopls recently added an MCP server that exposes
+      -- the LSP output as tools for agents
+      -- so we set this to use that
+      -- instead of just `gopls` (which is equivalent to `gopls serve`)
+      opts.servers.gopls.cmd = {
+        "gopls",
+        "serve",
+        "-mcp.listen=localhost:8092",
+      }
+    end,
+  },
   -- Lua
   ---- It's helpful for plugins with lots of config to be able to
   ---- pull in their type definitions for checking with LuaLS
