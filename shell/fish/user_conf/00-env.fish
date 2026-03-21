@@ -66,7 +66,7 @@ set -gx MOOR "\
 --style=catppuccin-frappe \
 "
 ## Then, tell bat to use moor instead of less
-set -gx BAT_PAGER $HOMEBREW_PREFIX/bin/moor
+set -gx PAGER $HOMEBREW_PREFIX/bin/moor
 ## Finally, set global default pager to bat
 ## so short content just pretty bat output
 ## and long content gets the bat->moor combo to add nice search
