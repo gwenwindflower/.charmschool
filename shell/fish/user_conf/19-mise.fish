@@ -6,7 +6,7 @@
 # e.g. mason installs 'deno' because it contains its own language server,
 # but Homebrew's deno is easier to manage and upgrade
 # this way we're never wondering why a Homebrew tool is showing an unexpected version
-fish_add_path -g -m $HOMEBREW_PREFIX/bin
+fish_add_path -m $HOMEBREW_PREFIX/bin
 # See notes in shell/fish/user_conf/AGENTS.md about mise auto-activation
 $HOMEBREW_PREFIX/bin/mise activate fish | source
 # Not used by Mise, but useful for quick access to Mise stuff quickly
