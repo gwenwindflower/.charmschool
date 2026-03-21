@@ -125,7 +125,7 @@ async function main() {
         exists(skillDir),
         exists(join(skillDir, 'SKILL.md')),
         exists(join(skillDir, 'scripts', 'example.ts')),
-        exists(join(skillDir, 'references', 'api_reference.md')),
+        exists(join(skillDir, 'example-reference.md')),
         exists(join(skillDir, 'assets', 'example_asset.txt')),
       ];
 
