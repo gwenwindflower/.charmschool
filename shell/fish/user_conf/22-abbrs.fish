@@ -42,6 +42,7 @@ abbr --add tm tmux
 abbr --add tmls tmux list-sessions
 abbr --add tmn tmux new-session
 abbr --add tma tmux attach-session
+abbr --add tmw twin (basename "$PWD") --cmd
 abbr --add tmh tmux_hint
 abbr --add tmhspark 'tmux_hint -d ""'
 # shell snippets
