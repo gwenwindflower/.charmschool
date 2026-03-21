@@ -192,8 +192,10 @@ abbr --add uvpyls uv python list
 abbr --add uvpyu uv python upgrade
 abbr --add uvt uv tool
 abbr --add uvti uv tool install
+abbr --add uvtid uv tool install . --reinstall
 abbr --add uvtu uv tool upgrade
 abbr --add uvr uv run
+abbr --add uvrt uv run pytest
 abbr --add uvp uv pip
 abbr --add uvpi uv pip install
 abbr --add uvpir "uv pip install -r requirements.txt"
