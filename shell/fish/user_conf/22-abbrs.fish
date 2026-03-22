@@ -40,9 +40,11 @@ abbr --add vi nvim
 abbr --add sshk kitten ssh -A
 # tmux
 abbr --add tm tmux
+abbr --add tm? tstat
 abbr --add tmls tmux list-sessions
 abbr --add tmn tmux new-session
 abbr --add tma tmux attach-session
+abbr --add tmd tmux detach-client
 abbr --add tmw twin (basename "$PWD") --cmd
 abbr --add tmh tmux_hint
 abbr --add tmhspark 'tmux_hint -d ""'
