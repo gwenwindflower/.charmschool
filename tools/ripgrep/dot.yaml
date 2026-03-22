@@ -1,1 +1,3 @@
 installs: null
+links:
+  ripgrep.conf: ~/.config/ripgrep/ripgrep.conf

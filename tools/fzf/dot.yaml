@@ -1,1 +1,3 @@
 installs: null
+links:
+  fzf.conf: ~/.config/fzf/fzf.conf

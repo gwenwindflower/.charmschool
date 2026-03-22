@@ -1,7 +1,7 @@
 # bat --list-themes for all themes
 --theme="Catppuccin-Frappe"
 # enable italics bc I'm a fancy girl
---italic-text=always
+--italic-text="always"
 
 # Uncomment the following line if you are using less version >= 551 and want to
 # enable mouse scrolling support in `bat` when running inside tmux. This might
