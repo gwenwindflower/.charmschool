@@ -1,0 +1,4 @@
+links:
+  agents/: ~/.agents/agents
+  skills/: ~/.agents/skills/
+  rules/: ~/.agents/rules/

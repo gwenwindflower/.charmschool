@@ -16,18 +16,10 @@
 		}
 	},
 	"imports": {
-		"@std/cli": "jsr:@std/cli@^1.0.27",
 		"@std/fs": "jsr:@std/fs@^1.0.22",
-		"@std/path": "jsr:@std/path@^1.1.4",
-		"@std/fmt": "jsr:@std/fmt@^1",
-		"@std/yaml": "jsr:@std/yaml@^1.0.11",
-		"@cliffy/command": "jsr:@cliffy/command@^1.0.0-rc.8"
+		"@std/path": "jsr:@std/path@^1.1.4"
 	},
 	"tasks": {
-		"skillutil": "deno run --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com --allow-run=tar skills/develop-agent-skills/scripts/skillutil.ts",
-		"skillutil:check": "deno check skills/develop-agent-skills/scripts/skillutil.ts",
-		"skillutil:test": "deno run --allow-read --allow-write --allow-run=deno,tar --allow-env=HOME,TMPDIR --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com skills/develop-agent-skills/scripts/test-skillutil.ts",
-		"skillutil:install": "deno install --global --config ~/.charmschool/agents/claude/deno.json --allow-read --allow-write --allow-env=HOME --allow-net=platform.claude.com,code.claude.com,github.com,codeload.github.com --allow-run=tar --name skillutil --force skills/develop-agent-skills/scripts/skillutil.ts",
 		"statusline:check": "deno check statusline.ts"
 	}
 }

@@ -39,7 +39,7 @@ Ask: "Will something other than me edit this file?" If yes â†’ symlink. If no â†
 
 - **Package lockfiles**: `lazy-lock.json` (updated by `:Lazy sync`), `package-lock.json`
 - **Agent settings**: `~/.claude/settings.json` (edited by Claude Code itself)
-- **Plugin directories**: `~/.claude/skills/` (target for skill installation)
+- **Plugin directories**: `~/.agents/skills/` + agent-specific paths (targets for skill installation)
 - **Editor state**: `lazyvim.json` (updated by LazyVim framework)
 
 ### Examples of files that do NOT need symlinks

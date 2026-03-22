@@ -37,12 +37,12 @@ There is a custom CLI tool available for skill management, written in Deno and i
 skillutil init <skill-name> [--path <output-directory>]
 ```
 
-If `--path` is not provided, the skill will be created in `~/.claude/skills/` as a user-level skill available to all projects and sessions. This is often desirable! If the skill reflects the user's git preferences, shell environment that applies everywhere, or even frontend skills that are applicable across any web project, you should consider making it a user-level skill.
+If `--path` is not provided, the skill will be created in the shared skills directory (`agents/shared/skills/`), symlinked to `~/.agents/skills/` + any agent-specific locations (e.g. `~/.claude/skills/`). This makes it available to all agents, projects, and sessions. This is often desirable! If the skill reflects the user's git preferences, shell environment that applies everywhere, or even frontend skills that are applicable across any web project, you should consider making it a shared skill.
 
 Examples:
 
 ```bash
-# Create a user-level skill (default, ~/.claude/skills/my-skill)
+# Create a shared skill (default, agents/shared/skills/my-skill)
 skillutil init my-skill
 
 # Create a project-scoped skill
@@ -86,6 +86,14 @@ If these files were last modified more than a month ago, run `skillutil refresh-
 ### Listing and Managing Skills
 
 Skills can be deactivated without deleting, using the `skillutil deactivate <skill-name>` command. Deactivated skills will not be loaded in sessions but remain available for future use or editing. To reactivate, use `skillutil activate <skill-name>`. To see the list of active skills, run `skillutil list`, or include deactivated skills with `skillutil list --all`.
+
+## Skill Loading
+
+Understanding how skills load helps you write effective ones:
+
+1. **Startup**: Only name + description loaded (aim for <100 tokens each — this is what determines whether a skill gets triggered)
+2. **Triggered**: Full SKILL.md loaded into context — keep this tight, use markdown links to references/assets/scripts for deeper dives
+3. **Modules**: References, assets, and scripts loaded on demand, protecting context window space — by keeping SKILL.md concise and using many small modular files, you follow the correct progressive disclosure pattern
 
 ## Full Schema Details
 

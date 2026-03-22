@@ -1,6 +1,0 @@
-installs: |
-  if type -q codex
-    echo "OpenAI Codex is already installed!"
-  else
-    brew install codex
-  end

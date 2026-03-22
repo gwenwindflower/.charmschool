@@ -12,7 +12,7 @@
  *   deno task skillutil:install
  *   skillutil <command> [options]
  *
- * Templates are read from: ~/.claude/skills/develop-agent-skills/assets
+ * Templates are read from: agents/shared/skills/_skillutil/assets
  */
 
 import { parse as parseYAML } from "@std/yaml";
@@ -28,17 +28,11 @@ import { dim, green, red, italic, magenta, yellow } from "@std/fmt/colors";
 const homeDir = Deno.env.get("HOME");
 if (!homeDir) throw new Error("HOME not set");
 
-// TODO: move to using ~/.agents/skills and symlinking to Claude
-const TEMPLATE_DIR = join(
-	homeDir,
-	".claude/skills/develop-agent-skills/assets",
-);
-const SKILL_DEV_DIR = join(homeDir, ".claude/skills/develop-agent-skills");
-const USER_LEVEL_SKILLS = join(homeDir, ".charmschool/agents/claude/skills");
-const DEACTIVATED_SKILLS = join(
-	homeDir,
-	".charmschool/agents/claude/_deactivated_skills",
-);
+// TODO: build `update` command with simple lock file for tracking like npx skills
+const SKILLS_DIR = join(homeDir, ".charmschool/agents/shared/skills");
+const TEMPLATE_DIR = join(SKILLS_DIR, "_skillutil/assets");
+const SKILL_DEV_DIR = join(SKILLS_DIR, "develop-agent-skills");
+const DEACTIVATED_SKILLS = join(SKILLS_DIR, "_deactivated");
 
 const TEMPLATES = {
 	skill: "SKILL.md.tmpl",
@@ -490,7 +484,7 @@ async function refreshDocs(): Promise<boolean> {
 
 async function activateSkill(skillName: string): Promise<boolean> {
 	const sourcePath = join(DEACTIVATED_SKILLS, skillName);
-	const destPath = join(USER_LEVEL_SKILLS, skillName);
+	const destPath = join(SKILLS_DIR, skillName);
 
 	// Check source exists
 	if (!(await exists(sourcePath))) {
@@ -531,7 +525,7 @@ async function activateSkill(skillName: string): Promise<boolean> {
 }
 
 async function deactivateSkill(skillName: string): Promise<boolean> {
-	const sourcePath = join(USER_LEVEL_SKILLS, skillName);
+	const sourcePath = join(SKILLS_DIR, skillName);
 	const destPath = join(DEACTIVATED_SKILLS, skillName);
 
 	// Check source exists
@@ -585,8 +579,8 @@ async function listSkills(all: boolean): Promise<boolean> {
 	const skills: { name: string; active: boolean }[] = [];
 
 	// Collect active skills
-	if (await exists(USER_LEVEL_SKILLS)) {
-		for await (const entry of Deno.readDir(USER_LEVEL_SKILLS)) {
+	if (await exists(SKILLS_DIR)) {
+		for await (const entry of Deno.readDir(SKILLS_DIR)) {
 			if (entry.isDirectory) {
 				skills.push({ name: entry.name, active: true });
 			}
@@ -833,11 +827,11 @@ async function addSkill(githubUrl: string, destPath: string): Promise<boolean> {
 const cli = new Command()
 	.name("skillutil")
 	.version("0.1.0")
-	.description("Claude Code-oriented Agent Skill management CLI")
+	.description("Cross-agent Skill management CLI")
 	.meta("Author", "winnie [gwenwindflower@gh] + Claude Code")
 	.meta("Docs", "https://code.claude.com/docs/en/skills")
 	.meta("Templates", TEMPLATE_DIR)
-	.meta("Active User Skills", USER_LEVEL_SKILLS)
+	.meta("Active User Skills", SKILLS_DIR)
 	.meta("Deactivated User Skills", DEACTIVATED_SKILLS);
 
 // Init command
@@ -845,7 +839,7 @@ cli
 	.command("init <skill-name:string>")
 	.description("Initialize a new skill from template")
 	.option("-p, --path <path:string>", "Base path for new skill", {
-		default: join(homeDir!, ".claude/skills"),
+		default: SKILLS_DIR,
 	})
 	.option(
 		"-f, --fork <url:string>",
@@ -871,7 +865,7 @@ cli
 cli
 	.command("validate <skill-path:string>")
 	.description("Validate skill structure and frontmatter")
-	.example("Validate a skill", "skillutil validate ~/.claude/skills/my-skill")
+	.example("Validate a skill", "skillutil validate agents/shared/skills/my-skill")
 	.action(async (_options, skillPath) => {
 		const result = await validateSkill(skillPath);
 		console.log(result.message);
@@ -930,16 +924,16 @@ cli
 		"-p, --path <path:string>",
 		"Destination directory for added skills",
 		{
-			default: USER_LEVEL_SKILLS,
+			default: SKILLS_DIR,
 		},
 	)
 	.example(
 		"Add a single skill",
-		"skillutil add https://github.com/user/repo/tree/main/.claude/skills/my-skill",
+		"skillutil add https://github.com/user/repo/tree/main/skills/my-skill",
 	)
 	.example(
 		"Add all skills from a directory",
-		"skillutil add https://github.com/user/repo/tree/main/.claude/skills",
+		"skillutil add https://github.com/user/repo/tree/main/skills",
 	)
 	.action(async (options, githubUrl) => {
 		const success = await addSkill(githubUrl, options.path);

@@ -1,21 +1,22 @@
 # skillutil Lightweight CLI Utility for Agent Skills
 
-CLI tools for managing Agent Skills, at present specifically configured for Claude Code.
+CLI tool for managing cross-agent Skills. Skills live in `agents/shared/skills/`, symlinked to `~/.agents/skills/` + any agent-specific locations (e.g. `~/.claude/skills/`).
+
+For skill *usage* guidance (creating, editing, managing skills as an end user), see the [develop-agent-skills](../develop-agent-skills/SKILL.md) skill. This doc covers *developing* the skillutil tool itself.
 
 ## Quick Start
 
 ### Development Workflow
 
-Run commands directly without installing (from `~/.charmschool/agents/claude` directory):
+Development takes place in `~/.charmschool/agents/shared/skills/_skillutil/` — Deno tasks let you run against live source during development. Once an update is complete, install globally with `deno task skillutil:install`.
 
 ```bash
 # Run any command based on current source code
-# via script wrapper
 deno task skillutil <command> [args]
 
 # Examples
 deno task skillutil init my-skill
-deno task skillutil validate ~/.claude/skills/my-skill
+deno task skillutil validate agents/shared/skills/my-skill
 deno task skillutil --help
 
 # Type check the code
@@ -23,16 +24,9 @@ deno task skillutil:check
 
 # Run test suite (test-skillutil.ts)
 deno task skillutil:test
-```
 
-### Production Usage
-
-(Re-)install as a global binary once you've tested and are ready to deploy:
-
-```bash
-# Install globally
+# Install into ~/.local/bin for global usage (after development)
 deno task skillutil:install
-
 # Now use anywhere
 skillutil init my-skill
 skillutil validate my-skill
@@ -47,6 +41,8 @@ skillutil validate my-skill
 | `refresh-docs` | Fetch latest Anthropic skill documentation |
 | `activate <skill-name>` | Move skill from deactivated to active |
 | `deactivate <skill-name>` | Move skill from active to deactivated |
+| `add <skill-name>` | Install a skill or directory of skills from GitHub |
+| `list <skill-name>` | List all active skills (include deactivated with `-a/--all`) |
 
 ## Command Details
 
@@ -55,7 +51,7 @@ skillutil validate my-skill
 Create a new skill with proper structure:
 
 ```bash
-# Create in default location (~/.claude/skills)
+# Create in default location (agents/shared/skills/)
 deno task skillutil init my-awesome-skill
 
 # Create in custom location
@@ -84,7 +80,7 @@ deno task skillutil init my-skill --path ~/projects/skills
 Check skill structure and SKILL.md frontmatter:
 
 ```bash
-deno task skillutil validate ~/.claude/skills/my-skill
+deno task skillutil validate agents/shared/skills/my-skill
 ```
 
 Validates:
@@ -103,7 +99,7 @@ Fetch latest Anthropic documentation about agent skills:
 deno task skillutil refresh-docs
 ```
 
-Downloads to: `~/.claude/skills/agent-skills/references/anthropic-docs/`
+Downloads to: `agents/shared/skills/develop-agent-skills/` (the overview.md and related reference docs)
 
 ### activate / deactivate
 
@@ -119,8 +115,8 @@ deno task skillutil activate old-skill
 
 **Paths**:
 
-- Active: `~/.charmschool/agents/claude/skills/`, symlinked to `~/.claude/skills/`
-- Deactivated: `~/.charmschool/agents/claude/_deactivated_skills/`
+- Active: `~/.charmschool/agents/shared/skills/`, symlinked to `~/.agents/skills/` + agent-specific paths
+- Deactivated: `~/.charmschool/agents/shared/skills/_deactivated/`
 
 ## Testing
 
