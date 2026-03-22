@@ -27,6 +27,7 @@ abbr --add pps procs
 # dir and file management
 abbr --add cp. "pwd | pbcopy"
 abbr --add mkd mkdir -p
+abbr --add rmd rmdir
 abbr --add mkt mktemp
 abbr --add mac macchina
 abbr --add cmx chmod +x # make executable
