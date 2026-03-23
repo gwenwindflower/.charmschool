@@ -120,13 +120,16 @@ abbr --add bruise brew uses --installed
 abbr --add brbg brew services
 abbr --add brsrv brew services
 # ai
-abbr --add opc opo opencode
-abbr --add ghc opo copilot
-abbr --add copilot opo copilot
-## claude
-abbr --add cco claude
+## opo wrapped versions exist for these as well
+## best for launching the TUI environments
+## with required env vars set up
+## the plain versions are useful for quick commands
+## interacting with config, etc.
+## so you don't have to biometric auth just to get --help output
+abbr --add ope opencode # opc to run via op
+abbr --add copi copilot # ghc to run via op
+abbr --add cl claude # cco to run via op
 abbr --add ccf ee $HOME/.claude
-abbr --add ccfs "ee $HOME/.charmschool/agents/claude/skills"
 abbr --add ccu "bunx ccusage@latest"
 # writing
 ## default Obsidian vault
@@ -150,10 +153,10 @@ abbr --add obdv notesmd-cli print-default
 abbr --add obfmp "fd . --color always --hidden --ignore --extension md | fzf --preview '_fzf_preview_file {}' --bind 'enter:execute(notesmd-cli frontmatter {} --print)+abort'"
 # security and network
 ## 1password
-abbr --add ope "op run --env-file=$OP_ENV_DIR/global.env --no-masking -- " # run with default global env file, without setting env vars for the session, no masking (for interactive use)
+abbr --add opg "op run --env-file=$OP_ENV_DIR/global.env --no-masking -- " # run with default global env file, without setting env vars for the session, no masking (for interactive use)
 abbr --add opi "op run --no-masking -- "
 abbr --add opr "op run -- "
-abbr --add openv o $OP_ENV_DIR
+abbr --add openv ee $OP_ENV_DIR
 ## macos keyring
 abbr --add keys security
 ## mitmproxy
