@@ -61,6 +61,9 @@
 			"WebFetch(domain:worktrunk.dev)",
 			"WebFetch(domain:jdx.dev)",
 			"WebFetch(domain:docs.deno.com)",
+			"WebFetch(domain:codecompanion.olimorris.dev)",
+			"WebFetch(domain:opencode.ai)",
+			"WebFetch(domain:context7.com)",
 			"Skill(fish-functions)",
 			"Skill(neovim-config)",
 			"Skill(neovim-plugin-development)",
@@ -148,29 +151,21 @@
 			"Bash(mongosh *)"
 		]
 	},
+	"model": "opus",
 	"statusLine": {
 		"type": "command",
 		"command": "~/.claude/statusline.ts",
 		"padding": 0
 	},
 	"enabledPlugins": {
-		"github@claude-plugins-official": true,
 		"gopls-lsp@claude-plugins-official": true,
 		"lua-lsp@claude-plugins-official": true,
 		"pyright-lsp@claude-plugins-official": true,
 		"rust-analyzer-lsp@claude-plugins-official": true,
 		"typescript-lsp@claude-plugins-official": true,
-		"context7-plugin@context7-marketplace": true,
 		"worktrunk@worktrunk": true
 	},
-	"extraKnownMarketplaces": {
-		"context7-marketplace": {
-			"source": {
-				"source": "github",
-				"repo": "upstash/context7"
-			}
-		}
-	},
+	"extraKnownMarketplaces": {},
 	"sandbox": {
 		"enabled": true,
 		"filesystem": {
@@ -223,6 +218,5 @@
 		]
 	},
 	"syntaxHighlightingDisabled": false,
-	"voiceEnabled": true,
-	"model": "opus"
+	"voiceEnabled": true
 }

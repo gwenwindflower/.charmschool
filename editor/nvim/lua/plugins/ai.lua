@@ -3,67 +3,90 @@ return {
     "olimorris/codecompanion.nvim",
     opts = {
       interactions = {
+        -- Claude Code via ACP as default main driver
         chat = {
-          adapter = "copilot",
-          model = "opus-4.6",
+          adapter = {
+            name = "claude_code",
+            model = "opus",
+          },
         },
-        -- ACP integration works surprisingly well
-        -- but I want to see the difference when
-        -- the model has access to all of CodeCompanion's tools
-        -- because it's hooked into nvim, the editing, diffs, etc.
-        -- are more powerful, so I'm curious if that outweighs
-        -- Claude Code's agent harness when it comes to pairing inside nvim
-        -- as compared to purely driving from the CLI, and using nvim as a tool
-        -- for reviewing and cleaning up edits after the work is done
-        -- SO! using copilot for now, which is a purely http connection
-        -- chat = {
-        --   adapter = "claude_code",
-        --   model = "opus",
-        -- },
+        -- Codex for more precise inline edits with less scope and context
         inline = {
           adapter = "copilot",
           model = "gpt-5.3-codex",
         },
+        -- Copilot direct for one-shot commands
+        cmd = {
+          adapter = "copilot",
+          model = "claude-sonnet-4.6",
+        },
+        -- Cheap background tasks via Copilot (0.33x multiplier)
+        background = {
+          adapter = "copilot",
+          model = "gpt-5.4-mini",
+        },
+        -- CLI agents — launch full terminal agents from within nvim
+        cli = {
+          agent = "claude_code",
+          agents = {
+            claude_code = {
+              cmd = "claude",
+              args = {},
+              description = "Claude Code CLI",
+              provider = "terminal",
+            },
+            opencode = {
+              cmd = "opencode",
+              args = {},
+              description = "OpenCode TUI",
+              provider = "terminal",
+            },
+          },
+        },
       },
       adapters = {
-        -- TODO: add OpenRouter adapter
-        --
-        -- don't duplicate the base adapter: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/adapters/http/openai_compatible.lua
-        --
-        -- look at:
-        --    - openai-responses adapter https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/adapters/http/openai_responses.lua
-        --    - copilot adapter https://github.com/olimorris/codecompanion.nvim/tree/main/lua/codecompanion/adapters/http/copilot
-        -- https://codecompanion.olimorris.dev/extending/adapters
-        --
-        -- some notes on community implementations:
-        -- https://github.com/olimorris/codecompanion.nvim/discussions/1013
-        -- https://github.com/hanipcode/nvim/blob/main/lua/hanipcode/plugins/codecompanion.lua
-        -- https://github.com/hanipcode/nvim/blob/main/lua/hanipcode/local/adapter.lua
-        -- http = {
-        --   openrouter = function()
-        --     return require("codecompanion.adapters").extend("openai_compatible", {
-        --       env = {
-        --         url = "https://openrouter.ai/api",
-        --         api_key = "OPENROUTER_API_KEY",
-        --         chat_url = "/v1/chat/completions",
-        --       },
-        --       schema = {
-        --         model = {
-        --           default = "anthropic/claude-3.7-sonnet",
-        --           choices = "anthropic/claude-3.7-sonnet",
-        --         },
-        --       },
-        --     })
-        --   end,
-        -- },
+        -- NOTE: Copilot HTTP adapter (not the agent TUI) is default enabled and configured
+        -- that's why we can reference it but it's not configured as an adapter here
         acp = {
+          -- Claude Code — primary chat backend via Claude Pro sub
           claude_code = function()
             return require("codecompanion.adapters").extend("claude_code", {
               env = {
                 CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_ACP_OAUTH_TOKEN",
               },
+              defaults = {
+                mcpServers = "inherit_from_config",
+              },
             })
           end,
+          -- OpenCode — alt ACP backend, uses Copilot provider
+          -- switch to this in chat when you want OpenCode's tools/harness
+          opencode = function()
+            return require("codecompanion.adapters").extend("opencode", {})
+          end,
+        },
+      },
+      rules = {
+        base_rules = {
+          description = "Shared agent rules from ~/.agents/rules",
+          files = {
+            {
+              path = "~/.agents/rules",
+              files = "*.md",
+            },
+          },
+        },
+        opts = {
+          chat = {
+            -- Only load rules for HTTP adapters (Copilot direct) —
+            -- ACP adapters (Claude Code, OpenCode) already load these
+            -- through their own agent config
+            ---@param chat CodeCompanion.Chat
+            ---@return boolean
+            condition = function(chat)
+              return chat.adapter.type == "http"
+            end,
+          },
         },
       },
       prompt_library = {
