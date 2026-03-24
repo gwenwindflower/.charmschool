@@ -49,7 +49,7 @@ References:
 ## Context Docs
 
 `.claude/docs/multi-agent-config.md` — Multi-agent architecture (Claude Code, CodeCompanion, OpenCode), provider strategy, shared resource discovery, ACP/adapter layout
-`.claude/docs/statusline.md` — Claude Code statusline architecture, segments, worktrunk integration, and wt-icon usage
+`.claude/docs/statusline.md` — winline (standalone statusline binary): integration config, segments, worktrunk hooks, and what moved out of this repo
 `.claude/docs/tmux-hints.md` — Tmux pane icon system: tmux_hint, opo, pane-icon.sh, lock mechanism, process filtering
 `.claude/docs/worktrunk.md` — Worktrunk plugin hooks, user config, marker/icon system, and how the pieces fit together
 
