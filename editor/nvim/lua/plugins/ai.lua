@@ -113,19 +113,25 @@ return {
         "<Leader>ao",
         "<cmd>CodeCompanionChat Toggle<CR>",
         desc = "CodeCompanion Toggle",
-        mode = { "n", "v" },
+        mode = { "n" },
       },
       {
         "<C-'>",
         "<cmd>CodeCompanionChat Toggle<CR>",
         desc = "CodeCompanion Toggle",
-        mode = { "n", "v" },
+        mode = { "n" },
+      },
+      {
+        "<Leader>ac",
+        "<cmd>CodeCompanionCLI<CR>",
+        desc = "CodeCompanion CLI",
+        mode = { "n" },
       },
       {
         "<Leader>ak",
         "<cmd>CodeCompanionActions<CR>",
         desc = "Action Palette",
-        mode = { "n", "v" },
+        mode = { "n" },
       },
     },
     dependencies = {

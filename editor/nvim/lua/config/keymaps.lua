@@ -20,3 +20,16 @@ wk.add({
 wk.add({
   { "<LocalLeader>T", "<cmd>!tmux_hint nvim -l<cr>", mode = { "n" }, desc = "Set tmux_hint" },
 })
+wk.add({
+  { "<C-w>", [[<C-\><C-n>]], mode = "t", desc = "Unfocus terminal window" },
+})
+wk.add({
+  {
+    "<Leader>ac",
+    function()
+      require("codecompanion").cli({ prompt = true })
+    end,
+    mode = { "x" },
+    desc = "Send selection to CodeCompanionCLI",
+  },
+})
