@@ -126,10 +126,11 @@ abbr --add brsrv brew services
 ## the plain versions are useful for quick commands
 ## interacting with config, etc.
 ## so you don't have to biometric auth just to get --help output
-abbr --add ope opencode # opc to run via op
-abbr --add copi copilot # ghc to run via op
+abbr --add oc opencode # opc to run via op
+abbr --add occf ee $HOME/.config/opencode # opc to run via op
+abbr --add co copilot # ghc to run via op
 abbr --add cl claude # cco to run via op
-abbr --add ccf ee $HOME/.claude
+abbr --add clcf ee $HOME/.claude
 abbr --add ccu "bunx ccusage@latest"
 # writing
 ## default Obsidian vault
