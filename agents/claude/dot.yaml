@@ -8,7 +8,7 @@ installs: |
 links:
   settings.json: ~/.claude/settings.json
   keybindings.json: ~/.claude/keybindings.json
-  statusline.ts: ~/.claude/statusline.ts
+  statusline.toml: ~/.claude/statusline.toml
   claude.fish: ~/.config/fish/completions/claude.fish
   ../shared/agents/: ~/.claude/agents/
   ../shared/skills/: ~/.claude/skills/

@@ -19,7 +19,7 @@ These markers are stored in git config (`worktrunk.state.<branch>.marker`) and s
 Currently contains:
 
 - **LLM commit generation**: Uses Claude Code (Haiku) for `wt merge` commit messages
-- **`post-remove` hook**: Cleans up `wt-icon.*` git config entries when worktrees are removed or merged
+- **`post-remove` hook**: Cleans up git config entries when worktrees are removed or merged
 
 ## Useful Commands
 
@@ -33,17 +33,14 @@ wt remove <branch>             # remove a worktree
 wt config state marker set "🚧"  # manually set a status marker
 ```
 
-## How Markers, Icons, and Hooks Fit Together
+## How Markers and Hooks Fit Together
 
 - **Markers** (transient): managed by plugin hooks, track Claude session state per-branch
-- **Icons** (persistent): managed by user via `wt-icon` fish function, identify worktrees visually
-- **Cleanup**: `post-remove` hook in user config removes icons when worktrees are deleted
-- **Statusline**: reads both markers and icons to render the pink worktree roster segment
+- **Statusline**: reads markers to render the pink worktree segment (see `.claude/docs/statusline.md`)
 
-During `wt merge`, hooks run: pre-commit → pre-merge → pre-remove → post-remove → post-merge. The `post-remove` step cleans up the icon before the worktree is fully gone.
+During `wt merge`, hooks run: pre-commit → pre-merge → pre-remove → post-remove → post-merge.
 
 ## Key Files
 
 - `tools/worktrunk/config.toml` — user config (LLM commits, cleanup hooks)
-- `shell/fish/functions/wt-icon.fish` — set custom worktree identity emojis
-- `agents/claude/statusline.ts` — consumes wt data for the statusline
+- `agents/claude/settings.json` — winline statusline consumes worktrunk marker data

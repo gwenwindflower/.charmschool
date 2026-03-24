@@ -1,53 +1,30 @@
-# Claude Code Statusline
+# Claude Code Statusline (winline)
 
-Custom Deno script (`agents/claude/statusline.ts`) that renders a Catppuccin Frappe-themed powerline statusline in Claude Code sessions. Configured in `agents/claude/settings.json` under `statusLine`.
+The Claude Code statusline is **winline**, a standalone Bun-compiled binary distributed from its own repo. It reads session context JSON from stdin and renders a Catppuccin Frappe-themed powerline statusline to stdout.
 
-## Segments (left to right)
+winline is configured in `agents/claude/settings.json` under `statusLine`, pointing to the `winline` binary (installed to `~/.local/bin`). A reference TOML config lives at `~/.claude/statusline.toml`.
 
-| Segment | Color | Data source | Shows |
+## Segments
+
+| Segment | Color | Data source | Notes |
 | --- | --- | --- | --- |
-| Model | mauve | stdin context JSON | First word of `model.display_name` (Haiku/Sonnet/Opus) |
-| Directory | peach | stdin context JSON | `workspace.project_dir` basename |
-| Git | yellow | `git branch`, `git status`, worktrunk JSON | Branch, working tree indicators (!+?), remote ahead/behind (from wt) |
-| Worktrees | pink | `wt list --format json`, git config | Roster of other worktrees with identity + session markers |
-| Languages | green | File detection + version commands | Icons + versions for detected languages (Python, Node, Deno, etc.) |
-| Context % | blue/maroon | stdin context JSON | Token usage as percentage of context window (maroon when >80%) |
+| model | mauve | stdin context | Active Claude model name |
+| directory | peach | stdin context | Workspace root basename |
+| git | yellow | `git branch`, `git status --porcelain` | Status indicators: `! + ✘ ?`; optional `colorized_status` |
+| worktrees | pink | `git config --get-regexp worktrunk.state.*.marker` | Count of sessions waiting on input; hidden when 0 |
+| languages | green | `starship module <name>` | Starship passthrough, parallel per module |
+| context | blue/maroon | stdin context | Block bar + percentage, color shifts at warn threshold |
 
-## Worktrunk Integration
+## Worktrunk integration
 
-The statusline pulls data from three sources in parallel (all with 400ms timeouts for graceful fallback):
+The worktrees segment reads `worktrunk.state.*.marker` keys from git config (set by worktrunk plugin hooks — see `.claude/docs/worktrunk.md`). It shows a count badge of sessions waiting on input. The `wt` binary is never called directly; without worktrunk the segment stays hidden.
 
-- **`wt list --format json`** — worktree list, git state, remote ahead/behind
-- **`git config --get-regexp 'worktrunk\.state\..*\.marker'`** — session markers set automatically by the worktrunk plugin hooks (see `.claude/docs/worktrunk.md`)
-- **`git config --get-regexp 'wt-icon\.'`** — custom identity emojis
+## Key files in this repo
 
-### Worktree roster (pink segment)
-
-Only appears when >1 worktree exists. Each non-current worktree renders as `<identity><status>`:
-
-- **Identity**: custom emoji from `git config wt-icon.<branch>`, or last 5 chars of branch name
-- **Status**: 🤖 (Claude working) or 💬 (waiting for input), appended automatically by the worktrunk plugin
-
-Set identity emojis with the `wt-icon` fish function:
-
-```fish
-wt-icon 🧪           # set icon for current branch
-wt-icon -b feat 🌙   # set icon for a specific branch
-wt-icon -r            # remove icon from current branch
-```
-
-Icons are stored in `.git/config` (shared across worktrees) and cleaned up automatically on worktree removal via a `post-remove` hook in the worktrunk user config (`tools/worktrunk/config.toml`).
-
-## Architecture
-
-- Reads Claude Code session context from stdin (JSON with model, workspace, cost, context_window)
-- Runs subprocesses via `Deno.Command` with a minimal env (PATH + version manager vars)
-- All independent data fetches run in parallel (`Promise.all`)
-- If `wt` is not installed or times out, the statusline renders identically to pre-integration behavior
-
-## Key files
-
-- `agents/claude/statusline.ts` — the script itself
-- `agents/claude/settings.json` — Claude Code config including `statusLine` command
+- `agents/claude/settings.json` — Claude Code config with `statusLine.command: "winline"`
+- `agents/claude/statusline.toml` — reference TOML config (copy to `~/.claude/statusline.toml`)
 - `tools/worktrunk/config.toml` — worktrunk user config with `post-remove` cleanup hook
-- `shell/fish/functions/wt-icon.fish` — fish function for setting worktree identity emojis
+
+## What moved out
+
+The statusline implementation (`statusline.ts`) was extracted from this repo into its own standalone project (winline). The old in-repo Deno script is no longer the source of truth — winline is a Bun-compiled binary with its own TOML config system, caching layer, and CLI flags (`--print`, `--capture`, `--explain`). See the winline repo for development and architecture details.

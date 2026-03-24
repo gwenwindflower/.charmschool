@@ -71,9 +71,7 @@
 			"Skill(gitignore)",
 			"Skill(gh-cli-use)",
 			"Skill(develop-agent-skills)",
-			"Skill(rotz-dotfiles)",
-			"Task(Explore)",
-			"Task(Plan)"
+			"Skill(rotz-dotfiles)"
 		],
 		"deny": [
 			"Read(.env)",
@@ -154,7 +152,7 @@
 	"model": "opus",
 	"statusLine": {
 		"type": "command",
-		"command": "~/.claude/statusline.ts",
+		"command": "winline",
 		"padding": 0
 	},
 	"enabledPlugins": {

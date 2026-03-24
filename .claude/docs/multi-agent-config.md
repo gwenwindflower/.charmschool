@@ -1,15 +1,15 @@
-# Multi-Agent Configuration
+# CodeCompanion + Claude Code + OpenCode Multi-Agent Setup
 
-Architecture and configuration for the three coding agent tools: Claude Code (CLI), CodeCompanion (nvim), and OpenCode (TUI). All share resources via `~/.agents/` and use the same two subscriptions: Claude Pro and GitHub Copilot Pro.
+Architecture and configuration for the three coding agent tools: Claude Code (TUI), CodeCompanion (nvim), and OpenCode (TUI). All share resources via `~/.agents/` and use the same two subscriptions: Claude Pro and GitHub Copilot Pro.
 
 ## Architecture
 
 ```text
-Claude Code (CLI)     <- primary agent, Claude Pro sub, full harness
+Claude Code (TUI)     <- primary agent, Claude Pro sub, full harness
     | ACP (stdio)
 CodeCompanion (nvim)  <- in-editor hub, switches between ACP backends + direct Copilot
     | ACP (stdio)
-OpenCode (TUI)        <- alt terminal agent, Copilot primary, also ACP backend for CC
+OpenCode (TUI)        <- alt terminal agent, Copilot primary, also ACP backend for CodeCompanion
 ```
 
 ## Provider Strategy
@@ -35,10 +35,12 @@ No direct Anthropic API adapter is configured. The Claude Code harness adds enou
 
 ### Available ACP Adapters
 
-- **claude_code** — Primary. Uses `CLAUDE_CODE_ACP_OAUTH_TOKEN` env var. Inherits MCP servers from CodeCompanion config (`mcpServers = "inherit_from_config"`).
+- **claude_code** — Primary. Uses `CLAUDE_CODE_ACP_OAUTH_TOKEN` env var. Inherits MCP servers from CodeCompanion config (`mcpServers = "inherit_from_config"`). Runs via `@zed-industries/claude-agent-acp` package installed globally with pnpm, which makes `claude-agent-acp` command available. CodeCompanion launches this as a background process and communicates via stdio.
 - **opencode** — Alt backend. Uses OpenCode's own config for model/provider (Copilot). Switch to this in chat when you want OpenCode's tools.
 
 ### Available CLI Agents
+
+These run as their full normal terminal experiences, in an nvim terminal buffer launched by CodeCompanion. The advantage of this versus just running in a tmux window or Kitty tab is that you can easily send context back and forth and use some of the CodeCompanion features.
 
 - **claude_code** (default) — `claude` command
 - **opencode** — `opencode` command
@@ -53,7 +55,7 @@ No direct Anthropic API adapter is configured. The Claude Code harness adds enou
 - **Small model**: `github-copilot/gpt-5.4-mini`
 - **Provider**: Copilot only (`enabled_providers: ["github-copilot"]`)
 - **Instructions**: `AGENTS.md` + `~/.agents/rules/*.md` (glob)
-- **Shared resources**: `OPENCODE_CONFIG_DIR` env var set to `~/.agents` in fish config, giving OpenCode native access to `~/.agents/agents/`, `~/.agents/skills/` without symlinks
+- **Shared resources**: OpenCode is configured to use the `~/.agents` shared directory as an additional source of skills and instructions, **and** it by default discovers Claude Code patterns (can be disabled with env vars or config), meaning it looks for instructions and skills in locations like `~/.claude/skills` or `<project root>/.claude/CLAUDE.md`, and it reads `CLAUDE.md` files
 - **MCP**: TODO — Context7 and GitHub as remote HTTP endpoints when URLs are confirmed
 
 ## Shared Resource Discovery
@@ -67,12 +69,13 @@ No direct Anthropic API adapter is configured. The Claude Code harness adds enou
 Claude Code:            symlinks ~/.claude/{agents,skills,rules} -> shared dirs
                         (can't configure custom paths)
 
-OpenCode:               OPENCODE_CONFIG_DIR=~/.agents
-                        (discovers agents/, skills/ natively)
-                        instructions glob for rules/*.md
+OpenCode:               specific configs are in ~/.config/opencode/opencode.jsonc
+                        also configured with ~/.agents/ as additional resource dir
+                        and natively discovers Claude Code patterns
+                        so no need for any symlinking beyond the config file
 
 CodeCompanion:          rules config with path "~/.agents/rules" + condition
-                        to skip on ACP adapters (avoids double-loading)
+                        to skip on ACP adapters (avoids double-loading as agents load the rules already)
 ```
 
 ## MCP Policy
