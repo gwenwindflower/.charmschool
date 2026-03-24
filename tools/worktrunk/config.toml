@@ -1,7 +1,2 @@
 [commit.generation]
-command = "MAX_THINKING_TOKENS=0 claude -p --model=haiku --tools='' --disable-slash-commands --setting-sources='' --system-prompt=''"
-
-# Clean up custom worktree icons (used by Claude Code statusline) when worktrees are removed
-# Covers both `wt remove` and `wt merge` (merge fires pre-remove → post-remove → post-merge)
-[post-remove]
-clean-icon = "git config --unset wt-icon.{{ branch }} 2>/dev/null || true"
+command = "MAX_THINKING_TOKENS=0 claude -p --model=sonnet --tools='' --disable-slash-commands --setting-sources='' --system-prompt=''"
