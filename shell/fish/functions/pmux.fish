@@ -26,7 +26,7 @@ function pmux -d "Generate my preferred dev setup in tmux for a given project di
     if tmux new-session -d -s $session_name
         logirl success "Started session $session_name"
         twin --cmd nvim $session_name
-        twin --cmd claude $session_name
+        twin --cmd opc $session_name
         twin --cmd lazygit $session_name
         tmux attach -t $session_name
     else
