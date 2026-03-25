@@ -22,7 +22,6 @@ set -gx HOMEBREW_NO_ENV_HINTS 1
 
 #  Terminal and Shell
 set -gx SHELL $HOMEBREW_PREFIX/bin/fish
-set -gx TERM xterm-256color
 
 #  GPG
 set -gx GPG_TTY (tty)
