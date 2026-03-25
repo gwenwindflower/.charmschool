@@ -81,22 +81,54 @@ return {
   -- blink.cmp completion plugin
   {
     "saghen/blink.cmp",
-    opts = {
-      completion = {
-        menu = {
-          border = "rounded",
-          -- Disable auto-show in Markdown; completions still available via manual trigger
-          auto_show = function()
-            return vim.bo.filetype ~= "markdown"
-          end,
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts or {}, {
+        completion = {
+          menu = {
+            border = "rounded",
+            -- Disable auto-show in Markdown; completions still available via manual trigger
+            auto_show = function()
+              return vim.bo.filetype ~= "markdown"
+            end,
+          },
+          documentation = {
+            window = { border = "rounded" },
+          },
+          list = {
+            selection = {
+              preselect = function(ctx)
+                return not require("blink.cmp").snippet_active({ direction = 1 })
+              end,
+            },
+          },
         },
-        documentation = {
-          window = { border = "rounded" },
+        signature = { window = { border = "rounded" } },
+        keymap = {
+          preset = "super-tab",
+          -- I use C-space as tmux prefix
+          -- so add this as an alternate option for when I'm in tmux
+          ["<M-space>"] = { "show", "show_documentation", "hide_documentation" },
         },
-      },
-      signature = { window = { border = "rounded" } },
-      keymap = {
-        preset = "super-tab",
+      })
+    end,
+  },
+  {
+    "folke/flash.nvim",
+    keys = {
+      {
+        -- I use C-space as tmux prefix
+        -- so add this as an alternate option for when I'm in tmux
+        "<M-space>",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter({
+            actions = {
+              ["<M-space>"] = "next",
+              ["<BS>"] = "prev",
+            },
+          })
+        end,
+        desc = "Treesitter Incremental Selection",
       },
     },
   },
