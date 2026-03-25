@@ -86,3 +86,19 @@ require("bunny"):setup({
 	notify = false,
 	fuzzy_cmd = "fzf",
 })
+
+-- colors and options for searchjump (flash.nvim style quick nav)
+require("searchjump"):setup({
+	unmatch_fg = "#838ba7",
+	match_str_fg = "#232634",
+	match_str_bg = "#a5adce",
+	first_match_str_fg = "#232634",
+	first_match_str_bg = "#ca9ee6",
+	label_bg = "#99d1db",
+	label_fg = "#232634",
+	only_current = false,
+	show_search_in_statusbar = false,
+	auto_exit_when_unmatch = false,
+	enable_capital_label = true,
+	search_patterns = { "toml", "yaml", "yml", "json", "jsonc", "conf" },
+})

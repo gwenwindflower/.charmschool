@@ -74,3 +74,8 @@ desc = "Maximize or restore the preview pane"
 on = "<A-P>"
 run = "plugin toggle-pane min-preview"
 desc = "Show or hide the preview pane"
+
+[[mgr.prepend_keymap]]
+on = ["i"]
+run = "plugin searchjump -- autocd"
+desc = "searchjump mode"

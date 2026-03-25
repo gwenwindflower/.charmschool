@@ -33,6 +33,11 @@ use = "yazi-rs/plugins:types"
 rev = "b224ddf"
 hash = "4161cfa043b5ba3341d82c6869007b41"
 
+[[plugin.deps]]
+use = "gwenwindflower/searchjump"
+rev = "d0067cb"
+hash = "5ac715d89e80eb7a22290be8176cd4e0"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-frappe"
 rev = "9e053d0"
