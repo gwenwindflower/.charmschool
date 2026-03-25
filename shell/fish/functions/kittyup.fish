@@ -7,9 +7,9 @@ function kittyup -d "Update the kitty terminal emulator idempotently"
     # pretty colors
     set -l normal (set_color normal)
     set -l error (set_color -o brred)
-    set -l error_text (set_color red)
+    set -l error_text (set_color normal)
     set -l success (set_color -o green)
-    set -l success_text (set_color brgreen)
+    set -l success_text (set_color normal)
     set -l help (set_color green)
     set -l warn (set_color -o yellow)
     set -l info (set_color blue)
@@ -89,9 +89,9 @@ function _do_kitty_install
     # pretty colors
     set -l normal (set_color normal)
     set -l error (set_color -o brred)
-    set -l error_text (set_color red)
+    set -l error_text (set_color normal)
     set -l success (set_color -o green)
-    set -l success_text (set_color brgreen)
+    set -l success_text (set_color normal)
     # set -l help (set_color green)
     # set -l warn (set_color -o yellow)
     set -l info (set_color blue)
