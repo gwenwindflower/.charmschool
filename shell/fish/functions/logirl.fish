@@ -182,6 +182,12 @@ function logirl -d "Centralized logging helper with consistent color conventions
     switch $msg_type
         # Help text types
         case help_usage
+            # TODO: I've removed the extra space between help_header and whatever comes after it,
+            # as this look more standard with other professional CLI tools making this help_usage case unnecessary
+            # we can just use `logirl help header "Usage" "use mytool to do cool stuff"` now
+            # we should write a script or do a sd replacement throughout the fish functions directory to swap out help_usage calls
+            # then remove this case
+            #
             # Takes just the body text (what comes after "Usage:")
             # Single trailing newline to avoid double spacing with subsequent sections
             if test (count $argv) -lt 2
@@ -191,7 +197,7 @@ function logirl -d "Centralized logging helper with consistent color conventions
                 printf "Try: logirl --help\n" >&2
                 return 1
             end
-            printf "\n%sUsage:%s %s\n" \
+            printf "\n%sUsage:%s %s"\n \
                 (set_color --bold green) \
                 (set_color normal) \
                 "$message"
@@ -201,7 +207,7 @@ function logirl -d "Centralized logging helper with consistent color conventions
             # Requires 2 args: title and optional body
             if test (count $argv) -eq 2
                 # Title only (no body) - common for section headers like "Options:"
-                printf "\n%s%s:%s\n\n" \
+                printf "\n%s%s:%s\n" \
                     (set_color --bold green) \
                     "$message" \
                     (set_color normal)
@@ -209,7 +215,7 @@ function logirl -d "Centralized logging helper with consistent color conventions
                 # Title + body (like "Usage: mytool [OPTIONS]")
                 set -l title $argv[2]
                 set -l body $argv[3..-1]
-                printf "\n%s%s:%s %s\n\n" \
+                printf "\n%s%s:%s %s\n" \
                     (set_color --bold green) \
                     "$title" \
                     (set_color normal) \
@@ -242,6 +248,8 @@ function logirl -d "Centralized logging helper with consistent color conventions
                 "$message"
 
         case success
+            # TODO: we should add a way to optionally indent these
+            # this way if they come after a 'special' message, it's clear they are related to that step succeeding
             printf "%s󰡕 [SUCCESS] %s%s%s%s\n" \
                 (set_color brgreen --bold) \
                 (set_color normal)(set_color green) \
@@ -249,6 +257,7 @@ function logirl -d "Centralized logging helper with consistent color conventions
                 (set_color normal)
 
         case special
+            # TODO: we should support custom icons for special steps
             printf "%s==> %s%s\n" \
                 (set_color magenta) \
                 "$message" \
