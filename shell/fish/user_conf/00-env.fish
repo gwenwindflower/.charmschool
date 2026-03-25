@@ -24,6 +24,9 @@ set -gx HOMEBREW_NO_ENV_HINTS 1
 set -gx SHELL $HOMEBREW_PREFIX/bin/fish
 set -gx TERM xterm-256color
 
+#  GPG
+set -gx GPG_TTY (tty)
+
 #  SSH
 # If we don't set SSH_AUTH_SOCK then we have to set it in gitconfig
 # if we want to sign commits with op ssh keys
