@@ -7,3 +7,4 @@ installs: |
 
 links:
   opencode.jsonc: ~/.config/opencode/opencode.jsonc
+  tui.jsonc: ~/.config/opencode/tui.jsonc
