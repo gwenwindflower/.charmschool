@@ -131,15 +131,17 @@ abbr --add occf ee $HOME/.config/opencode # opc to run via op
 abbr --add co copilot # ghc to run via op
 abbr --add cl claude # cco to run via op
 abbr --add clcf ee $HOME/.claude
-abbr --add ccu "bunx ccusage@latest"
+abbr --add ccu bunx ccusage@latest
+abbr --add clyj yj ~/.charmschool/agents/claude/settings.yaml --force
 # writing
-## default Obsidian vault
-abbr --add notes "ee -e '$OBSIDIAN_DEFAULT_VAULT'"
+abbr --add notes "ee ~/Library/Mobile Documents/iCloud~md~obsidian/Documents"
 abbr --add ob notesmd-cli
 ## fd>fzf tailored for obsidian vault markdown files
 abbr --add obf "fd . --color always --hidden --ignore --extension md | fzf --preview '_fzf_preview_file {}'"
-abbr --add obs notesmd-cli search -e
+abbr --add obs notesmd-cli search
+abbr --add obse notesmd-cli search -e
 abbr --add obg notesmd-cli search-content
+abbr --add obge notesmd-cli search-content -e
 abbr --add oba notesmd-cli create
 abbr --add obrm notesmd-cli delete
 abbr --add obday notesmd-cli daily
@@ -180,7 +182,8 @@ abbr --add dbtpp bat ~/.dbt/profiles.yml
 # languages
 ## multi-runtime
 abbr --add mi mise
-abbr --add mia mise "activate fish | source"
+abbr --add mia "mise activate fish | source"
+abbr --add mida mise deactivate
 abbr --add miu mise use
 abbr --add mii mise install
 abbr --add mir mise run
@@ -260,6 +263,7 @@ abbr --add gcfg git config --global
 ## github
 abbr --add gho gh repo view -w
 abbr --add ghd gh dash
+abbr --add ghrcd gh repo create --push --public --source .
 ## interactive tools
 abbr --add gui lazygit
 abbr --add gcmm meteor
