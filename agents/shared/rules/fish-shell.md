@@ -6,7 +6,7 @@ paths:
 
 # Fish Shell Conventions
 
-Fish shell syntax and style guidelines.
+Fish shell syntax and style guidelines. If editing functions or in-depth config, consider loading the full fish-functions Agent Skill.
 
 ## Fish vs bash/zsh (Common Footguns)
 
