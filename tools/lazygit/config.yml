@@ -49,8 +49,8 @@ customCommands:
     context: "files"
     loadingText: "opening commitizen commit tool"
     output: terminal
-  - key: "t"
-    context: "files"
+  - key: "<c-a>"
+    context: "global"
     description: "Interactive conventional commit"
     prompts:
       - type: "menu"
