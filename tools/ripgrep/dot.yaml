@@ -1,3 +1,8 @@
-installs: null
+installs: |
+  if not type -q rg
+    brew install ripgrep
+  else
+    echo "ripgrep is already installed!"
+  end
 links:
   ripgrep.conf: ~/.config/ripgrep/ripgrep.conf
