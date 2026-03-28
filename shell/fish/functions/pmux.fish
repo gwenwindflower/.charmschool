@@ -1,5 +1,5 @@
 function pmux -d "Generate my preferred dev setup in tmux for a given project directory"
-    argparse h/help -- $argv
+    argparse a/attach h/help -- $argv
     or return
 
     if set -q _flag_help
@@ -28,7 +28,12 @@ function pmux -d "Generate my preferred dev setup in tmux for a given project di
         twin --cmd nvim $session_name
         twin --cmd opc $session_name
         twin --cmd lazygit $session_name
-        tmux attach -t $session_name
+        if set -q _flag_attach
+            tmux attach -t $session_name
+        else
+            logirl success "Your dev session for the $session_name project is ready - have fun!"
+            return 0
+        end
     else
         logirl error "Failed to start tmux session '$session_name'."
         return 1
