@@ -1,6 +1,13 @@
-# NOTE: npm needs to be available for a smooth initial startup
+# npm needs to be available for a smooth initial startup
 # of a fresh nvim on dev container, many mason tools are npm installs
+# a lot of brew tools require node, so we don't necessarily need this explicitly
+# except to force the dependency for sequencing
+# in practice mise manages the node versions actually used by projects
+# brew is the fallback for the global environment
 installs: brew install neovim
 
 links:
   nvim: ~/.config/nvim
+
+depends:
+  - /lang/typescript/node

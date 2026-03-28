@@ -1,0 +1,6 @@
+installs: |
+  if type -q npm
+    echo "Node is already installed!"
+  else
+    brew install node
+  end
