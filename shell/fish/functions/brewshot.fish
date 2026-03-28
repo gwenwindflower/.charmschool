@@ -50,7 +50,7 @@ function brewshot -d "Snapshot or diff Homebrew state as YAML"
     end
 
     # Output path
-    set -l packages_file ~/.local/share/chezmoi/.chezmoidata/packages.yaml
+    set -l packages_file ~/.local/share/chezmoi/.chezmoidata/packages-darwin-all.yaml
     if set -q _flag_output
         set packages_file $_flag_output
     end
