@@ -6,7 +6,7 @@ We'll cover the key context shifts below.
 
 ## Context Files
 
-This would be CLAUDE.md, AGENTS.md, `~/.claude/rules/*.md`, `~/.goosehints/*.md`, etc. - not your internal memory files, which you should write in the best way for you. These publicly shared context files, where agents and users collaborate, should strive to be concise and clear. Really tighten the language.
+This would be CLAUDE.md, AGENTS.md, `.claude/rules/*.md`, `.opencode/rules/*.md`, `.goosehints/*.md`, etc. (and our personal riff on this `~/.agents/docs` as a shared collection of resources) - not your internal memory files, which you should write in the best way for you. These publicly shared context files, where agents and users collaborate, should strive to be concise and clear. Really tighten the language.
 
 ### Examples
 

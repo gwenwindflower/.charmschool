@@ -79,3 +79,7 @@ When the user requests ad hoc objectives and tasks in a project with a TODO.md, 
 ### Completing a Phase
 
 When all tasks in a phase are complete, mark the phase as completed with ✅, and then ask the user if they want to move on to the next phase. If they say yes, mark the next phase as active with 🌀, and start working on it. Before you mark the phase with the completed emoji, do a quick review of the objectives and tasks to make sure they accurately reflect the work that was done. If a different approach than originally planned was taken for some objectives, you should update the tasks and language to reflect that state, rather than leaving completed tasks in the file that don't actually map to existing work. The same is true of objectives and tasks themselves. The best time to update task or objective language is right after completion, as this is when you will have the most context.
+
+### Backlog
+
+Tasks in the Backlog section at the end of the file can be ignored. If they affect decisions about active work, it's a good idea to consider building towards them, but do not start backlog tasks without first getting approval to move them into phases.

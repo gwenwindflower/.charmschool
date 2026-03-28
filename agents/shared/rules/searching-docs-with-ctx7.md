@@ -2,7 +2,7 @@
 
 Semantic search for documentation context covering most major tools, continually updated.
 
-**IMPORTANT**: Context7 also manages Agent Skills — DO NOT use it for this. We have our own tools for that. It will install them in an inaccessible location that is incompatible with our tools. Only use Context7 for searching documentation.
+**IMPORTANT**: Context7 also manages Agent Skills — DO NOT use it for this. We have our own tools for that (`skillutil`). It will install them in an inaccessible location that is incompatible with our tools. Only use Context7 for searching documentation.
 
 ## Basic Commands
 
