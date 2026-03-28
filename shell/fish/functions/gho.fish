@@ -1,7 +1,4 @@
 # opo wrapper
-# we wrap the most common `op run`ified commands
-# so that we get completions and normal behavior
-# but the actual execution goes through op
-function gh
+function gho -d "Run GitHub CLI via op run with custom environment variables"
     opo gh $argv
 end
