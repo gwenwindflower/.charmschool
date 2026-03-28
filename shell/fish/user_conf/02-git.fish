@@ -5,6 +5,9 @@ set -gx GIT_PAGER delta
 
 set -gx DFT_DISPLAY inline
 
+# Useful for functions and scripts in case I ever change my username
+set -gx GH_USER gwenwindflower
+
 # forgit's shell aliases clash with the extremely comprehensive
 # git fish plugin, which is quite helpful, so instead of these
 # we have git subcommand aliases set in gitconfig like `git fga`, `git fgct`, etc.
