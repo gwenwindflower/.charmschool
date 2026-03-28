@@ -7,15 +7,15 @@ function brewshot -d "Snapshot or diff Homebrew state as YAML"
     if set -q _flag_help
         echo "Snapshot current Homebrew state to YAML or compare against a saved snapshot."
         logirl help_usage "brewshot [OPTIONS] [SUBCOMMAND]"
-        logirl help_header "Subcommands"
+        logirl help_header Subcommands
         logirl help_cmd save "Capture current Homebrew state to YAML (default)"
         logirl help_cmd diff "Compare current state against saved snapshot"
-        logirl help_header "Options"
-        logirl help_flag "h/help" "Show this help message"
-        logirl help_flag "d/dry-run" "Show what would be written without writing"
-        logirl help_flag "v/verbose" "Print full package lists"
+        logirl help_header Options
+        logirl help_flag h/help "Show this help message"
+        logirl help_flag d/dry-run "Show what would be written without writing"
+        logirl help_flag v/verbose "Print full package lists"
         logirl help_flag "o/output=PATH" "Output file (default: chezmoi packages.yaml)"
-        logirl help_header "Examples"
+        logirl help_header Examples
         printf "  brewshot                   # Save snapshot to default location\n"
         printf "  brewshot diff              # Show what changed since last snapshot\n"
         printf "  brewshot -d -v             # Dry-run verbose save (preview output)\n"
