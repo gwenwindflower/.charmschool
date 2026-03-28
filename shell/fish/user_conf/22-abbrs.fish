@@ -261,9 +261,10 @@ abbr --add g git
 ## config
 abbr --add gcfg git config --global
 ## github
-abbr --add gho gh repo view -w
-abbr --add ghd gh dash
+abbr --add ghro gh repo view -w
+abbr --add ghrc gh repo create
 abbr --add ghrcd gh repo create --push --public --source .
+abbr --add ghd gh dash
 ## interactive tools
 abbr --add gui lazygit
 abbr --add gcmm meteor
