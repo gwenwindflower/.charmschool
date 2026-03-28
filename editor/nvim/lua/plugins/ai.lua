@@ -18,7 +18,7 @@ return {
         -- Copilot direct for one-shot commands
         cmd = {
           adapter = "copilot",
-          model = "claude-sonnet-4.6",
+          model = "gpt-5.3-codex",
         },
         -- Cheap background tasks via Copilot (0.33x multiplier)
         background = {
@@ -45,7 +45,7 @@ return {
         },
       },
       adapters = {
-        -- NOTE: Copilot HTTP adapter (not the agent TUI) is default enabled and configured
+        -- Copilot HTTP adapter (not the agent TUI) is default enabled and configured
         -- that's why we can reference it but it's not configured as an adapter here
         acp = {
           -- Claude Code — primary chat backend via Claude Pro sub
