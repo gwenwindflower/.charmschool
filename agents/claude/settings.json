@@ -37,6 +37,7 @@
       "Bash(bat *)",
       "Bash(grep *)",
       "Bash(rg *)",
+      "Bash(wc *)",
       "Bash(find *)",
       "Bash(fd *)",
       "Bash(uname *)",
