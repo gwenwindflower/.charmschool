@@ -1,2 +1,10 @@
 installs: |
-  curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update
+  if uname | grep -q Darwin
+    if not test -f ~/.local/bin/dbt
+      curl -fsSL https://public.cdn.getdbt.com/fs/install/install.sh | sh -s -- --update
+    else
+      echo "dbt Fusion is already installed!"
+    end
+  else
+    echo "Not on macOS, skipping dbt Fusion install..."
+  end
