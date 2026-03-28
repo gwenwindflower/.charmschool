@@ -37,7 +37,6 @@ Lives in the vault subdirectory being operated on. Combines sync config and fron
 # Sync config
 link_path_prefix: /sky
 dest: ~/dev/my-site/src/content/sky/
-render: false
 ignore:
   - draft-*
   - private/*
@@ -116,7 +115,7 @@ rematter validate <directory> [--schema PATH] [--fix] [--recursive] [--dry-run]
 ### `sync` — Sync vault markdown to an external destination
 
 ```bash
-rematter sync <source> [--dest PATH] [--link-path-prefix PREFIX] [--render] [--dry-run]
+rematter sync <source> [--dest PATH] [--link-path-prefix PREFIX] [--dry-run]
 ```
 
 Pipeline per file:
@@ -134,7 +133,7 @@ Pipeline per file:
 11. Strip `sync: false` fields from dest
 12. Write dest file, copy referenced media, stamp `synced` back on source
 
-Config keys (`dest`, `link_path_prefix`, `render`) can come from `.rematter.yaml` or CLI flags. CLI always wins. Config is required for sync.
+Config keys (`dest`, `link_path_prefix`) can come from `.rematter.yaml` or CLI flags. CLI always wins. Config is required for sync.
 
 ### `filename` — Prepend date to filenames
 
@@ -156,7 +155,6 @@ Renames a field across all markdown files. Key order preserved. Skips files wher
 
 - **Wikilink resolution**: `[[Target]]` and `[[Target|Label]]` resolve to markdown links for known files (source + dest corpus). Broken links become plain text. Image refs (`![[img.png]]`) are handled separately and never mangled.
 - **Media sync**: When `media` config is present, `![[img.png]]` and `![alt](_media/img.png)` refs are rewritten with the dest link prefix. Only referenced files are copied, not the entire media directory.
-- **Mermaid rendering**: `--render` converts mermaid code blocks to SVG as a post-processing step after sync completes. SVGs go to media dest dir when media is configured.
 - **Ignore patterns**: `ignore` list in config uses glob patterns matched against both filename and relative path.
 - **Timestamp format**: Always `YYYY-MM-DD HH:MM` (space separator, no seconds) to match Obsidian's native format.
 - **Type tags**: Capitalized Obsidian tags (`#Book`, `#Film`) are extracted as the `type` field. Multiple capitalized tags → skip with warning. Lowercase tags are content, not types.
