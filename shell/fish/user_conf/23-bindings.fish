@@ -63,10 +63,8 @@ bind --user super-e "fresh -c"
 bind --user -M insert alt-e "fresh -c"
 bind --user alt-e "fresh -c"
 ## alt-e is fish's default to open the command line in $EDITOR
-## so we remap that to alt-o
-bind --user -M insert alt-o edit_command_buffer
-bind --user -M visual alt-o edit_command_buffer
-bind --user alt-o edit_command_buffer
+## but thankfully what I would remap to (alt-v to match v->nvim abbr)
+## is already a default alternate binding for alt-e (v for $VISUAL)
 bind --user -M insert super-R "fresh; commandline -f repaint"
 bind --user super-R "fresh; commandline -f repaint"
 bind --user -M insert alt-R "fresh; commandline -f repaint"
