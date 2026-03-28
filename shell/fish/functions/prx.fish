@@ -1,21 +1,23 @@
 function prx -d "Manage mitmproxy environment and SSL certificates"
-    argparse h/help -- $argv
+    argparse h/help c/cert -- $argv
     or return
 
     if set -q _flag_help
         echo "Manage mitmproxy environment and SSL certificates."
         logirl help_usage "prx [COMMAND] [OPTIONS]"
-        logirl help_header "Commands"
-        printf "  $(set_color --bold)on$(set_color normal)          Set global proxy environment variables\n"
+        logirl help_header Commands
+        printf "  $(set_color --bold)on$(set_color normal)          Set global proxy and NODE_EXTRA_CA_CERTS\n"
         printf "  $(set_color --bold)off$(set_color normal)         Unset proxy environment variables\n"
-        printf "  $(set_color --bold)run$(set_color normal)         Run a command with proxy environment\n"
+        printf "  $(set_color --bold)run$(set_color normal)         Run a command with proxy env + Node CA\n"
         printf "  $(set_color --bold)curl$(set_color normal)        Execute curl with mitmproxy certificate\n"
         printf "  $(set_color --bold)cert$(set_color normal)        Manage mitmproxy SSL certificates\n"
         printf "  $(set_color --bold)status$(set_color normal)      Show proxy and environment status\n"
-        logirl help_header "Options"
-        logirl help_flag "h/help" "Show this help message"
-        logirl help_header "Examples"
+        logirl help_header Options
+        logirl help_flag h/help "Show this help message"
+        logirl help_flag c/cert "Manage SSL certificate (behavior depends on command)"
+        logirl help_header Examples
         printf "  prx on              # Enable global proxy\n"
+        printf "  prx on -c           # Enable proxy and add cert\n"
         printf "  prx off             # Disable proxy and remove cert\n"
         printf "  prx run npm test    # Run command with proxy\n"
         printf "  prx curl example.com # Curl with mitm cert\n"
@@ -34,15 +36,35 @@ function prx -d "Manage mitmproxy environment and SSL certificates"
     switch $command
         case on
             _prx_enable $argv[2..]
+            if set -q _flag_cert
+                if set -q MITM_CERT_TRUSTED
+                    logirl warning "mitmproxy certificate is already available, skipping cert add"
+                else
+                    _prx_cert add
+                end
+            end
+            _prx_status
         case off
             _prx_disable
         case run
+            if set -q _flag_cert
+                _prx_cert add
+            end
             _prx_run $argv[2..]
         case curl
+            if set -q _flag_cert
+                _prx_cert add
+            end
             _prx_curl $argv[2..]
         case cert
+            if set -q _flag_cert
+                logirl warning "-c/--cert flag is redundant with the cert subcommand"
+            end
             _prx_cert $argv[2..]
         case status
+            if set -q _flag_cert
+                logirl warning "-c/--cert is a no-op with status"
+            end
             _prx_status
         case '*'
             logirl error "Unknown command: $command"
@@ -52,7 +74,7 @@ function prx -d "Manage mitmproxy environment and SSL certificates"
 end
 
 function _prx_check_running -d "Check if mitmproxy is running"
-    if not pgrep -q mitmproxy
+    if not pgrep -q mitm
         logirl warning "mitmproxy is not running"
         logirl info "Start mitmproxy first (e.g., 'mitmproxy' or 'mitmweb')"
         return 1
@@ -61,15 +83,14 @@ function _prx_check_running -d "Check if mitmproxy is running"
 end
 
 function _prx_enable -d "Enable global proxy environment variables"
-    argparse h/help c/cert -- $argv
+    argparse h/help -- $argv
     or return
 
     if set -q _flag_help
         echo "Enable global proxy environment variables."
         logirl help_usage "prx on [OPTIONS]"
-        logirl help_header "Options"
-        logirl help_flag "h/help" "Show this help"
-        logirl help_flag "c/cert" "Also add SSL certificate to keychain"
+        logirl help_header Options
+        logirl help_flag h/help "Show this help"
         return 0
     end
 
@@ -77,42 +98,44 @@ function _prx_enable -d "Enable global proxy environment variables"
         return 1
     end
 
-    set -gx HTTP_PROXY http://localhost:8080
-    set -gx HTTPS_PROXY http://localhost:8080
-    set -gx http_proxy http://localhost:8080
-    set -gx https_proxy http://localhost:8080
+    if set -q HTTPS_PROXY
+        logirl warning "Proxy environment variables already set, skipping re-set"
+        return 0
 
-    logirl success " Global proxy enabled"
-
-    if set -q _flag_cert
-        _prx_cert add
+    else
+        set -gx HTTP_PROXY http://localhost:8080
+        set -gx HTTPS_PROXY http://localhost:8080
+        set -gx http_proxy http://localhost:8080
+        set -gx https_proxy http://localhost:8080
+        set -gx NODE_EXTRA_CA_CERTS $HOME/.mitmproxy/mitmproxy-ca-cert.pem
+        logirl success " Global proxy enabled"
+        return 0
     end
-
-    _prx_status
-    return 0
 end
 
 function _prx_disable -d "Disable proxy environment and remove SSL certificate"
-    set -e HTTP_PROXY HTTPS_PROXY http_proxy https_proxy
-    logirl success "󰹏 Proxy environment disabled"
+    if not set -q HTTPS_PROXY
+        logirl warning "Proxy appears to be off already, skipping unset"
+    else
+        set -e HTTP_PROXY HTTPS_PROXY http_proxy https_proxy NODE_EXTRA_CA_CERTS
+        logirl success "󰹏 Proxy environment disabled"
+    end
     _prx_cert rm
     _prx_status
     return 0
 end
 
 function _prx_run -d "Run command with proxy environment variables"
-    argparse h/help c/cert -- $argv
+    argparse h/help -- $argv
     or return
 
     if set -q _flag_help
         echo "Run a command with proxy environment variables."
         logirl help_usage "prx run [OPTIONS] <command> [args...]"
-        logirl help_header "Options"
-        logirl help_flag "h/help" "Show this help"
-        logirl help_flag "c/cert" "Add SSL certificate before running"
-        logirl help_header "Examples"
+        logirl help_header Options
+        logirl help_flag h/help "Show this help"
+        logirl help_header Examples
         printf "  prx run npm test\n"
-        printf "  prx run -c curl https://example.com\n"
         return 0
     end
 
@@ -126,15 +149,12 @@ function _prx_run -d "Run command with proxy environment variables"
         return 1
     end
 
-    if set -q _flag_cert
-        _prx_cert add
-    end
-
     # Run command with proxy env vars in local scope
     env HTTP_PROXY=http://localhost:8080 \
         HTTPS_PROXY=http://localhost:8080 \
         http_proxy=http://localhost:8080 \
         https_proxy=http://localhost:8080 \
+        NODE_EXTRA_CA_CERTS=$HOME/.mitmproxy/mitmproxy-ca-cert.pem \
         $argv
 end
 
@@ -145,9 +165,9 @@ function _prx_curl -d "Execute curl with mitmproxy certificate"
     if set -q _flag_help
         echo "Execute curl with mitmproxy certificate and proxy."
         logirl help_usage "prx curl [OPTIONS] <url> [curl-args...]"
-        logirl help_header "Options"
-        logirl help_flag "h/help" "Show this help"
-        logirl help_header "Examples"
+        logirl help_header Options
+        logirl help_flag h/help "Show this help"
+        logirl help_header Examples
         printf "  prx curl https://example.com\n"
         printf "  prx curl -I https://api.github.com\n"
         return 0
@@ -185,16 +205,17 @@ function _prx_cert -d "Manage mitmproxy SSL certificates"
     if set -q _flag_help
         echo "Manage mitmproxy SSL certificates in macOS keychain."
         logirl help_usage "prx cert <add|rm>"
-        logirl help_header "Commands"
+        logirl help_header Commands
         printf "  $(set_color --bold)add$(set_color normal)  Add certificate to system keychain\n"
         printf "  $(set_color --bold)rm$(set_color normal)   Remove certificate from system keychain\n"
-        logirl help_header "Options"
-        logirl help_flag "h/help" "Show this help"
+        logirl help_header Options
+        logirl help_flag h/help "Show this help"
         return 0
     end
 
     set -l action $argv[1]
     set -l cert_path $HOME/.mitmproxy/mitmproxy-ca-cert.pem
+    set -l keychain ~/Library/Keychains/login.keychain-db
 
     if test (count $argv) -ne 1
         logirl error "Specify one action: add or rm"
@@ -216,20 +237,27 @@ function _prx_cert -d "Manage mitmproxy SSL certificates"
 
     switch $action
         case add
-            logirl info "Adding mitmproxy certificate to system keychain..."
-            security add-trusted-cert -p ssl -p basic $cert_path 2>/dev/null
+            logirl info "Adding mitmproxy certificate to user keychain..."
+            security add-trusted-cert -d -k $keychain -p ssl -p basic $cert_path 2>/dev/null
             if test $status -eq 0
+                set -gx MITM_CERT_TRUSTED 1
                 logirl success "Certificate added"
             else
-                logirl warning "Certificate may already be in keychain"
+                logirl warning "Failed to add certificate (may already be trusted)"
             end
         case rm
-            logirl info "Removing mitmproxy certificate from system keychain..."
-            security remove-trusted-cert $cert_path 2>/dev/null
-            if test $status -eq 0
-                logirl success "Certificate removed"
+            if test -n "$(security find-certificate -a -c mitmproxy ~/Library/Keychains/login.keychain-db)"
+                logirl info "Removing mitmproxy certificate from user keychain..."
+                security remove-trusted-cert -d $cert_path
+                security delete-certificate -c mitmproxy ~/Library/Keychains/login.keychain-db
+                if test $status -eq 0
+                    set -e MITM_CERT_TRUSTED
+                    logirl success "Certificate removed"
+                else
+                    logirl warning "Failed to remove certificate (may not be in keychain)"
+                end
             else
-                logirl warning "Certificate may not be in keychain"
+                logirl warning "Certificate already untrusted and/or removed, or it was never added, skipping removal"
             end
     end
 end
@@ -240,27 +268,21 @@ function _prx_status -d "Show proxy and environment status"
     # Check if proxy is responding
     if curl -s -o /dev/null --connect-timeout 1 -x localhost:8080 http://example.com 2>/dev/null
         set_color --bold magenta
-        echo "██╗   ██╗███████╗███████╗"
-        echo "╚██╗ ██╔╝██╔════╝██╔════╝"
-        echo " ╚████╔╝ █████╗  ███████╗"
-        echo "  ╚██╔╝  ██╔══╝  ╚════██║"
-        echo "   ██║   ███████╗███████║"
-        echo "   ╚═╝   ╚══════╝╚══════╝"
+        echo "    ▘▗         "
+        echo " ▛▛▌▌▜▘▛▛▌ ▛▌▛▌"
+        echo " ▌▌▌▌▐▖▌▌▌ ▙▌▌▌"
         set_color normal
         echo ""
         printf "Proxy is "
         set_color --bold brgreen
-        printf "RUNNING"
+        printf RUNNING
         set_color normal
         printf " on localhost:8080\n"
     else
         set_color --bold brblack
-        echo "███╗   ██╗ ██████╗ "
-        echo "████╗  ██║██╔═══██╗"
-        echo "██╔██╗ ██║██║   ██║"
-        echo "██║╚██╗██║██║   ██║"
-        echo "██║ ╚████║╚██████╔╝"
-        echo "╚═╝  ╚═══╝ ╚═════╝ "
+        echo "    ▘▗       ▐▘▐▘"
+        echo " ▛▛▌▌▜▘▛▛▌ ▛▌▜▘▜▘"
+        echo " ▌▌▌▌▐▖▌▌▌ ▙▌▐ ▐ "
         set_color normal
         echo ""
         printf "Proxy is "
@@ -318,6 +340,40 @@ function _prx_status -d "Show proxy and environment status"
         set_color normal
     else
         printf "  https_proxy = "
+        set_color brblack
+        printf "(not set)\n"
+        set_color normal
+    end
+
+    echo ""
+    set_color --bold
+    printf "Keychain certificate:\n"
+    set_color normal
+
+    if security find-certificate -c mitmproxy ~/Library/Keychains/login.keychain-db 2>/dev/null | string match -q '*mitm*'
+        printf "  mitmproxy CA        "
+        set_color brgreen
+        printf "added\n"
+        set_color normal
+    else
+        printf "  mitmproxy CA        "
+        set_color brblack
+        printf "not found\n"
+        set_color normal
+    end
+
+    echo ""
+    set_color --bold
+    printf "Node.js SSL:\n"
+    set_color normal
+
+    if set -q NODE_EXTRA_CA_CERTS
+        printf "  NODE_EXTRA_CA_CERTS = "
+        set_color cyan
+        printf "%s\n" $NODE_EXTRA_CA_CERTS
+        set_color normal
+    else
+        printf "  NODE_EXTRA_CA_CERTS = "
         set_color brblack
         printf "(not set)\n"
         set_color normal
