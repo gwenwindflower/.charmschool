@@ -265,6 +265,7 @@ abbr --add ghro gh repo view -w
 abbr --add ghrc gh repo create
 abbr --add ghrcd gh repo create --push --public --source .
 abbr --add ghd gh dash
+abbr --add ghdo opo gh dash
 ## interactive tools
 abbr --add gui lazygit
 abbr --add gcmm meteor
