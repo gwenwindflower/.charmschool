@@ -1,5 +1,8 @@
 # Welcome to Charm School
 
+> [!IMPORTANT]
+> I've migrated my dotfiles to chezmoi! It's just much easier to manage flipping between macOS and Linux VMs with a more robust system, particularly chezmoi's support for one-liner script provisioning, encrypted secrets, and password manager integration. This repo will no longer be receiving updates, but you can find my current dotfiles [here](https://github.com/gwenwindflower/dotfiles).
+
 Charm School is an opinionated macOS dotfiles repo for a terminal-forward, Neovim-first workflow (with a strong bias toward data/analytics work). It’s designed for people who want a setup that’s cohesive and documented, but don’t want dotfiles to become a second job.
 
 This repo tries to be:
